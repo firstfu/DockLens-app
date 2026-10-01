@@ -6,7 +6,7 @@
 
 > **Free and open source (GPLv3).** Every line of code is here — read it, build it yourself, or check what the permissions are used for.
 >
-> **Public beta.** I'm building this on my own and want to learn what you actually need — please open an [Issue](../../issues/new/choose) with bugs or ideas.
+> I'm building this on my own and want to learn what you actually need — please open an [Issue](../../issues/new/choose) with bugs or ideas.
 
 ![DockLens: hovering the Finder icon in the Dock shows live thumbnails of all three Finder windows](assets/screenshot.png)
 
@@ -54,7 +54,7 @@ macOS 26 or later.
 
 1. Download `DockLens.zip` from [Releases](../../releases/latest) and unzip it.
 2. Move `DockLens.app` to `/Applications`.
-3. Open it. macOS will block it the first time, because this beta isn't notarized by Apple yet:
+3. Open it. macOS will block it the first time, because DockLens isn't notarized by Apple yet:
    - Open **System Settings → Privacy & Security**, scroll down, click **Open Anyway** next to *"DockLens" was blocked to protect your Mac.*
 4. Grant the two permissions the onboarding asks for:
    - **Accessibility** — to know which Dock icon you're hovering and to switch / close windows
@@ -85,7 +85,7 @@ Tests: replace `build` with `test` in the `xcodebuild` command.
 
 **免費、開源（GPLv3）。**所有程式碼都在這裡，可以自己看、自己建置，確認權限拿來做什麼。
 
-**公開測試版。**這是我一個人開發的小工具，想知道大家真正需要什麼——有問題或想要的功能，請開 [Issue](../../issues/new/choose) 告訴我。
+這是我一個人開發的小工具，想知道大家真正需要什麼——有問題或想要的功能，請開 [Issue](../../issues/new/choose) 告訴我。
 
 ### 功能
 
@@ -117,7 +117,7 @@ macOS 26 以上。
 
 1. 從 [Releases](../../releases/latest) 下載 `DockLens.zip` 並解壓縮
 2. 把 `DockLens.app` 拖進「應用程式」資料夾
-3. 打開它。第一次會被系統擋下（測試版還沒經過 Apple 公證）：
+3. 打開它。第一次會被系統擋下（DockLens 還沒經過 Apple 公證）：
    到 **系統設定 → 隱私權與安全性**，往下捲，找到「已阻擋『DockLens』以保護你的Mac。」這行，按旁邊的 **強制打開**
 4. 依引導開啟兩個權限：
    - **輔助使用**：偵測游標停在哪個 Dock 圖示、切換與關閉視窗
