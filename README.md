@@ -39,7 +39,7 @@ macOS 26 or later.
 1. Download `DockLens.zip` from [Releases](../../releases/latest) and unzip it.
 2. Move `DockLens.app` to `/Applications`.
 3. Open it. macOS will block it the first time, because this beta isn't notarized by Apple yet:
-   - Open **System Settings → Privacy & Security**, scroll down, click **Open Anyway** next to "DockLens was blocked".
+   - Open **System Settings → Privacy & Security**, scroll down, click **Open Anyway** next to *"DockLens" was blocked to protect your Mac.*
 4. Grant the two permissions the onboarding asks for:
    - **Accessibility** — to know which Dock icon you're hovering and to switch / close windows
    - **Screen Recording** — to capture window thumbnails (local only)
@@ -72,7 +72,7 @@ macOS 26 以上。
 1. 從 [Releases](../../releases/latest) 下載 `DockLens.zip` 並解壓縮
 2. 把 `DockLens.app` 拖進「應用程式」資料夾
 3. 打開它。第一次會被系統擋下（測試版還沒經過 Apple 公證）：
-   到 **系統設定 → 隱私權與安全性**，往下捲，在「已阻擋 DockLens」旁按 **強制打開**
+   到 **系統設定 → 隱私權與安全性**，往下捲，找到「已阻擋『DockLens』以保護你的Mac。」這行，按旁邊的 **強制打開**
 4. 依引導開啟兩個權限：
    - **輔助使用**：偵測游標停在哪個 Dock 圖示、切換與關閉視窗
    - **螢幕錄製**：擷取視窗縮圖（只在本機處理）
