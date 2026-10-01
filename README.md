@@ -20,6 +20,8 @@
 - Windows you closed with ✕ while the app keeps running (Notion, Slack…) stay listed — click to reopen
 - Dock on bottom, left or right; works with auto-hide, magnification and multiple displays
 
+<img src="assets/screenshot-spotify.png" width="360" alt="Spotify preview with the playback bar: play / pause, previous, next and the current song">
+
 ## Performance (Apple silicon, measured)
 
 | | |
