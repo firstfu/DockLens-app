@@ -4,7 +4,9 @@
 
 游標停在 Dock 圖示上，就能看到這個 App 的所有視窗縮圖；點縮圖直接切換，也能在預覽上關閉、縮小、全螢幕。（中文說明在下方）
 
-> **Free public beta.** I'm building this on my own and want to learn what you actually need — please open an [Issue](../../issues/new/choose) with bugs or ideas.
+> **Free and open source (GPLv3).** Every line of code is here — read it, build it yourself, or check what the permissions are used for.
+>
+> **Public beta.** I'm building this on my own and want to learn what you actually need — please open an [Issue](../../issues/new/choose) with bugs or ideas.
 
 <!-- 示範動圖：docs/demo.gif（待錄製） -->
 
@@ -40,6 +42,7 @@ I won't build these until real people ask for them. If one matters to you, 👍 
 ## Privacy
 
 DockLens makes **no network connections at all**. Thumbnails are captured and shown locally and never leave your Mac.
+Don't take my word for it: the code that uses each permission lives in [`DockLens/Core`](DockLens/Core) — `DockObserver.swift` (Accessibility: which Dock icon you're hovering), `ThumbnailService.swift` (Screen Recording: thumbnails), `MediaController.swift` (Automation: Spotify / Music). You can also confirm there's no network traffic with a firewall such as Little Snitch or LuLu.
 
 ## Requirements
 
@@ -56,11 +59,31 @@ macOS 26 or later.
    - **Screen Recording** — to capture window thumbnails (local only)
    - **Automation** (optional) — asked only the first time you press play on Spotify or Music
 
+## Build from source
+
+Requires Xcode 26 and [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`).
+
+```sh
+git clone https://github.com/firstfu/DockLens-app.git && cd DockLens-app
+xcodegen generate
+xcodebuild -project DockLens.xcodeproj -scheme DockLens -configuration Release -derivedDataPath build build
+open build/Build/Products/Release/DockLens.app
+```
+
+No Apple account needed — builds are ad-hoc signed by default. To sign with your own certificate (so macOS keeps the permissions across rebuilds), see [`Config/Signing.xcconfig`](Config/Signing.xcconfig).
+Tests: replace `build` with `test` in the `xcodebuild` command.
+
+## License
+
+[GPLv3](LICENSE). You're free to use, study, modify and share it; modified versions you distribute must stay open source under the same license.
+
 ---
 
 ## 中文說明
 
-**免費公開測試版。**這是我一個人開發的小工具，想知道大家真正需要什麼——有問題或想要的功能，請開 [Issue](../../issues/new/choose) 告訴我。
+**免費、開源（GPLv3）。**所有程式碼都在這裡，可以自己看、自己建置，確認權限拿來做什麼。
+
+**公開測試版。**這是我一個人開發的小工具，想知道大家真正需要什麼——有問題或想要的功能，請開 [Issue](../../issues/new/choose) 告訴我。
 
 ### 功能
 
@@ -82,6 +105,7 @@ macOS 26 or later.
 ### 隱私
 
 DockLens **完全不連網**。縮圖只在你的 Mac 上擷取與顯示，不會上傳。
+不用只聽我說：用到各權限的程式碼都在 [`DockLens/Core`](DockLens/Core)——`DockObserver.swift`（輔助使用：偵測游標停在哪個 Dock 圖示）、`ThumbnailService.swift`（螢幕錄製：縮圖）、`MediaController.swift`（自動化：Spotify／音樂）。也可以用 Little Snitch、LuLu 等防火牆確認它沒有任何網路連線。
 
 ### 系統需求
 
@@ -97,3 +121,12 @@ macOS 26 以上。
    - **輔助使用**：偵測游標停在哪個 Dock 圖示、切換與關閉視窗
    - **螢幕錄製**：擷取視窗縮圖（只在本機處理）
    - **自動化**（選用）：第一次在 Spotify 或音樂按播放鈕時才會詢問
+
+### 從原始碼建置
+
+需要 Xcode 26 與 [XcodeGen](https://github.com/yonaskolb/XcodeGen)（`brew install xcodegen`），指令見上方英文的 **Build from source**。
+預設為 ad-hoc 簽章，不需要 Apple 帳號；想用自己的憑證（重建後系統權限不必重開），請看 [`Config/Signing.xcconfig`](Config/Signing.xcconfig)。
+
+### 授權
+
+[GPLv3](LICENSE)：可自由使用、研究、修改與散布；散布修改後的版本時，必須以同樣授權開源。
