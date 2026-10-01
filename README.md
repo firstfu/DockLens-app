@@ -26,6 +26,16 @@
 
 Event-driven — nothing polls while you're not using it.
 
+## Under consideration — vote with 👍
+
+I won't build these until real people ask for them. If one matters to you, 👍 the issue and tell me **how you'd use it** in a comment.
+
+- [Alt+Tab-style window switcher](../../issues?q=is%3Aissue+label%3Aconsidering)
+- [Keyboard shortcuts on the preview (W close, Q quit, M minimize, H hide)](../../issues?q=is%3Aissue+label%3Aconsidering)
+- [Three-finger gesture to open the preview](../../issues?q=is%3Aissue+label%3Aconsidering)
+- [Windows-style taskbar](../../issues?q=is%3Aissue+label%3Aconsidering)
+- [Support for macOS older than 26](../../issues?q=is%3Aissue+label%3Aconsidering)
+
 ## Privacy
 
 DockLens makes **no network connections at all**. Thumbnails are captured and shown locally and never leave your Mac.
@@ -58,6 +68,13 @@ macOS 26 or later.
 - 會列出已縮小的視窗、其他桌面（Space）上的視窗
 - 按 ✕ 關掉但 App 還開著的視窗（Notion、Slack 等）會保留在預覽裡，點一下重新打開
 - Dock 放底部、左側、右側都能用；支援自動隱藏、放大效果、多螢幕
+
+### 考慮中的功能：請用 👍 投票
+
+這些功能我**不會預先做**，要有人真的需要才做。如果有一項對你重要，請到對應的 Issue 按 👍，並留言說明**你會怎麼用**。
+
+- Alt+Tab 式視窗切換、預覽上的鍵盤快捷鍵、三指手勢開啟預覽、Windows 式工作列、支援 macOS 26 以前的系統
+  （清單見 [Issues](../../issues?q=is%3Aissue+label%3Aconsidering)）
 
 ### 隱私
 
