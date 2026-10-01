@@ -8,7 +8,7 @@
 >
 > **Public beta.** I'm building this on my own and want to learn what you actually need — please open an [Issue](../../issues/new/choose) with bugs or ideas.
 
-<!-- 示範動圖：docs/demo.gif（待錄製） -->
+![DockLens: hovering the Finder icon in the Dock shows live thumbnails of all three Finder windows](assets/screenshot.png)
 
 ## Features
 
