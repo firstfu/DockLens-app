@@ -1,0 +1,628 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		138FB0D817307332D623A6AE /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D14485A026701CD0455BED3 /* PreviewView.swift */; };
+		19D90FB67EDC9533346B6AAD /* ThumbnailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B741EA87A233EF542E06538B /* ThumbnailService.swift */; };
+		2388D91A3C9B0BDCACD91DEA /* PreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E3DBE38C0631338146E0AF /* PreviewModel.swift */; };
+		270D976FBB52A08B6BE1A90F /* SelfTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF26E7E8487B4378AE6840CA /* SelfTest.swift */; };
+		2B4F16B1C2BBCAB31E5C5D4C /* FixtureApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E580E0243C0D5CBC2C53DE99 /* FixtureApp.swift */; };
+		2E2993D3C6E423E2ED48BE02 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2BFDB44F0732F6085F881B /* AppCoordinator.swift */; };
+		40E06295F8F4CD7BE1D6E7C5 /* PrivateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368F0824EF34F42447014524 /* PrivateAPI.swift */; };
+		697EF1EA6426BF3EA45FB3F0 /* AXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B04486B7E87F76AD6FD7332 /* AXExtensions.swift */; };
+		75A515445DB9E1F1AF08BAD2 /* WindowEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0A935EAAE1709941F96E0D /* WindowEnumerator.swift */; };
+		7D6C4CCCEF06154F25C80808 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA383CCB747BD977130EF68 /* Permissions.swift */; };
+		8462C36650CB7492A320317C /* PreviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C87BFE69E7058EE66749963 /* PreviewPanel.swift */; };
+		8DDBF6CA73AFCEBD7E2EEC26 /* DockLensApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF33E8BBEE2844A72F07E203 /* DockLensApp.swift */; };
+		9D55D424371A21C1CE4CBB31 /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */; };
+		AB9BA514538FA85CD2CD00DC /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1508172945FB08C997A98D /* AppSettings.swift */; };
+		B3D44495BD6E49EF66E23982 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A68D4295E5A03D160C47FE /* OnboardingView.swift */; };
+		BEBBCDC28D2E77F670DC4BEF /* PanelGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA5F7B38FD4DCACF7CCA898 /* PanelGeometry.swift */; };
+		C4BA77A9D0FCC36B7997A12C /* PanelGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */; };
+		CF33999269C7F809C0BD7F31 /* MediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDD24B2FDE554FFDEC8FC9D /* MediaController.swift */; };
+		D0A3B185F371B128A40D4FD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D352030EDD3FCA254F3D200F /* Assets.xcassets */; };
+		DBDAF7295FA5346365F86D09 /* WindowActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15682734BA5217528C42170 /* WindowActions.swift */; };
+		EB298199D68E980098DFC809 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C126766984A8075006FA5B /* SettingsView.swift */; };
+		F5EEBF1698CAA023E726D44F /* DockObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825C12F8F642280938B6A65 /* DockObserver.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D17BBA018E4AA06ECF579FB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5F1435F2820929F7E4B78106 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B65A7CC4E2E9580B5ADA49E2;
+			remoteInfo = DockLens;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		09A68D4295E5A03D160C47FE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		0C2BFDB44F0732F6085F881B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		25FD8B392FB59D0E2A8E1FE7 /* DockLensFixture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DockLensFixture.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29D7476D81F173D5A8F67B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2C87BFE69E7058EE66749963 /* PreviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPanel.swift; sourceTree = "<group>"; };
+		2D1508172945FB08C997A98D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		2D57A8BF5720E153B039915B /* DockLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DockLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		368F0824EF34F42447014524 /* PrivateAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateAPI.swift; sourceTree = "<group>"; };
+		39E3DBE38C0631338146E0AF /* PreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModel.swift; sourceTree = "<group>"; };
+		3B04486B7E87F76AD6FD7332 /* AXExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXExtensions.swift; sourceTree = "<group>"; };
+		45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelGeometryTests.swift; sourceTree = "<group>"; };
+		4AA383CCB747BD977130EF68 /* Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
+		5825C12F8F642280938B6A65 /* DockObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockObserver.swift; sourceTree = "<group>"; };
+		6C0A935EAAE1709941F96E0D /* WindowEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEnumerator.swift; sourceTree = "<group>"; };
+		6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
+		70C126766984A8075006FA5B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		89B4F12EE66D18E11E9700FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8DA5F7B38FD4DCACF7CCA898 /* PanelGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelGeometry.swift; sourceTree = "<group>"; };
+		9108DDC5B2019C8CD5436505 /* DockLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DockLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D14485A026701CD0455BED3 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		A15682734BA5217528C42170 /* WindowActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowActions.swift; sourceTree = "<group>"; };
+		B56BBD105695400C593B84DA /* DockLens.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DockLens.entitlements; sourceTree = "<group>"; };
+		B741EA87A233EF542E06538B /* ThumbnailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailService.swift; sourceTree = "<group>"; };
+		BF26E7E8487B4378AE6840CA /* SelfTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfTest.swift; sourceTree = "<group>"; };
+		BF33E8BBEE2844A72F07E203 /* DockLensApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockLensApp.swift; sourceTree = "<group>"; };
+		D352030EDD3FCA254F3D200F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E580E0243C0D5CBC2C53DE99 /* FixtureApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureApp.swift; sourceTree = "<group>"; };
+		EBDD24B2FDE554FFDEC8FC9D /* MediaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaController.swift; sourceTree = "<group>"; };
+		FBE17F5C01D35782CDA80682 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		3656597C89BD38976CF0BA05 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2D1508172945FB08C997A98D /* AppSettings.swift */,
+				3B04486B7E87F76AD6FD7332 /* AXExtensions.swift */,
+				5825C12F8F642280938B6A65 /* DockObserver.swift */,
+				EBDD24B2FDE554FFDEC8FC9D /* MediaController.swift */,
+				4AA383CCB747BD977130EF68 /* Permissions.swift */,
+				368F0824EF34F42447014524 /* PrivateAPI.swift */,
+				B741EA87A233EF542E06538B /* ThumbnailService.swift */,
+				A15682734BA5217528C42170 /* WindowActions.swift */,
+				6C0A935EAAE1709941F96E0D /* WindowEnumerator.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		3ABD3789BC42E56FD44470EF /* DockLens */ = {
+			isa = PBXGroup;
+			children = (
+				F2B8A509E2F71D1CDA784DC7 /* App */,
+				3656597C89BD38976CF0BA05 /* Core */,
+				5F4073BA9601AB68D6E78FEA /* Resources */,
+				95D4217C7F5FC28E68BF40AB /* UI */,
+			);
+			path = DockLens;
+			sourceTree = "<group>";
+		};
+		5F4073BA9601AB68D6E78FEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D352030EDD3FCA254F3D200F /* Assets.xcassets */,
+				B56BBD105695400C593B84DA /* DockLens.entitlements */,
+				29D7476D81F173D5A8F67B62 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		95D4217C7F5FC28E68BF40AB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				09A68D4295E5A03D160C47FE /* OnboardingView.swift */,
+				8DA5F7B38FD4DCACF7CCA898 /* PanelGeometry.swift */,
+				6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */,
+				39E3DBE38C0631338146E0AF /* PreviewModel.swift */,
+				2C87BFE69E7058EE66749963 /* PreviewPanel.swift */,
+				9D14485A026701CD0455BED3 /* PreviewView.swift */,
+				70C126766984A8075006FA5B /* SettingsView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B47029A0E31ED7447B3AD7EA /* DockLensFixture */ = {
+			isa = PBXGroup;
+			children = (
+				E580E0243C0D5CBC2C53DE99 /* FixtureApp.swift */,
+				89B4F12EE66D18E11E9700FA /* Info.plist */,
+			);
+			path = DockLensFixture;
+			sourceTree = "<group>";
+		};
+		C226EA5A208B9E7B0B3531B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2D57A8BF5720E153B039915B /* DockLens.app */,
+				25FD8B392FB59D0E2A8E1FE7 /* DockLensFixture.app */,
+				9108DDC5B2019C8CD5436505 /* DockLensTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C43DBFB7DCFEFF44D4EDD4AC = {
+			isa = PBXGroup;
+			children = (
+				C674AC4F8E488145B021F052 /* Config */,
+				3ABD3789BC42E56FD44470EF /* DockLens */,
+				B47029A0E31ED7447B3AD7EA /* DockLensFixture */,
+				DA0DA930CF3EFF4DBBD903E2 /* DockLensTests */,
+				C226EA5A208B9E7B0B3531B9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C674AC4F8E488145B021F052 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				FBE17F5C01D35782CDA80682 /* Signing.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		DA0DA930CF3EFF4DBBD903E2 /* DockLensTests */ = {
+			isa = PBXGroup;
+			children = (
+				45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */,
+			);
+			path = DockLensTests;
+			sourceTree = "<group>";
+		};
+		F2B8A509E2F71D1CDA784DC7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				0C2BFDB44F0732F6085F881B /* AppCoordinator.swift */,
+				BF33E8BBEE2844A72F07E203 /* DockLensApp.swift */,
+				BF26E7E8487B4378AE6840CA /* SelfTest.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18B34101090865FA103E3F70 /* DockLensTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00DDDAFF22137C236D6F738A /* Build configuration list for PBXNativeTarget "DockLensTests" */;
+			buildPhases = (
+				F5DB9F1DE857C195598C2D4B /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A217B362F07031DCFAB6B51E /* PBXTargetDependency */,
+			);
+			name = DockLensTests;
+			packageProductDependencies = (
+			);
+			productName = DockLensTests;
+			productReference = 9108DDC5B2019C8CD5436505 /* DockLensTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B65A7CC4E2E9580B5ADA49E2 /* DockLens */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 810EE0B262E6A1669F5B404A /* Build configuration list for PBXNativeTarget "DockLens" */;
+			buildPhases = (
+				7786CE4A0A695319CCD1D384 /* Sources */,
+				0FA8C157E8A99525420EF13C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DockLens;
+			packageProductDependencies = (
+			);
+			productName = DockLens;
+			productReference = 2D57A8BF5720E153B039915B /* DockLens.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C6561A71C1BFE32B0FCC99A5 /* DockLensFixture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCB3D5A773A50AAE51D4821F /* Build configuration list for PBXNativeTarget "DockLensFixture" */;
+			buildPhases = (
+				F989A353F8BA7D363EEAAE15 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DockLensFixture;
+			packageProductDependencies = (
+			);
+			productName = DockLensFixture;
+			productReference = 25FD8B392FB59D0E2A8E1FE7 /* DockLensFixture.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5F1435F2820929F7E4B78106 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					18B34101090865FA103E3F70 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					B65A7CC4E2E9580B5ADA49E2 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					C6561A71C1BFE32B0FCC99A5 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = F425E81D49A368A6E520CC9E /* Build configuration list for PBXProject "DockLens" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = C43DBFB7DCFEFF44D4EDD4AC;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = C226EA5A208B9E7B0B3531B9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B65A7CC4E2E9580B5ADA49E2 /* DockLens */,
+				C6561A71C1BFE32B0FCC99A5 /* DockLensFixture */,
+				18B34101090865FA103E3F70 /* DockLensTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0FA8C157E8A99525420EF13C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0A3B185F371B128A40D4FD2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7786CE4A0A695319CCD1D384 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				697EF1EA6426BF3EA45FB3F0 /* AXExtensions.swift in Sources */,
+				2E2993D3C6E423E2ED48BE02 /* AppCoordinator.swift in Sources */,
+				AB9BA514538FA85CD2CD00DC /* AppSettings.swift in Sources */,
+				8DDBF6CA73AFCEBD7E2EEC26 /* DockLensApp.swift in Sources */,
+				F5EEBF1698CAA023E726D44F /* DockObserver.swift in Sources */,
+				CF33999269C7F809C0BD7F31 /* MediaController.swift in Sources */,
+				B3D44495BD6E49EF66E23982 /* OnboardingView.swift in Sources */,
+				BEBBCDC28D2E77F670DC4BEF /* PanelGeometry.swift in Sources */,
+				7D6C4CCCEF06154F25C80808 /* Permissions.swift in Sources */,
+				9D55D424371A21C1CE4CBB31 /* PreviewController.swift in Sources */,
+				2388D91A3C9B0BDCACD91DEA /* PreviewModel.swift in Sources */,
+				8462C36650CB7492A320317C /* PreviewPanel.swift in Sources */,
+				138FB0D817307332D623A6AE /* PreviewView.swift in Sources */,
+				40E06295F8F4CD7BE1D6E7C5 /* PrivateAPI.swift in Sources */,
+				270D976FBB52A08B6BE1A90F /* SelfTest.swift in Sources */,
+				EB298199D68E980098DFC809 /* SettingsView.swift in Sources */,
+				19D90FB67EDC9533346B6AAD /* ThumbnailService.swift in Sources */,
+				DBDAF7295FA5346365F86D09 /* WindowActions.swift in Sources */,
+				75A515445DB9E1F1AF08BAD2 /* WindowEnumerator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5DB9F1DE857C195598C2D4B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4BA77A9D0FCC36B7997A12C /* PanelGeometryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F989A353F8BA7D363EEAAE15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B4F16B1C2BBCAB31E5C5D4C /* FixtureApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A217B362F07031DCFAB6B51E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B65A7CC4E2E9580B5ADA49E2 /* DockLens */;
+			targetProxy = D17BBA018E4AA06ECF579FB2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0AE6734C849593C430CAE912 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.firstfu.DockLensTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DockLens.app/Contents/MacOS/DockLens";
+			};
+			name = Release;
+		};
+		258802EF2A5651166DB37FC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBE17F5C01D35782CDA80682 /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		4DF778A83D1233ACF733BBBB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBE17F5C01D35782CDA80682 /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		5A82CD2153F7BA2A54ACF005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DockLensFixture/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.firstfu.DockLensFixture;
+				PRODUCT_NAME = DockLensFixture;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A7AFBB09C7F0AD61A6C447DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DockLens/Resources/DockLens.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DockLens/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.firstfu.DockLens;
+				PRODUCT_NAME = DockLens;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL_Release = "-O";
+			};
+			name = Debug;
+		};
+		A937E9E419FDADB36D6B3B4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.firstfu.DockLensTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DockLens.app/Contents/MacOS/DockLens";
+			};
+			name = Debug;
+		};
+		D8F0AAD135CDE033A3CF0DFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DockLens/Resources/DockLens.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DockLens/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.firstfu.DockLens;
+				PRODUCT_NAME = DockLens;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL_Release = "-O";
+			};
+			name = Release;
+		};
+		E3AA799405C44C08EDE77C73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DockLensFixture/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.firstfu.DockLensFixture;
+				PRODUCT_NAME = DockLensFixture;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00DDDAFF22137C236D6F738A /* Build configuration list for PBXNativeTarget "DockLensTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A937E9E419FDADB36D6B3B4E /* Debug */,
+				0AE6734C849593C430CAE912 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		810EE0B262E6A1669F5B404A /* Build configuration list for PBXNativeTarget "DockLens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7AFBB09C7F0AD61A6C447DF /* Debug */,
+				D8F0AAD135CDE033A3CF0DFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BCB3D5A773A50AAE51D4821F /* Build configuration list for PBXNativeTarget "DockLensFixture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A82CD2153F7BA2A54ACF005 /* Debug */,
+				E3AA799405C44C08EDE77C73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F425E81D49A368A6E520CC9E /* Build configuration list for PBXProject "DockLens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				258802EF2A5651166DB37FC8 /* Debug */,
+				4DF778A83D1233ACF733BBBB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5F1435F2820929F7E4B78106 /* Project object */;
+}

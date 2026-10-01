@@ -1,0 +1,90 @@
+# DockLens XcodeGen 專案設定：產生 DockLens.xcodeproj（macOS 26+、Swift 6、預設 MainActor 隔離）
+name: DockLens
+options:
+  bundleIdPrefix: com.firstfu
+  deploymentTarget:
+    macOS: "26.0"
+  createIntermediateGroups: true
+configFiles:
+  Debug: Config/Signing.xcconfig
+  Release: Config/Signing.xcconfig
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "26.0"
+    SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    SWIFT_STRICT_CONCURRENCY: complete
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    DEAD_CODE_STRIPPING: YES
+targets:
+  DockLens:
+    type: application
+    platform: macOS
+    sources:
+      - path: DockLens
+    info:
+      path: DockLens/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: DockLens
+        CFBundleShortVersionString: "1.0.2"
+        CFBundleVersion: "3"
+        LSUIElement: true
+        LSApplicationCategoryType: public.app-category.productivity
+        LSMinimumSystemVersion: "26.0"
+        NSHumanReadableCopyright: "© 2026 firstfu"
+        NSAppleEventsUsageDescription: "DockLens 用來控制 Spotify／音樂的播放（播放、暫停、上一首、下一首）並顯示目前播放的歌曲。"
+    entitlements:
+      path: DockLens/Resources/DockLens.entitlements
+      properties:
+        com.apple.security.automation.apple-events: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.firstfu.DockLens
+        PRODUCT_NAME: DockLens
+        ENABLE_HARDENED_RUNTIME: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SWIFT_OPTIMIZATION_LEVEL_Release: -O
+  DockLensFixture:
+    type: application
+    platform: macOS
+    sources:
+      - path: DockLensFixture
+    info:
+      path: DockLensFixture/Info.plist
+      properties:
+        CFBundleDisplayName: DockLensFixture
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSMinimumSystemVersion: "26.0"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.firstfu.DockLensFixture
+        PRODUCT_NAME: DockLensFixture
+        ENABLE_HARDENED_RUNTIME: YES
+  DockLensTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: DockLensTests
+    dependencies:
+      - target: DockLens
+    settings:
+      base:
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/DockLens.app/Contents/MacOS/DockLens
+        BUNDLE_LOADER: $(TEST_HOST)
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  DockLens:
+    build:
+      targets:
+        DockLens: all
+    test:
+      targets:
+        - DockLensTests
+    run:
+      config: Debug
+  DockLensFixture:
+    build:
+      targets:
+        DockLensFixture: all
