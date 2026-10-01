@@ -1,0 +1,31 @@
+name: Bug report / 問題回報
+description: Something doesn't work / 有東西不正常
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened? / 發生了什麼？
+      description: What you did, what you expected, what you saw. A screenshot or screen recording helps a lot. / 你做了什麼、預期什麼、實際看到什麼；附截圖或錄影最有幫助。
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version / macOS 版本
+      placeholder: "26.1"
+    validations:
+      required: true
+  - type: checkboxes
+    id: dock
+    attributes:
+      label: Dock settings / Dock 設定
+      options:
+        - label: Auto-hide / 自動隱藏
+        - label: Magnification / 放大效果
+        - label: Multiple displays / 多螢幕
+  - type: input
+    id: position
+    attributes:
+      label: Dock position / Dock 位置
+      placeholder: bottom / left / right
