@@ -13,7 +13,8 @@
 - Live thumbnails of all windows when you hover a Dock icon; click to switch
 - Traffic-light buttons on each thumbnail: close, minimize / restore, full screen
 - Header actions: new window, hide app, quit app
-- Shows minimized windows and windows on other Spaces
+- Shows minimized windows and windows on other Spaces — clicking one switches to that Space
+- Spotify and Music get a playback bar: play / pause, previous, next, and the current song
 - Windows you closed with ✕ while the app keeps running (Notion, Slack…) stay listed — click to reopen
 - Dock on bottom, left or right; works with auto-hide, magnification and multiple displays
 
@@ -53,6 +54,7 @@ macOS 26 or later.
 4. Grant the two permissions the onboarding asks for:
    - **Accessibility** — to know which Dock icon you're hovering and to switch / close windows
    - **Screen Recording** — to capture window thumbnails (local only)
+   - **Automation** (optional) — asked only the first time you press play on Spotify or Music
 
 ---
 
@@ -65,7 +67,8 @@ macOS 26 or later.
 - 游標停在 Dock 圖示上，即時顯示該 App 所有視窗的縮圖，點縮圖切換
 - 縮圖上的紅黃綠按鈕：關閉、縮到 Dock／還原、全螢幕
 - 標頭：開新視窗、隱藏 App、結束 App
-- 會列出已縮小的視窗、其他桌面（Space）上的視窗
+- 會列出已縮小的視窗、其他桌面（Space）上的視窗，點一下會切到那個桌面
+- Spotify 與音樂多一條播放列：播放／暫停、上一首、下一首，並顯示目前的歌曲
 - 按 ✕ 關掉但 App 還開著的視窗（Notion、Slack 等）會保留在預覽裡，點一下重新打開
 - Dock 放底部、左側、右側都能用；支援自動隱藏、放大效果、多螢幕
 
@@ -93,3 +96,4 @@ macOS 26 以上。
 4. 依引導開啟兩個權限：
    - **輔助使用**：偵測游標停在哪個 Dock 圖示、切換與關閉視窗
    - **螢幕錄製**：擷取視窗縮圖（只在本機處理）
+   - **自動化**（選用）：第一次在 Spotify 或音樂按播放鈕時才會詢問
