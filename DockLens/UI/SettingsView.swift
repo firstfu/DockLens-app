@@ -41,6 +41,10 @@ struct SettingsView: View {
                 Toggle("顯示按 X 關掉的視窗（點擊重新打開）", isOn: $settings.showsClosedWindows)
                 Toggle("App 沒有視窗時仍顯示面板", isOn: $settings.showsEmptyState)
                 Toggle("滑過「行事曆」時顯示今天的行程", isOn: $settings.showsCalendarAgenda)
+                Toggle(isOn: $settings.panelShortcuts) {
+                    Text("游標在預覽上時的單鍵快捷鍵")
+                    Text("W 關閉視窗、M 縮小或還原、H 隱藏 App、Q 結束 App")
+                }
             }
             Section("更新") {
                 LabeledContent("目前版本", value: coordinator.updates.currentVersion)

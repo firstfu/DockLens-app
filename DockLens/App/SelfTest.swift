@@ -395,6 +395,24 @@ final class SelfTestRunner {
             _ = await waitUntil(.seconds(1.5)) {
                 self.preview.currentModel?.cards.first { $0.id == third.id }?.window.isMinimized == false
             }
+            // 7b. 單鍵快捷鍵：游標在卡片上按 M 縮小、再按 M 還原（按鍵必須被面板吃掉，Fixture 不會收到）
+            if AppSettings.shared.panelShortcuts {
+                await ensurePanel(url: url, pid: pid)
+                _ = await hoverCard(third.id)
+                await pressKey(46) // M
+                let keyMinimized = await waitUntil(.seconds(2)) { self.axWindow(pid, titled: "Fixture 3")?.isMinimized == true }
+                let stillShown = await waitUntil(.seconds(1.5)) {
+                    self.preview.isVisible && self.preview.currentModel?.cards.first { $0.id == third.id }?.window.isMinimized == true
+                }
+                _ = await hoverCard(third.id)
+                await pressKey(46)
+                let keyRestored = await waitUntil(.seconds(2)) { self.axWindow(pid, titled: "Fixture 3")?.isMinimized == false }
+                record("游標在卡片上按 M 縮小、再按 M 還原", keyMinimized && stillShown && keyRestored,
+                       "縮小 \(keyMinimized)、面板保留 \(stillShown)、還原 \(keyRestored)")
+                _ = await waitUntil(.seconds(1.5)) {
+                    self.preview.currentModel?.cards.first { $0.id == third.id }?.window.isMinimized == false
+                }
+            }
         } else {
             record("黃燈縮到 Dock，面板標示已縮小", false, "找不到 Fixture 3")
         }
@@ -441,6 +459,17 @@ final class SelfTestRunner {
         record("隱藏 App", clickedHide && hidden)
         fixture.unhide()
         try? await Task.sleep(for: .milliseconds(600))
+
+        // 11b. 游標在面板上按 H 隱藏 App
+        if AppSettings.shared.panelShortcuts {
+            await ensurePanel(url: url, pid: pid)
+            if let card = preview.currentModel?.cards.first { _ = await hoverCard(card.id) }
+            await pressKey(4) // H
+            let keyHidden = await waitUntil(.seconds(2)) { fixture.isHidden }
+            record("游標在面板上按 H 隱藏 App", keyHidden)
+            fixture.unhide()
+            try? await Task.sleep(for: .milliseconds(600))
+        }
 
         // 12. 結束 App
         await ensurePanel(url: url, pid: pid)
@@ -773,6 +802,18 @@ final class SelfTestRunner {
         try? await Task.sleep(for: .milliseconds(30))
         CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: point, mouseButton: .left)?
             .post(tap: .cghidEventTap)
+    }
+
+    /// 模擬按下並放開一個鍵（不帶修飾鍵）。
+    /// - Parameter keyCode: 實體鍵碼（ANSI 配置：M = 46、H = 4）
+    private func pressKey(_ keyCode: CGKeyCode) async {
+        for isDown in [true, false] {
+            let event = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: isDown)
+            // 來源為 nil 時事件會帶上不相干的修飾鍵旗標（實測含 ⌘⇧），會被當成組合鍵放行，必須明確清空
+            event?.flags = []
+            event?.post(tap: .cghidEventTap)
+            try? await Task.sleep(for: .milliseconds(30))
+        }
     }
 
     // MARK: - 系統狀態查詢

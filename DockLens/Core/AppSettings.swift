@@ -33,6 +33,8 @@ final class AppSettings {
     /// 游標停在「行事曆」圖示上時顯示今天的行程
     var showsCalendarAgenda: Bool { didSet { defaults.set(showsCalendarAgenda, forKey: Key.showsCalendarAgenda) } }
 
+    /// 游標停在面板上時可用單鍵操作（W 關閉、M 縮小、H 隱藏、Q 結束）
+    var panelShortcuts: Bool { didSet { defaults.set(panelShortcuts, forKey: Key.panelShortcuts) } }
     /// 每週自動檢查有沒有新版本（會連到 GitHub；預設關閉，維持「不主動連網」的承諾）
     var autoChecksForUpdates: Bool { didSet { defaults.set(autoChecksForUpdates, forKey: Key.autoChecksForUpdates) } }
     /// 上次成功檢查更新的時間
@@ -64,6 +66,7 @@ final class AppSettings {
         static let showsEmptyState = "showsEmptyState"
         static let showsClosedWindows = "showsClosedWindows"
         static let showsCalendarAgenda = "showsCalendarAgenda"
+        static let panelShortcuts = "panelShortcuts"
         static let autoChecksForUpdates = "autoChecksForUpdates"
         static let lastUpdateCheck = "lastUpdateCheck"
     }
@@ -78,6 +81,7 @@ final class AppSettings {
             Key.showsEmptyState: false,
             Key.showsClosedWindows: true,
             Key.showsCalendarAgenda: true,
+            Key.panelShortcuts: true,
             Key.autoChecksForUpdates: false,
         ])
         isEnabled = defaults.bool(forKey: Key.enabled)
@@ -88,6 +92,7 @@ final class AppSettings {
         showsEmptyState = defaults.bool(forKey: Key.showsEmptyState)
         showsClosedWindows = defaults.bool(forKey: Key.showsClosedWindows)
         showsCalendarAgenda = defaults.bool(forKey: Key.showsCalendarAgenda)
+        panelShortcuts = defaults.bool(forKey: Key.panelShortcuts)
         autoChecksForUpdates = defaults.bool(forKey: Key.autoChecksForUpdates)
         lastUpdateCheck = defaults.object(forKey: Key.lastUpdateCheck) as? Date
     }

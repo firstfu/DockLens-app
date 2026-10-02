@@ -15,6 +15,7 @@
 - Live thumbnails of all windows when you hover a Dock icon; click to switch
 - Traffic-light buttons on each thumbnail: close, minimize / restore, full screen
 - Header actions: new window, hide app, quit app
+- Single-key shortcuts while the pointer is on the preview: **W** close, **M** minimize / restore the window under the pointer, **H** hide, **Q** quit the app (other keys and ⌘ combos pass through; can be turned off in Settings)
 - Shows minimized windows and windows on other Spaces — clicking one switches to that Space
 - Spotify and Music get a playback bar: play / pause, previous, next, and the current song
 - Calendar shows today's agenda — even when Calendar isn't running: calendar colors, "in progress" / "starts in 9 min", a **Join** button for Zoom / Meet / Teams links, click an event to open it; shows tomorrow once today is done
@@ -37,7 +38,6 @@ Event-driven — nothing polls while you're not using it.
 I won't build these until real people ask for them. If one matters to you, 👍 the issue and tell me **how you'd use it** in a comment.
 
 - [Alt+Tab-style window switcher](../../issues?q=is%3Aissue+label%3Aconsidering)
-- [Keyboard shortcuts on the preview (W close, Q quit, M minimize, H hide)](../../issues?q=is%3Aissue+label%3Aconsidering)
 - [Three-finger gesture to open the preview](../../issues?q=is%3Aissue+label%3Aconsidering)
 - [Windows-style taskbar](../../issues?q=is%3Aissue+label%3Aconsidering)
 - [Support for macOS older than 26](../../issues?q=is%3Aissue+label%3Aconsidering)
@@ -99,6 +99,7 @@ Tests: replace `build` with `test` in the `xcodebuild` command.
 
 - 游標停在 Dock 圖示上，即時顯示該 App 所有視窗的縮圖，點縮圖切換
 - 縮圖上的紅黃綠按鈕：關閉、縮到 Dock／還原、全螢幕
+- 游標在預覽上時可用單鍵操作：**W** 關閉、**M** 縮小／還原游標所在的視窗，**H** 隱藏、**Q** 結束 App（其他鍵與 ⌘ 組合鍵照常輸入；可在設定關閉）
 - 標頭：開新視窗、隱藏 App、結束 App
 - 會列出已縮小的視窗、其他桌面（Space）上的視窗，點一下會切到那個桌面
 - Spotify 與音樂多一條播放列：播放／暫停、上一首、下一首，並顯示目前的歌曲
@@ -110,7 +111,7 @@ Tests: replace `build` with `test` in the `xcodebuild` command.
 
 這些功能我**不會預先做**，要有人真的需要才做。如果有一項對你重要，請到對應的 Issue 按 👍，並留言說明**你會怎麼用**。
 
-- Alt+Tab 式視窗切換、預覽上的鍵盤快捷鍵、三指手勢開啟預覽、Windows 式工作列、支援 macOS 26 以前的系統
+- Alt+Tab 式視窗切換、三指手勢開啟預覽、Windows 式工作列、支援 macOS 26 以前的系統
   （清單見 [Issues](../../issues?q=is%3Aissue+label%3Aconsidering)）
 
 ### 隱私

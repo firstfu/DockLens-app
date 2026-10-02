@@ -90,6 +90,8 @@ final class PreviewModel {
     /// 「行事曆」才有的行程區塊；其他 App 或已關閉此功能時為 nil
     let agenda: AgendaModel?
     @ObservationIgnored var actions = PreviewActions()
+    /// 按鈕提示是否附上單鍵快捷鍵（設定開啟且有 App 可操作時）
+    @ObservationIgnored var showsShortcutHints = false
 
     /// 用 id 快速找卡片，縮圖回呼時使用
     @ObservationIgnored private let cardByID: [CGWindowID: WindowCard]
@@ -162,6 +164,9 @@ final class PreviewModel {
     }
 
     @ObservationIgnored private var hoveredID: CGWindowID?
+
+    /// 游標目前所在的卡片（單鍵快捷鍵的作用對象）
+    var hoveredCard: WindowCard? { hoveredID.flatMap { cardByID[$0] } }
 
     /// 套用新拍到的縮圖。
     func apply(_ image: CGImage, to windowID: CGWindowID) {

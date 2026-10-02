@@ -31,6 +31,8 @@ final class PreviewController {
     private var hideTask: Task<Void, Never>?
     private var clickMonitor: Any?
     private var moveMonitor: Any?
+    /// 面板顯示期間才啟用的單鍵快捷鍵攔截
+    private let keyInterceptor = PanelKeyInterceptor()
     /// 面板顯示行程期間才掛上的 EKEventStoreChanged 監聽
     private var calendarObserver: NSObjectProtocol?
     private var isHidePending = false
@@ -57,6 +59,9 @@ final class PreviewController {
         hostingView.onMouseInsideChanged = { [weak self] inside in self?.setHoverPolling(inside) }
         hostingView.onMouseMoved = { [weak self] point in self?.model?.setHoveredCard(at: point) }
         panel.contentView = hostingView
+        keyInterceptor.handler = { [weak self] shortcut, isRepeat in
+            self?.handleShortcut(shortcut, isRepeat: isRepeat) ?? false
+        }
     }
 
     var isVisible: Bool { panel.isVisible }
@@ -222,6 +227,7 @@ final class PreviewController {
         dockPrefs: DockPreferences = .current, screen: NSScreen? = nil
     ) async {
         model.actions = makeActions(for: model)
+        model.showsShortcutHints = settings.panelShortcuts && model.app != nil
         if let media = model.media { connect(media) }
         if let agenda = model.agenda { connect(agenda) }
 
@@ -409,6 +415,7 @@ final class PreviewController {
                 MainActor.assumeIsolated { self?.hide() }
             }
         }
+        keyInterceptor.isEnabled = settings.panelShortcuts
         if moveMonitor == nil {
             moveMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved]) { [weak self] _ in
                 MainActor.assumeIsolated { self?.mouseMovedOutside() }
@@ -438,6 +445,7 @@ final class PreviewController {
         for monitor in [clickMonitor, moveMonitor].compactMap({ $0 }) { NSEvent.removeMonitor(monitor) }
         clickMonitor = nil
         moveMonitor = nil
+        keyInterceptor.isEnabled = false
     }
 
     // MARK: - 動作
@@ -487,6 +495,29 @@ final class PreviewController {
                 WindowActions.newWindow(app)
             }
         )
+    }
+
+    /// 處理單鍵快捷鍵。只在游標位於面板上時生效：游標在 Dock 或別處時使用者可能正在打字，按鍵一律放行。
+    /// - Parameters:
+    ///   - shortcut: 按下的快捷鍵
+    ///   - isRepeat: 是否為按住不放的自動重複（照樣吃掉，但不重複執行，避免連續關掉好幾個視窗）
+    /// - Returns: 是否吃掉這個按鍵（true 時前景 App 收不到）
+    private func handleShortcut(_ shortcut: PanelShortcut, isRepeat: Bool) -> Bool {
+        guard settings.panelShortcuts, panel.isVisible, let model, model.app != nil,
+              panel.frame.contains(NSEvent.mouseLocation) else { return false }
+        switch shortcut {
+        case .close, .minimize:
+            // 視窗動作需要指定卡片；游標在標頭或卡片間的空隙時放行
+            guard let card = model.hoveredCard else { return false }
+            guard !isRepeat else { return true }
+            if shortcut == .close { model.actions.close(card) } else { model.actions.minimize(card) }
+        case .hide:
+            if !isRepeat { model.actions.hideApp() }
+        case .quit:
+            if !isRepeat { model.actions.quitApp() }
+        }
+        log.notice("快捷鍵 \(String(describing: shortcut), privacy: .public)")
+        return true
     }
 
     // MARK: - 播放列

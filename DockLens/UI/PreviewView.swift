@@ -56,7 +56,8 @@ struct PreviewView: View {
     }
 
     private func cardView(_ card: WindowCard) -> some View {
-        WindowCardView(card: card, appIcon: model.appIcon, showsTitles: model.showsTitles, actions: model.actions)
+        WindowCardView(card: card, appIcon: model.appIcon, showsTitles: model.showsTitles, actions: model.actions,
+                       showsShortcutHints: model.showsShortcutHints)
     }
 
     private var header: some View {
@@ -80,13 +81,18 @@ struct PreviewView: View {
                 .probe("header.new")
             // App 未執行（只顯示行程）時沒有東西可隱藏或結束
             if model.app != nil {
-                HeaderButton(symbol: "eye.slash", help: "隱藏 App", action: model.actions.hideApp)
+                HeaderButton(symbol: "eye.slash", help: "隱藏 App\(shortcutHint("H"))", action: model.actions.hideApp)
                     .probe("header.hide")
-                HeaderButton(symbol: "power", help: "結束 App", role: .destructive, action: model.actions.quitApp)
+                HeaderButton(symbol: "power", help: "結束 App\(shortcutHint("Q"))", role: .destructive, action: model.actions.quitApp)
                     .probe("header.quit")
             }
         }
         .frame(height: Self.headerHeight)
+    }
+
+    /// 按鈕提示後附的快捷鍵，例如「（H）」；快捷鍵停用時為空字串。
+    private func shortcutHint(_ key: String) -> String {
+        model.showsShortcutHints ? "（\(key)）" : ""
     }
 
     private var emptyState: some View {
@@ -222,6 +228,7 @@ struct WindowCardView: View {
     let appIcon: NSImage
     let showsTitles: Bool
     let actions: PreviewActions
+    let showsShortcutHints: Bool
 
     private var isHovering: Bool { card.isHovered }
 
@@ -299,12 +306,17 @@ struct WindowCardView: View {
         }
     }
 
+    /// 按鈕提示後附的快捷鍵，例如「（W）」；快捷鍵停用時為空字串。
+    private func shortcutHint(_ key: String) -> String {
+        showsShortcutHints ? "（\(key)）" : ""
+    }
+
     private var controls: some View {
         HStack(spacing: 6) {
-            TrafficLight(color: .red, symbol: "xmark", help: "關閉視窗") { actions.close(card) }
+            TrafficLight(color: .red, symbol: "xmark", help: "關閉視窗\(shortcutHint("W"))") { actions.close(card) }
                 .probe("close.\(card.id)")
             TrafficLight(color: .yellow, symbol: card.window.isMinimized ? "plus" : "minus",
-                         help: card.window.isMinimized ? "還原視窗" : "縮到 Dock") { actions.minimize(card) }
+                         help: "\(card.window.isMinimized ? "還原視窗" : "縮到 Dock")\(shortcutHint("M"))") { actions.minimize(card) }
                 .probe("minimize.\(card.id)")
             TrafficLight(color: .green, symbol: "arrow.up.left.and.arrow.down.right", help: "全螢幕") {
                 actions.toggleFullScreen(card)
