@@ -89,13 +89,27 @@ struct ThumbnailDownscaleTests {
 
     @Test func downscaleKeepsAspectRatio() throws {
         let image = makeImage(width: 1600, height: 1000)
+        // 顯示框 400×200（寬 ÷ maxAspect 2）：16:10 的圖以高度為限
         let scaled = try #require(ThumbnailService.downscale(image, maxPixelWidth: 400))
+        #expect(scaled.width == 320)
+        #expect(scaled.height == 200)
+    }
+
+    @Test func wideImageIsLimitedByWidth() throws {
+        let scaled = try #require(ThumbnailService.downscale(makeImage(width: 3000, height: 1000), maxPixelWidth: 400))
         #expect(scaled.width == 400)
-        #expect(scaled.height == 250)
+        #expect(scaled.height == 133)
+    }
+
+    @Test func portraitImageIsLimitedByHeight() throws {
+        // 直式視窗只限寬時會存成 400×800，實際只顯示 100×200
+        let scaled = try #require(ThumbnailService.downscale(makeImage(width: 1000, height: 2000), maxPixelWidth: 400))
+        #expect(scaled.width == 100)
+        #expect(scaled.height == 200)
     }
 
     @Test func smallImageIsReturnedUnchanged() throws {
-        let image = makeImage(width: 300, height: 200)
+        let image = makeImage(width: 300, height: 150)
         let scaled = try #require(ThumbnailService.downscale(image, maxPixelWidth: 400))
         #expect(scaled.width == 300)
     }

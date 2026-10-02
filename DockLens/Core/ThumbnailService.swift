@@ -34,7 +34,7 @@ nonisolated final class ThumbnailService: Sendable {
         var accessCounter: UInt64 = 0
     }
 
-    /// 快取上限（張）。單張約 0.5–1MB，上限約 50MB。
+    /// 快取上限（張）。縮圖縮到卡片顯示框（Retina 預設最大 600×300 像素），單張最多約 0.7MB，上限約 40MB。
     private let capacity = 60
     /// 這個時間內拍過的縮圖視為新鮮，不重拍（游標在同一圖示附近晃動時省下重複擷取）
     private let freshness: Duration = .milliseconds(400)
@@ -178,12 +178,15 @@ nonisolated final class ThumbnailService: Sendable {
         }
     }
 
-    /// 縮小影像到指定像素寬（保持比例）。原圖已夠小時直接回傳。
-    /// 在擷取當下就縮小，可讓快取記憶體降到約 1/4，也讓 SwiftUI 繪製時不必再縮放大圖。
+    /// 縮小影像到卡片的顯示框內（保持比例）。原圖已夠小時直接回傳。
+    /// 顯示框寬 = `maxPixelWidth`、高 = 寬 ÷ `PanelGeometry.maxAspect`（卡片以 `.fit` 放進「縮圖高 × 長寬比」的框，
+    /// 長寬比夾在 0.75–2 之間，所以縮圖永遠不會顯示得比這個框大）。
+    /// 為什麼也要限高：只限寬時，一般 16:10、4:3 的視窗會多存 1.5–2 倍像素，直式視窗多到十幾倍。
     static func downscale(_ image: CGImage, maxPixelWidth: Int) -> CGImage? {
-        guard image.width > maxPixelWidth else { return image }
-        let scale = CGFloat(maxPixelWidth) / CGFloat(image.width)
-        let width = maxPixelWidth
+        let maxPixelHeight = CGFloat(maxPixelWidth) / PanelGeometry.maxAspect
+        let scale = min(CGFloat(maxPixelWidth) / CGFloat(image.width), maxPixelHeight / CGFloat(image.height))
+        guard scale < 1 else { return image }
+        let width = max(1, Int((CGFloat(image.width) * scale).rounded()))
         let height = max(1, Int((CGFloat(image.height) * scale).rounded()))
         guard let context = CGContext(
             data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0,
