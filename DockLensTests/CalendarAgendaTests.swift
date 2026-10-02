@@ -77,3 +77,20 @@ struct CalendarAgendaTests {
         #expect(CalendarAgenda.meetingURL(url: URL(string: "https://zoom.us.evil.com/j/1"), location: nil, notes: nil) == nil)
     }
 }
+
+/// 檢查更新的純邏輯：版本號比較、GitHub release JSON 解析。
+struct UpdateCheckerTests {
+    @Test(arguments: [("1.0.4", "1.0.3", true), ("1.0.10", "1.0.9", true), ("1.1", "1.0.9", true),
+                      ("1.0.3", "1.0.3", false), ("1.0.2", "1.0.3", false), ("1.0", "1.0.0", false)])
+    func comparesVersionsNumerically(candidate: String, current: String, newer: Bool) {
+        #expect(UpdateChecker.isNewer(candidate, than: current) == newer)
+    }
+
+    @Test func parsesReleaseAndStripsV() throws {
+        let json = #"{"tag_name":"v1.0.4","html_url":"https://github.com/firstfu/DockLens-app/releases/tag/v1.0.4","name":"x"}"#
+        let release = try #require(UpdateChecker.parseRelease(Data(json.utf8)))
+        #expect(release.version == "1.0.4")
+        #expect(release.url.absoluteString.hasSuffix("/v1.0.4"))
+        #expect(UpdateChecker.parseRelease(Data("{}".utf8)) == nil)
+    }
+}

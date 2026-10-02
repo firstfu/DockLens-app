@@ -15,6 +15,7 @@ final class AppCoordinator {
 
     let settings = AppSettings.shared
     let permissions = Permissions()
+    let updates = UpdateChecker(settings: AppSettings.shared)
     @ObservationIgnored let thumbnails = ThumbnailService()
     @ObservationIgnored private(set) lazy var preview = PreviewController(settings: settings, thumbnails: thumbnails)
     @ObservationIgnored private let dock = DockObserver()
@@ -27,6 +28,7 @@ final class AppCoordinator {
 
     /// App 啟動時呼叫：權限齊全就直接開始，否則顯示引導視窗並輪詢權限。
     func launch() {
+        updates.applyAutoCheckSetting()
         permissions.onAllGranted = { [weak self] in
             self?.startServices()
             self?.onboardingWindow?.close()

@@ -42,6 +42,17 @@ struct SettingsView: View {
                 Toggle("App 沒有視窗時仍顯示面板", isOn: $settings.showsEmptyState)
                 Toggle("滑過「行事曆」時顯示今天的行程", isOn: $settings.showsCalendarAgenda)
             }
+            Section("更新") {
+                LabeledContent("目前版本", value: coordinator.updates.currentVersion)
+                LabeledContent("最新版本") {
+                    UpdateStatusView(updates: coordinator.updates)
+                }
+                Toggle("每週自動檢查更新", isOn: $settings.autoChecksForUpdates)
+                    .onChange(of: settings.autoChecksForUpdates) { coordinator.updates.applyAutoCheckSetting() }
+                Text("只在按「檢查更新」或開啟自動檢查時連到 GitHub 讀取最新版本號，不送出任何資料。")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
             Section("權限") {
                 PermissionRow(title: "輔助使用", granted: coordinator.permissions.accessibility) {
                     coordinator.permissions.requestAccessibility()
@@ -55,6 +66,30 @@ struct SettingsView: View {
         .frame(width: 460)
         .fixedSize(horizontal: false, vertical: true)
         .onAppear { coordinator.permissions.refresh() }
+    }
+}
+
+/// 檢查更新的結果與按鈕。
+private struct UpdateStatusView: View {
+    let updates: UpdateChecker
+
+    var body: some View {
+        HStack(spacing: 8) {
+            switch updates.status {
+            case .idle: EmptyView()
+            case .checking: ProgressView().controlSize(.small)
+            case .upToDate: Label("已是最新版本", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
+            case .failed: Label("無法連線到 GitHub", systemImage: "exclamationmark.triangle.fill").foregroundStyle(.orange)
+            case .available(let version, _):
+                Text("\(version) 可下載").foregroundStyle(.secondary)
+                Button("下載") { updates.openDownloadPage() }
+                    .buttonStyle(.glassProminent)
+            }
+            if case .available = updates.status {} else {
+                Button("檢查更新") { Task { await updates.check() } }
+                    .disabled(updates.status == .checking)
+            }
+        }
     }
 }
 

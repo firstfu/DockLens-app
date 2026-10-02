@@ -17,12 +17,18 @@ struct DockLensApp: App {
         MenuBarExtra {
             MenuContent(coordinator: coordinator)
         } label: {
-            Image(systemName: coordinator.settings.isEnabled ? "rectangle.on.rectangle" : "rectangle.on.rectangle.slash")
+            Image(systemName: menuBarSymbol)
         }
 
         Settings {
             SettingsView(coordinator: coordinator)
         }
+    }
+
+    /// 有新版本時改顯示下載箭頭，讓沒打開選單的人也看得到
+    private var menuBarSymbol: String {
+        if coordinator.updates.availableUpdate != nil { return "arrow.down.circle" }
+        return coordinator.settings.isEnabled ? "rectangle.on.rectangle" : "rectangle.on.rectangle.slash"
     }
 }
 
@@ -48,6 +54,10 @@ private struct MenuContent: View {
 
     var body: some View {
         @Bindable var settings = coordinator.settings
+        if let update = coordinator.updates.availableUpdate {
+            Button("下載新版本 \(update.version)…") { coordinator.updates.openDownloadPage() }
+            Divider()
+        }
         Toggle("啟用視窗預覽", isOn: $settings.isEnabled)
             .keyboardShortcut("e")
         if !coordinator.permissions.allGranted {
@@ -59,6 +69,18 @@ private struct MenuContent: View {
             openSettings()
         }
         .keyboardShortcut(",")
+        Button("檢查更新…") {
+            Task {
+                await coordinator.updates.check()
+                // 從選單手動檢查時要有回應：有新版直接開下載頁，否則打開設定看結果
+                if coordinator.updates.availableUpdate != nil {
+                    coordinator.updates.openDownloadPage()
+                } else {
+                    NSApp.activate()
+                    openSettings()
+                }
+            }
+        }
         Divider()
         Button("結束 DockLens") { NSApp.terminate(nil) }
             .keyboardShortcut("q")

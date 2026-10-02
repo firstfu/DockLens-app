@@ -33,6 +33,11 @@ final class AppSettings {
     /// 游標停在「行事曆」圖示上時顯示今天的行程
     var showsCalendarAgenda: Bool { didSet { defaults.set(showsCalendarAgenda, forKey: Key.showsCalendarAgenda) } }
 
+    /// 每週自動檢查有沒有新版本（會連到 GitHub；預設關閉，維持「不主動連網」的承諾）
+    var autoChecksForUpdates: Bool { didSet { defaults.set(autoChecksForUpdates, forKey: Key.autoChecksForUpdates) } }
+    /// 上次成功檢查更新的時間
+    var lastUpdateCheck: Date? { didSet { defaults.set(lastUpdateCheck, forKey: Key.lastUpdateCheck) } }
+
     /// 開機自動啟動（直接讀寫 SMAppService，不另存）
     var launchAtLogin: Bool {
         get {
@@ -59,6 +64,8 @@ final class AppSettings {
         static let showsEmptyState = "showsEmptyState"
         static let showsClosedWindows = "showsClosedWindows"
         static let showsCalendarAgenda = "showsCalendarAgenda"
+        static let autoChecksForUpdates = "autoChecksForUpdates"
+        static let lastUpdateCheck = "lastUpdateCheck"
     }
 
     private init() {
@@ -71,6 +78,7 @@ final class AppSettings {
             Key.showsEmptyState: false,
             Key.showsClosedWindows: true,
             Key.showsCalendarAgenda: true,
+            Key.autoChecksForUpdates: false,
         ])
         isEnabled = defaults.bool(forKey: Key.enabled)
         thumbnailHeight = defaults.double(forKey: Key.thumbnailHeight)
@@ -80,5 +88,7 @@ final class AppSettings {
         showsEmptyState = defaults.bool(forKey: Key.showsEmptyState)
         showsClosedWindows = defaults.bool(forKey: Key.showsClosedWindows)
         showsCalendarAgenda = defaults.bool(forKey: Key.showsCalendarAgenda)
+        autoChecksForUpdates = defaults.bool(forKey: Key.autoChecksForUpdates)
+        lastUpdateCheck = defaults.object(forKey: Key.lastUpdateCheck) as? Date
     }
 }

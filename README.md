@@ -44,8 +44,9 @@ I won't build these until real people ask for them. If one matters to you, 👍 
 
 ## Privacy
 
-DockLens makes **no network connections at all**. Thumbnails are captured and shown locally and never leave your Mac.
-Don't take my word for it: the code that uses each permission lives in [`DockLens/Core`](DockLens/Core) — `DockObserver.swift` (Accessibility: which Dock icon you're hovering), `ThumbnailService.swift` (Screen Recording: thumbnails), `MediaController.swift` (Automation: Spotify / Music), `CalendarAgenda.swift` (Calendars: read-only agenda). You can also confirm there's no network traffic with a firewall such as Little Snitch or LuLu.
+DockLens makes **no network connections** unless you ask it to check for updates. Thumbnails are captured and shown locally and never leave your Mac.
+The only connection it can make is the update check — one request to the GitHub API to read the latest version number, sent only when you click **Check for Updates** or turn on **Check weekly** in Settings (off by default). No data about you is sent.
+Don't take my word for it: the code that uses each permission lives in [`DockLens/Core`](DockLens/Core) — `DockObserver.swift` (Accessibility: which Dock icon you're hovering), `ThumbnailService.swift` (Screen Recording: thumbnails), `MediaController.swift` (Automation: Spotify / Music), `CalendarAgenda.swift` (Calendars: read-only agenda), and the update check in `UpdateChecker.swift`. You can also confirm there's no other network traffic with a firewall such as Little Snitch or LuLu.
 
 ## Requirements
 
@@ -62,6 +63,11 @@ macOS 26 or later.
    - **Screen Recording** — to capture window thumbnails (local only)
    - **Automation** (optional) — asked only the first time you press play on Spotify or Music
    - **Calendars** (optional) — asked only when you click **Allow** on the Calendar preview
+
+### Updating
+
+Replace `DockLens.app` in `/Applications` with the new one. From 1.0.4 on, releases are signed with the same certificate, so **your permissions are kept** — you only click **Open Anyway** once for the new version.
+To hear about new versions: choose **Check for Updates…** in the menu bar menu, turn on **Check weekly** in Settings, or click **Watch → Custom → Releases** at the top of this GitHub page.
 
 ## Build from source
 
@@ -109,8 +115,9 @@ Tests: replace `build` with `test` in the `xcodebuild` command.
 
 ### 隱私
 
-DockLens **完全不連網**。縮圖只在你的 Mac 上擷取與顯示，不會上傳。
-不用只聽我說：用到各權限的程式碼都在 [`DockLens/Core`](DockLens/Core)——`DockObserver.swift`（輔助使用：偵測游標停在哪個 Dock 圖示）、`ThumbnailService.swift`（螢幕錄製：縮圖）、`MediaController.swift`（自動化：Spotify／音樂）、`CalendarAgenda.swift`（行事曆：唯讀讀取行程）。也可以用 Little Snitch、LuLu 等防火牆確認它沒有任何網路連線。
+除非你要它檢查更新，DockLens **不會連網**。縮圖只在你的 Mac 上擷取與顯示，不會上傳。
+唯一可能的連線是檢查更新：向 GitHub API 發一個請求讀取最新版本號，只在你按「檢查更新」或在設定打開「每週自動檢查更新」（預設關閉）時才發出，不送出任何關於你的資料。
+不用只聽我說：用到各權限的程式碼都在 [`DockLens/Core`](DockLens/Core)——`DockObserver.swift`（輔助使用：偵測游標停在哪個 Dock 圖示）、`ThumbnailService.swift`（螢幕錄製：縮圖）、`MediaController.swift`（自動化：Spotify／音樂）、`CalendarAgenda.swift`（行事曆：唯讀讀取行程），檢查更新在 `UpdateChecker.swift`。也可以用 Little Snitch、LuLu 等防火牆確認它沒有其他網路連線。
 
 ### 系統需求
 
@@ -127,6 +134,11 @@ macOS 26 以上。
    - **螢幕錄製**：擷取視窗縮圖（只在本機處理）
    - **自動化**（選用）：第一次在 Spotify 或音樂按播放鈕時才會詢問
    - **行事曆**（選用）：在行事曆的預覽上按「允許」時才會詢問
+
+### 更新
+
+用新的 `DockLens.app` 取代「應用程式」裡的舊版。從 1.0.4 起，每個版本都用同一張憑證簽章，**系統權限會保留**，新版只需要再按一次「強制打開」。
+想知道有新版本：在選單列選單按「檢查更新…」、在設定打開「每週自動檢查更新」，或在這個 GitHub 頁面上方按 **Watch → Custom → Releases** 訂閱。
 
 ### 從原始碼建置
 
