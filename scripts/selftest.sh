@@ -27,7 +27,7 @@ pkill -x DockLens; sleep 0.5
 LOGPID=$!
 sleep 1
 open -n "$APP" --args --selftest --fixture "$FIXTURE" "${EXTRA[@]}"
-for i in $(seq 1 180); do sleep 1; pgrep -f "$APP/Contents/MacOS/DockLens" >/dev/null || break; done
+for i in $(seq 1 300); do sleep 1; pgrep -f "$APP/Contents/MacOS/DockLens" >/dev/null || break; done
 sleep 1; kill $LOGPID 2>/dev/null
 
 [ $INSTALLED_WAS_RUNNING = 1 ] && open /Applications/DockLens.app

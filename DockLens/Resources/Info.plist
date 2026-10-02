@@ -28,6 +28,8 @@
 	<true/>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>DockLens 用來控制 Spotify／音樂的播放（播放、暫停、上一首、下一首）並顯示目前播放的歌曲。</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>DockLens 在滑過「行事曆」Dock 圖示時顯示今天的行程；只在本機讀取，不會修改或上傳。</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2026 firstfu</string>
 </dict>

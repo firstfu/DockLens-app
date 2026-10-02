@@ -14,6 +14,7 @@
 //
 
 import AppKit
+import EventKit
 import ScreenCaptureKit
 import ServiceManagement
 import os
@@ -99,6 +100,14 @@ final class SelfTestRunner {
         let originalMouse = NSEvent.mouseLocation
         let originalApp = NSWorkspace.shared.frontmostApplication
 
+        // --calendar-only：只跑行程區塊檢查（約 10 秒；未授權時要等使用者按「允許」）
+        if CommandLine.arguments.contains("--calendar-only") {
+            await runCalendarChecks()
+            writeReport()
+            move(to: CGPoint(x: originalMouse.x, y: primaryHeight - originalMouse.y))
+            NSApp.terminate(nil)
+            return
+        }
         // --media-only：只跑播放列檢查（除錯播放控制時用，約 20 秒）
         if CommandLine.arguments.contains("--media-only") {
             await runMediaChecks()
@@ -110,6 +119,7 @@ final class SelfTestRunner {
         await measureHoverLatency()
         await checkAutoHide()
         await runMediaChecks()
+        await runCalendarChecks()
         if let index = CommandLine.arguments.firstIndex(of: "--fixture"), index + 1 < CommandLine.arguments.count {
             let fixtureURL = URL(fileURLWithPath: CommandLine.arguments[index + 1])
             await runFixtureChecks(fixtureURL)
@@ -234,6 +244,52 @@ final class SelfTestRunner {
         _ = await clickProbe("media.previous")
         let back = await waitUntil(.seconds(2.5)) { current()?.title == original.title }
         record("下一首／上一首", changed && back, "「\(original.title)」→ 換歌 \(changed)、回到原曲 \(back)")
+        _ = await leaveDock()
+    }
+
+    // MARK: - 行程（行事曆）
+
+    /// 游標停到「行事曆」Dock 圖示上（不論是否執行中），確認面板出現行程區塊並截圖。
+    /// 尚未授權時按「允許」觸發系統詢問，需使用者回應（程式無法代按），最多等 3 分鐘：請求程序結束後才按「允許」會被系統丟棄。
+    /// 不點行程列：那會打開行事曆 App、改變使用者的前景視窗。
+    private func runCalendarChecks() async {
+        guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: CalendarAgenda.calendarBundleID)?.standardizedFileURL,
+              dockItem(appURL: url, includeStopped: true) != nil else {
+            record("行事曆顯示行程", true, "略過：Dock 上沒有行事曆圖示")
+            return
+        }
+        guard coordinator.settings.showsCalendarAgenda else {
+            record("行事曆顯示行程", true, "略過：設定已關閉行程顯示")
+            return
+        }
+        let running = runningApp(url) != nil
+        _ = await leaveDock()
+        _ = await hoverDock(appURL: url, expectPanelFor: nil)
+        func status() -> AgendaStatus? { preview.currentModel?.agenda?.status }
+        let shown = await waitUntil(.seconds(2)) { self.preview.isVisible && status() != nil }
+        record("行事曆顯示行程", shown, "\(running ? "執行中" : "未執行")：\(String(describing: status()))")
+        guard shown else { return }
+
+        if status() == .needsPermission {
+            log.notice("等待使用者在系統詢問中允許讀取行事曆")
+            _ = await clickProbe("agenda.allow")
+            // 使用者去按系統對話框時游標會離開面板、面板會收起，所以看系統授權狀態，回應後再重新滑過圖示
+            let decided = await waitUntil(.seconds(180)) { EKEventStore.authorizationStatus(for: .event) != .notDetermined }
+            _ = await leaveDock()
+            _ = await hoverDock(appURL: url, expectPanelFor: nil)
+            _ = await waitUntil(.seconds(2)) { status() != nil }
+            let granted = status().map { $0 != .needsPermission && $0 != .denied } ?? false
+            record("按「允許」觸發授權並讀到行程", decided && granted, String(describing: status()))
+        }
+        if case .day(let day) = status() {
+            let rowsProbed = await waitUntil(.seconds(1)) { self.probeRect("agenda.row.\(day.events.count - 1)") != nil }
+            let height = probeRect("agenda.row.0")?.height ?? 0
+            record("行程列完整排版", rowsProbed && abs(height - AgendaView.rowHeight) < 1,
+                   "\(day.kind == .today ? "今天" : "明天") \(day.events.count) 列（省略 \(day.hiddenCount)）、列高 \(height)")
+        }
+        // 等淡入動畫結束再截圖，否則會拍到半透明的空白面板
+        try? await Task.sleep(for: .milliseconds(400))
+        _ = savePanelScreenshot("calendar-agenda")
         _ = await leaveDock()
     }
 
@@ -485,7 +541,7 @@ final class SelfTestRunner {
 
     /// 確保面板顯示的是指定 App；沒有的話重新 hover 它的 Dock 圖示。
     private func ensurePanel(url: URL, pid: pid_t) async {
-        if preview.isVisible && preview.currentModel?.app.processIdentifier == pid { return }
+        if preview.isVisible && preview.currentModel?.app?.processIdentifier == pid { return }
         _ = await hoverDock(appURL: url, expectPanelFor: pid)
     }
 
@@ -541,22 +597,23 @@ final class SelfTestRunner {
     // MARK: - Dock 操作
 
     /// Dock 上所有執行中 App 的圖示（AX 座標）。
-    func dockItems() -> [DockItem] {
+    /// - Parameter includeStopped: 是否包含釘在 Dock 上但未執行的 App
+    func dockItems(includeStopped: Bool = false) -> [DockItem] {
         guard let dock = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.dock").first,
               let list = AXUIElementCreateApplication(dock.processIdentifier).children
                 .first(where: { $0.role == kAXListRole as String }) else { return [] }
         return list.children.compactMap { element in
             guard element.subrole == "AXApplicationDockItem",
-                  (element.value("AXIsApplicationRunning") as Bool?) == true,
+                  includeStopped || (element.value("AXIsApplicationRunning") as Bool?) == true,
                   let frame = element.frame else { return nil }
             let url: URL? = element.value(kAXURLAttribute)
             return DockItem(title: element.title ?? "", appURL: url?.standardizedFileURL, frame: frame)
         }
     }
 
-    func dockItem(appURL: URL) -> DockItem? {
+    func dockItem(appURL: URL, includeStopped: Bool = false) -> DockItem? {
         let path = appURL.resolvingSymlinksInPath().path
-        return dockItems().first { $0.appURL?.resolvingSymlinksInPath().path == path }
+        return dockItems(includeStopped: includeStopped).first { $0.appURL?.resolvingSymlinksInPath().path == path }
     }
 
     /// 游標從圖示移往面板途中的三種情境（對應「面板在半路突然消失」的回報）：
@@ -577,7 +634,7 @@ final class SelfTestRunner {
                 if vanishedAt == nil && !preview.isVisible { vanishedAt = step }
             }
             try? await Task.sleep(for: .milliseconds(400))
-            let stayed = vanishedAt == nil && preview.isVisible && preview.currentModel?.app.processIdentifier == pid
+            let stayed = vanishedAt == nil && preview.isVisible && preview.currentModel?.app?.processIdentifier == pid
             record("慢慢從圖示移往面板，途中面板不消失", stayed, vanishedAt.map { "第 \($0)/20 步消失" } ?? "")
         } else {
             record("慢慢從圖示移往面板，途中面板不消失", false, "前置條件：面板未顯示")
@@ -602,7 +659,7 @@ final class SelfTestRunner {
             for tick in 0..<55 {
                 if tick == 6 { move(to: CGPoint(x: panel.midX, y: primaryHeight - panel.midY)) }
                 try? await Task.sleep(for: .milliseconds(10))
-                if !preview.isVisible || preview.currentModel?.app.processIdentifier != pid { vanished = true }
+                if !preview.isVisible || preview.currentModel?.app?.processIdentifier != pid { vanished = true }
             }
             record("途中擦過沒有預覽的圖示，面板不消失", !vanished, "擦過「\(target.title)」")
         } else {
@@ -647,7 +704,7 @@ final class SelfTestRunner {
     ///   - timeout: 等面板出現的時間；`.zero` 表示不等
     /// - Returns: 面板是否在時限內顯示
     func hoverDock(appURL: URL, expectPanelFor pid: pid_t?, timeout: Duration = .milliseconds(1500)) async -> Bool {
-        guard let first = dockItem(appURL: appURL) else { return false }
+        guard let first = dockItem(appURL: appURL, includeStopped: true) else { return false }
         let edge = DockPreferences.current.edge
         // 沿 Dock 方向的座標（底部 Dock 為 x、側邊為 y）固定用「放大前」的圖示中心：Dock 放大以游標為中心，
         // 游標停在這裡時底下的圖示不會漂移；若改追放大後的即時位置，會在相鄰圖示間來回跳。
@@ -655,7 +712,7 @@ final class SelfTestRunner {
         move(to: edgePoint(along: along, near: first.frame, edge: edge))
         try? await Task.sleep(for: .milliseconds(500))
         for _ in 0..<12 {
-            guard let item = dockItem(appURL: appURL) else { return false }
+            guard let item = dockItem(appURL: appURL, includeStopped: true) else { return false }
             let across = edge == .bottom ? item.frame.midY : item.frame.midX
             move(to: edge == .bottom ? CGPoint(x: along, y: across) : CGPoint(x: across, y: along))
             try? await Task.sleep(for: .milliseconds(60))
@@ -664,12 +721,12 @@ final class SelfTestRunner {
             // 自動隱藏的 Dock 收起後，AX 回報的圖示位置可能停留在上次放大時的樣子，第一次常落在鄰居圖示上。
             // 依 Dock 實際選中的圖示與目標的相對位置修正，每次只移一半（阻尼），避免被放大效果帶著來回跳。
             func position(_ frame: CGRect) -> CGFloat { edge == .bottom ? frame.midX : frame.midY }
-            let target = dockItem(appURL: appURL).map { position($0.frame) } ?? along
+            let target = dockItem(appURL: appURL, includeStopped: true).map { position($0.frame) } ?? along
             along += (target - (selected.map { position($0.frame) } ?? along)) * 0.5
         }
         guard timeout > .zero else { return false }
         return await waitUntil(timeout) {
-            self.preview.isVisible && (pid == nil || self.preview.currentModel?.app.processIdentifier == pid)
+            self.preview.isVisible && (pid == nil || self.preview.currentModel?.app?.processIdentifier == pid)
         }
     }
 

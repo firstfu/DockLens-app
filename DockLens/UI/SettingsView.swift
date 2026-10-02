@@ -40,6 +40,7 @@ struct SettingsView: View {
                 Toggle("包含其他桌面（Space）的視窗", isOn: $settings.includesOtherSpaces)
                 Toggle("顯示按 X 關掉的視窗（點擊重新打開）", isOn: $settings.showsClosedWindows)
                 Toggle("App 沒有視窗時仍顯示面板", isOn: $settings.showsEmptyState)
+                Toggle("滑過「行事曆」時顯示今天的行程", isOn: $settings.showsCalendarAgenda)
             }
             Section("權限") {
                 PermissionRow(title: "輔助使用", granted: coordinator.permissions.accessibility) {

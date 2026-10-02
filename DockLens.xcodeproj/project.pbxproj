@@ -14,7 +14,10 @@
 		2B4F16B1C2BBCAB31E5C5D4C /* FixtureApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E580E0243C0D5CBC2C53DE99 /* FixtureApp.swift */; };
 		2E2993D3C6E423E2ED48BE02 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2BFDB44F0732F6085F881B /* AppCoordinator.swift */; };
 		40E06295F8F4CD7BE1D6E7C5 /* PrivateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368F0824EF34F42447014524 /* PrivateAPI.swift */; };
+		51533F5BFD9880F600C2705D /* CalendarAgenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FBBB447625882EDB65B58F /* CalendarAgenda.swift */; };
 		697EF1EA6426BF3EA45FB3F0 /* AXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B04486B7E87F76AD6FD7332 /* AXExtensions.swift */; };
+		6BB6057EFC648067A0C857FC /* AgendaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE646B9F631E9A1C72DFEB43 /* AgendaView.swift */; };
+		71D66CF5DAA4933A9F39D201 /* CalendarAgendaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00980688C224FD314A3E03B1 /* CalendarAgendaTests.swift */; };
 		75A515445DB9E1F1AF08BAD2 /* WindowEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0A935EAAE1709941F96E0D /* WindowEnumerator.swift */; };
 		7D6C4CCCEF06154F25C80808 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA383CCB747BD977130EF68 /* Permissions.swift */; };
 		8462C36650CB7492A320317C /* PreviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C87BFE69E7058EE66749963 /* PreviewPanel.swift */; };
@@ -42,8 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00980688C224FD314A3E03B1 /* CalendarAgendaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAgendaTests.swift; sourceTree = "<group>"; };
 		09A68D4295E5A03D160C47FE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		0C2BFDB44F0732F6085F881B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		16FBBB447625882EDB65B58F /* CalendarAgenda.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAgenda.swift; sourceTree = "<group>"; };
 		25FD8B392FB59D0E2A8E1FE7 /* DockLensFixture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DockLensFixture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D7476D81F173D5A8F67B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2C87BFE69E7058EE66749963 /* PreviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPanel.swift; sourceTree = "<group>"; };
@@ -70,6 +75,7 @@
 		D352030EDD3FCA254F3D200F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E580E0243C0D5CBC2C53DE99 /* FixtureApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureApp.swift; sourceTree = "<group>"; };
 		EBDD24B2FDE554FFDEC8FC9D /* MediaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaController.swift; sourceTree = "<group>"; };
+		EE646B9F631E9A1C72DFEB43 /* AgendaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaView.swift; sourceTree = "<group>"; };
 		FBE17F5C01D35782CDA80682 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +85,7 @@
 			children = (
 				2D1508172945FB08C997A98D /* AppSettings.swift */,
 				3B04486B7E87F76AD6FD7332 /* AXExtensions.swift */,
+				16FBBB447625882EDB65B58F /* CalendarAgenda.swift */,
 				5825C12F8F642280938B6A65 /* DockObserver.swift */,
 				EBDD24B2FDE554FFDEC8FC9D /* MediaController.swift */,
 				4AA383CCB747BD977130EF68 /* Permissions.swift */,
@@ -114,6 +121,7 @@
 		95D4217C7F5FC28E68BF40AB /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				EE646B9F631E9A1C72DFEB43 /* AgendaView.swift */,
 				09A68D4295E5A03D160C47FE /* OnboardingView.swift */,
 				8DA5F7B38FD4DCACF7CCA898 /* PanelGeometry.swift */,
 				6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */,
@@ -166,6 +174,7 @@
 		DA0DA930CF3EFF4DBBD903E2 /* DockLensTests */ = {
 			isa = PBXGroup;
 			children = (
+				00980688C224FD314A3E03B1 /* CalendarAgendaTests.swift */,
 				45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */,
 			);
 			path = DockLensTests;
@@ -298,8 +307,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				697EF1EA6426BF3EA45FB3F0 /* AXExtensions.swift in Sources */,
+				6BB6057EFC648067A0C857FC /* AgendaView.swift in Sources */,
 				2E2993D3C6E423E2ED48BE02 /* AppCoordinator.swift in Sources */,
 				AB9BA514538FA85CD2CD00DC /* AppSettings.swift in Sources */,
+				51533F5BFD9880F600C2705D /* CalendarAgenda.swift in Sources */,
 				8DDBF6CA73AFCEBD7E2EEC26 /* DockLensApp.swift in Sources */,
 				F5EEBF1698CAA023E726D44F /* DockObserver.swift in Sources */,
 				CF33999269C7F809C0BD7F31 /* MediaController.swift in Sources */,
@@ -323,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71D66CF5DAA4933A9F39D201 /* CalendarAgendaTests.swift in Sources */,
 				C4BA77A9D0FCC36B7997A12C /* PanelGeometryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

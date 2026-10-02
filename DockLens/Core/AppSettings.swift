@@ -30,6 +30,9 @@ final class AppSettings {
     /// App 沒有視窗時是否仍顯示提示面板
     var showsEmptyState: Bool { didSet { defaults.set(showsEmptyState, forKey: Key.showsEmptyState) } }
 
+    /// 游標停在「行事曆」圖示上時顯示今天的行程
+    var showsCalendarAgenda: Bool { didSet { defaults.set(showsCalendarAgenda, forKey: Key.showsCalendarAgenda) } }
+
     /// 開機自動啟動（直接讀寫 SMAppService，不另存）
     var launchAtLogin: Bool {
         get {
@@ -55,6 +58,7 @@ final class AppSettings {
         static let includesOtherSpaces = "includesOtherSpaces"
         static let showsEmptyState = "showsEmptyState"
         static let showsClosedWindows = "showsClosedWindows"
+        static let showsCalendarAgenda = "showsCalendarAgenda"
     }
 
     private init() {
@@ -66,6 +70,7 @@ final class AppSettings {
             Key.includesOtherSpaces: true,
             Key.showsEmptyState: false,
             Key.showsClosedWindows: true,
+            Key.showsCalendarAgenda: true,
         ])
         isEnabled = defaults.bool(forKey: Key.enabled)
         thumbnailHeight = defaults.double(forKey: Key.thumbnailHeight)
@@ -74,5 +79,6 @@ final class AppSettings {
         includesOtherSpaces = defaults.bool(forKey: Key.includesOtherSpaces)
         showsEmptyState = defaults.bool(forKey: Key.showsEmptyState)
         showsClosedWindows = defaults.bool(forKey: Key.showsClosedWindows)
+        showsCalendarAgenda = defaults.bool(forKey: Key.showsCalendarAgenda)
     }
 }

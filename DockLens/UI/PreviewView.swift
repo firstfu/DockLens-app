@@ -25,9 +25,12 @@ struct PreviewView: View {
             if let media = model.media {
                 MediaBarView(media: media)
             }
+            if let agenda = model.agenda {
+                AgendaView(agenda: agenda)
+            }
             if model.cards.isEmpty {
-                // 音樂 App 沒有視窗時仍有播放列可用，不再顯示「沒有開啟的視窗」
-                if model.media == nil { emptyState }
+                // 音樂 App 沒有視窗時仍有播放列可用、行事曆仍有行程，不再顯示「沒有開啟的視窗」
+                if model.media == nil && model.agenda == nil { emptyState }
             } else if model.axis == .horizontal {
                 VStack(alignment: .leading, spacing: PreviewModel.spacing) {
                     ForEach(model.groups.indices, id: \.self) { index in
@@ -73,12 +76,15 @@ struct PreviewView: View {
                     .background(.quaternary, in: Capsule())
             }
             Spacer(minLength: 16)
-            HeaderButton(symbol: "plus", help: "新增視窗", action: model.actions.newWindow)
+            HeaderButton(symbol: "plus", help: model.app == nil ? "打開 App" : "新增視窗", action: model.actions.newWindow)
                 .probe("header.new")
-            HeaderButton(symbol: "eye.slash", help: "隱藏 App", action: model.actions.hideApp)
-                .probe("header.hide")
-            HeaderButton(symbol: "power", help: "結束 App", role: .destructive, action: model.actions.quitApp)
-                .probe("header.quit")
+            // App 未執行（只顯示行程）時沒有東西可隱藏或結束
+            if model.app != nil {
+                HeaderButton(symbol: "eye.slash", help: "隱藏 App", action: model.actions.hideApp)
+                    .probe("header.hide")
+                HeaderButton(symbol: "power", help: "結束 App", role: .destructive, action: model.actions.quitApp)
+                    .probe("header.quit")
+            }
         }
         .frame(height: Self.headerHeight)
     }

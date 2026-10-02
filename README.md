@@ -17,6 +17,7 @@
 - Header actions: new window, hide app, quit app
 - Shows minimized windows and windows on other Spaces — clicking one switches to that Space
 - Spotify and Music get a playback bar: play / pause, previous, next, and the current song
+- Calendar shows today's agenda — even when Calendar isn't running: calendar colors, "in progress" / "starts in 9 min", a **Join** button for Zoom / Meet / Teams links, click an event to open it; shows tomorrow once today is done
 - Windows you closed with ✕ while the app keeps running (Notion, Slack…) stay listed — click to reopen
 - Dock on bottom, left or right; works with auto-hide, magnification and multiple displays
 
@@ -44,7 +45,7 @@ I won't build these until real people ask for them. If one matters to you, 👍 
 ## Privacy
 
 DockLens makes **no network connections at all**. Thumbnails are captured and shown locally and never leave your Mac.
-Don't take my word for it: the code that uses each permission lives in [`DockLens/Core`](DockLens/Core) — `DockObserver.swift` (Accessibility: which Dock icon you're hovering), `ThumbnailService.swift` (Screen Recording: thumbnails), `MediaController.swift` (Automation: Spotify / Music). You can also confirm there's no network traffic with a firewall such as Little Snitch or LuLu.
+Don't take my word for it: the code that uses each permission lives in [`DockLens/Core`](DockLens/Core) — `DockObserver.swift` (Accessibility: which Dock icon you're hovering), `ThumbnailService.swift` (Screen Recording: thumbnails), `MediaController.swift` (Automation: Spotify / Music), `CalendarAgenda.swift` (Calendars: read-only agenda). You can also confirm there's no network traffic with a firewall such as Little Snitch or LuLu.
 
 ## Requirements
 
@@ -60,6 +61,7 @@ macOS 26 or later.
    - **Accessibility** — to know which Dock icon you're hovering and to switch / close windows
    - **Screen Recording** — to capture window thumbnails (local only)
    - **Automation** (optional) — asked only the first time you press play on Spotify or Music
+   - **Calendars** (optional) — asked only when you click **Allow** on the Calendar preview
 
 ## Build from source
 
@@ -94,6 +96,7 @@ Tests: replace `build` with `test` in the `xcodebuild` command.
 - 標頭：開新視窗、隱藏 App、結束 App
 - 會列出已縮小的視窗、其他桌面（Space）上的視窗，點一下會切到那個桌面
 - Spotify 與音樂多一條播放列：播放／暫停、上一首、下一首，並顯示目前的歌曲
+- 行事曆顯示今天的行程（行事曆沒開也行）：日曆顏色、「進行中／9 分鐘後開始」、Zoom／Meet／Teams 連結一鍵「加入」、點行程直接打開；今天結束後改顯示明天
 - 按 ✕ 關掉但 App 還開著的視窗（Notion、Slack 等）會保留在預覽裡，點一下重新打開
 - Dock 放底部、左側、右側都能用；支援自動隱藏、放大效果、多螢幕
 
@@ -107,7 +110,7 @@ Tests: replace `build` with `test` in the `xcodebuild` command.
 ### 隱私
 
 DockLens **完全不連網**。縮圖只在你的 Mac 上擷取與顯示，不會上傳。
-不用只聽我說：用到各權限的程式碼都在 [`DockLens/Core`](DockLens/Core)——`DockObserver.swift`（輔助使用：偵測游標停在哪個 Dock 圖示）、`ThumbnailService.swift`（螢幕錄製：縮圖）、`MediaController.swift`（自動化：Spotify／音樂）。也可以用 Little Snitch、LuLu 等防火牆確認它沒有任何網路連線。
+不用只聽我說：用到各權限的程式碼都在 [`DockLens/Core`](DockLens/Core)——`DockObserver.swift`（輔助使用：偵測游標停在哪個 Dock 圖示）、`ThumbnailService.swift`（螢幕錄製：縮圖）、`MediaController.swift`（自動化：Spotify／音樂）、`CalendarAgenda.swift`（行事曆：唯讀讀取行程）。也可以用 Little Snitch、LuLu 等防火牆確認它沒有任何網路連線。
 
 ### 系統需求
 
@@ -123,6 +126,7 @@ macOS 26 以上。
    - **輔助使用**：偵測游標停在哪個 Dock 圖示、切換與關閉視窗
    - **螢幕錄製**：擷取視窗縮圖（只在本機處理）
    - **自動化**（選用）：第一次在 Spotify 或音樂按播放鈕時才會詢問
+   - **行事曆**（選用）：在行事曆的預覽上按「允許」時才會詢問
 
 ### 從原始碼建置
 

@@ -56,9 +56,27 @@ final class MediaBarModel {
     }
 }
 
+/// 「行事曆」的行程區塊狀態。
+@Observable
+final class AgendaModel {
+    let status: AgendaStatus
+    /// 在行事曆打開行程、加入會議、詢問權限、打開系統設定（由 PreviewController 實作）
+    @ObservationIgnored var open: (AgendaEvent) -> Void = { _ in }
+    @ObservationIgnored var join: (AgendaEvent) -> Void = { _ in }
+    @ObservationIgnored var requestAccess: () -> Void = {}
+    @ObservationIgnored var openSettings: () -> Void = {}
+
+    init(status: AgendaStatus) {
+        self.status = status
+    }
+}
+
 @Observable
 final class PreviewModel {
-    let app: NSRunningApplication
+    /// 目標 App；顯示未執行的「行事曆」行程時為 nil（沒有視窗、標頭不顯示隱藏／結束鈕）
+    let app: NSRunningApplication?
+    /// App 的 bundle 位置（App 未執行時就地更新、打開 App 用）
+    let appURL: URL?
     let appName: String
     let appIcon: NSImage
     let cards: [WindowCard]
@@ -69,6 +87,8 @@ final class PreviewModel {
     let showsTitles: Bool
     /// 音樂 App 才有的播放列；其他 App 為 nil
     let media: MediaBarModel?
+    /// 「行事曆」才有的行程區塊；其他 App 或已關閉此功能時為 nil
+    let agenda: AgendaModel?
     @ObservationIgnored var actions = PreviewActions()
 
     /// 用 id 快速找卡片，縮圖回呼時使用
@@ -78,25 +98,33 @@ final class PreviewModel {
 
     /// 建立模型並完成版面分組。
     /// - Parameters:
-    ///   - app: 目標 App
+    ///   - app: 目標 App（未執行時為 nil）
+    ///   - appURL: App 的 bundle 位置（未執行時用來取圖示）
+    ///   - title: Dock 圖示標題（App 未執行時當作名稱）
     ///   - windows: 已排序的視窗
+    ///   - agenda: 行程區塊狀態（只有「行事曆」才傳）
     ///   - thumbnail: 查詢快取縮圖的函式（讓面板一出現就有畫面）
     ///   - thumbnailHeight: 縮圖高度
     ///   - showsTitles: 是否顯示標題
     ///   - edge: Dock 位置
     ///   - screenSize: 可用螢幕尺寸，用於換行
     init(
-        app: NSRunningApplication, windows: [WindowInfo],
+        app: NSRunningApplication?, appURL: URL? = nil, title: String = "", windows: [WindowInfo],
+        agenda: AgendaStatus? = nil,
         thumbnail: (CGWindowID) -> CGImage?,
         thumbnailHeight: CGFloat, showsTitles: Bool, edge: DockEdge, screenSize: CGSize
     ) {
         self.app = app
-        self.appName = app.localizedName ?? "App"
-        self.appIcon = app.icon ?? NSWorkspace.shared.icon(for: .application)
+        self.appURL = app?.bundleURL ?? appURL
+        self.appName = app?.localizedName ?? (title.isEmpty ? "App" : title)
+        self.appIcon = app?.icon ?? appURL.map { NSWorkspace.shared.icon(forFile: $0.path) }
+            ?? NSWorkspace.shared.icon(for: .application)
         self.showsTitles = showsTitles
         self.axis = edge == .bottom ? .horizontal : .vertical
-        let media = MediaPlayer(bundleID: app.bundleIdentifier).map(MediaBarModel.init)
+        let media = MediaPlayer(bundleID: app?.bundleIdentifier).map(MediaBarModel.init)
         self.media = media
+        let agenda = agenda.map(AgendaModel.init)
+        self.agenda = agenda
 
         let cards = windows.map { window in
             WindowCard(
@@ -118,6 +146,7 @@ final class PreviewModel {
             lengths = cards.map { _ in WindowCardView.totalHeight(thumbnailHeight: thumbnailHeight, showsTitles: showsTitles) }
             maxLength = screenSize.height * 0.85 - 2 * PreviewView.padding - PreviewView.headerHeight
                 - (media != nil ? MediaBarView.height + PreviewView.sectionSpacing : 0)
+                - (agenda.map { AgendaView.height(for: $0.status) + PreviewView.sectionSpacing } ?? 0)
         }
         self.groups = PanelGeometry.group(lengths: lengths, maxLength: maxLength, spacing: Self.spacing)
             .map { $0.map { cards[$0] } }

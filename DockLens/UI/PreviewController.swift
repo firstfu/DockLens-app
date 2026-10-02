@@ -11,6 +11,7 @@
 //
 
 import AppKit
+import EventKit
 import SwiftUI
 import os
 
@@ -30,6 +31,8 @@ final class PreviewController {
     private var hideTask: Task<Void, Never>?
     private var clickMonitor: Any?
     private var moveMonitor: Any?
+    /// 面板顯示行程期間才掛上的 EKEventStoreChanged 監聽
+    private var calendarObserver: NSObjectProtocol?
     private var isHidePending = false
     /// Dock 所在的帶狀區域（Cocoa 座標）；游標在此區或面板內時不收起面板
     private var dockBand: CGRect = .zero
@@ -99,6 +102,17 @@ final class PreviewController {
         cancelPendingHide()
 
         guard let app = runningApp(for: item) else {
+            // 「行事曆」沒開也能看行程：游標停上時直接顯示今天的行程
+            if showsAgenda(for: item.appURL) {
+                if panel.isVisible && model?.app == nil && model?.appURL == item.appURL {
+                    showTask?.cancel()
+                    return
+                }
+                let delay: Duration = panel.isVisible ? .zero : .milliseconds(Int(settings.hoverDelay * 1000))
+                showTask?.cancel()
+                showTask = Task { [weak self] in await self?.prepareAndShow(app: nil, item: item, delay: delay) }
+                return
+            }
             log.notice("找不到執行中的 App：\(item.appURL?.path ?? "nil", privacy: .public)")
             // 未執行的 App：沒有視窗可預覽
             showTask?.cancel()
@@ -119,9 +133,26 @@ final class PreviewController {
 
     // MARK: - 顯示流程
 
-    /// - Parameter previousOrder: 就地更新時沿用的卡片順序（視窗 ID）；nil 表示依最近使用排序
-    private func prepareAndShow(app: NSRunningApplication, item: DockItem, delay: Duration, previousOrder: [CGWindowID]? = nil) async {
+    /// - Parameters:
+    ///   - app: 目標 App；nil 表示未執行的「行事曆」（只顯示行程）
+    ///   - previousOrder: 就地更新時沿用的卡片順序（視窗 ID）；nil 表示依最近使用排序
+    private func prepareAndShow(app: NSRunningApplication?, item: DockItem, delay: Duration, previousOrder: [CGWindowID]? = nil) async {
         let start = ContinuousClock.now
+        let appURL = app?.bundleURL ?? item.appURL
+        // 行程與視窗列舉並行：EventKit 查詢是本機資料庫，通常幾毫秒內完成
+        let agendaTask: Task<AgendaStatus, Never>? = showsAgenda(for: appURL)
+            ? Task.detached(priority: .userInitiated) { CalendarAgenda.status() } : nil
+        guard let app else {
+            guard let agenda = await agendaTask?.value, !Task.isCancelled else { return }
+            await presentAfterDelay(
+                PreviewModel(app: nil, appURL: appURL, title: item.title, windows: [], agenda: agenda,
+                             thumbnail: { _ in nil }, thumbnailHeight: settings.thumbnailHeight,
+                             showsTitles: settings.showsTitles, edge: DockPreferences.current.edge,
+                             screenSize: screen(near: item.frame).visibleFrame.size),
+                item: item, start: start, delay: delay
+            )
+            return
+        }
         let pid = app.processIdentifier
         let includeOtherSpaces = settings.includesOtherSpaces
         let includeClosed = settings.showsClosedWindows
@@ -129,6 +160,7 @@ final class PreviewController {
         var windows = await Task.detached(priority: .userInitiated) {
             WindowEnumerator.windows(for: pid, includeOtherSpaces: includeOtherSpaces, includeClosed: includeClosed)
         }.value
+        let agenda = await agendaTask?.value
         // 就地更新（剛關掉/縮小視窗）時若列到 0 個：AX 已看不到被關的視窗，但 WindowServer 可能還沒把它標為
         // 「不在畫面上」，這段空窗期裡按 X 只是藏起來的視窗會被漏掉。稍等再確認，最多兩次，才決定收起面板。
         if previousOrder != nil {
@@ -157,8 +189,8 @@ final class PreviewController {
         guard !Task.isCancelled else { return }
         log.notice("列舉 \(app.localizedName ?? "", privacy: .public)：\(windows.count) 個視窗，耗時 \(ContinuousClock.now - start, privacy: .public)")
 
-        // 音樂 App 沒有視窗時仍顯示面板：播放列本身就有用
-        if windows.isEmpty && !settings.showsEmptyState && MediaPlayer(bundleID: app.bundleIdentifier) == nil {
+        // 音樂 App、行事曆沒有視窗時仍顯示面板：播放列與行程本身就有用
+        if windows.isEmpty && !settings.showsEmptyState && MediaPlayer(bundleID: app.bundleIdentifier) == nil && agenda == nil {
             // 就地更新（剛關掉最後一個視窗）時直接收起；途中擦過的空 App 則給寬限
             if previousOrder != nil { hide() } else { dismissForUnpreviewableItem() }
             return
@@ -168,22 +200,30 @@ final class PreviewController {
         let dockPrefs = DockPreferences.current
         let edge = dockPrefs.edge
         let model = PreviewModel(
-            app: app, windows: windows,
+            app: app, windows: windows, agenda: agenda,
             thumbnail: { [thumbnails] in thumbnails.cached($0)?.image },
             thumbnailHeight: settings.thumbnailHeight,
             showsTitles: settings.showsTitles,
             edge: edge,
             screenSize: screen.visibleFrame.size
         )
-        model.actions = makeActions(for: model)
-        if let media = model.media { connect(media) }
-
         // 延遲期間就開始拍：面板出現時縮圖已經是新的
         let maxPixelWidth = Int(settings.thumbnailHeight * PanelGeometry.maxAspect * screen.backingScaleFactor)
         thumbnails.capture(windows, maxPixelWidth: maxPixelWidth) { [weak self, weak model] id, thumbnail in
             model?.apply(thumbnail.image, to: id)
             self?.markReadyIfComplete()
         }
+        await presentAfterDelay(model, item: item, start: start, delay: delay, dockPrefs: dockPrefs, screen: screen)
+    }
+
+    /// 接上動作、等滿懸停延遲後顯示面板。
+    private func presentAfterDelay(
+        _ model: PreviewModel, item: DockItem, start: ContinuousClock.Instant, delay: Duration,
+        dockPrefs: DockPreferences = .current, screen: NSScreen? = nil
+    ) async {
+        model.actions = makeActions(for: model)
+        if let media = model.media { connect(media) }
+        if let agenda = model.agenda { connect(agenda) }
 
         let remaining = delay - (ContinuousClock.now - start)
         if remaining > .zero {
@@ -191,14 +231,15 @@ final class PreviewController {
         }
         guard !Task.isCancelled, hoveredItem != nil || isMouseInPanel else { return }
 
-        present(model, icon: item.frame, dockPrefs: dockPrefs, screen: screen)
-        log.notice("預覽 \(model.appName, privacy: .public)（\(windows.count) 個視窗）顯示耗時 \(ContinuousClock.now - start, privacy: .public)")
+        present(model, icon: item.frame, dockPrefs: dockPrefs, screen: screen ?? self.screen(near: item.frame))
+        log.notice("預覽 \(model.appName, privacy: .public)（\(model.cards.count) 個視窗）顯示耗時 \(ContinuousClock.now - start, privacy: .public)")
     }
 
     private func present(_ model: PreviewModel, icon axFrame: CGRect, dockPrefs: DockPreferences, screen: NSScreen) {
         self.model = model
         if metrics?.title == hoveredItem?.title { metrics?.presentedAt = .now }
-        currentPID = model.app.processIdentifier
+        currentPID = model.app?.processIdentifier
+        observeCalendarChanges(model.agenda != nil)
 
         // hover 事件當下的圖示位置可能還在放大/滑出動畫中，顯示前再向 Dock 查一次即時位置
         var iconFrame = axFrame
@@ -279,17 +320,14 @@ final class PreviewController {
     private func refresh(after delay: Duration = .milliseconds(180)) {
         guard let model else { return }
         let app = model.app
-        let icon = anchorIcon
+        let item = DockItem(title: model.appName, appURL: model.appURL, frame: anchorIcon)
         let order = model.cards.map(\.id)
         showTask?.cancel()
         showTask = Task { [weak self] in
             try? await Task.sleep(for: delay)
-            guard let self, !Task.isCancelled, !app.isTerminated else { self?.hide(); return }
+            guard let self, !Task.isCancelled, app?.isTerminated != true else { self?.hide(); return }
             self.currentPID = nil
-            await self.prepareAndShow(
-                app: app, item: DockItem(title: "", appURL: app.bundleURL, frame: icon),
-                delay: .zero, previousOrder: order
-            )
+            await self.prepareAndShow(app: app, item: item, delay: .zero, previousOrder: order)
         }
     }
 
@@ -355,6 +393,7 @@ final class PreviewController {
         hostingView.rootView = AnyView(EmptyView())
         model = nil
         currentPID = nil
+        observeCalendarChanges(false)
         isMouseInPanel = false
         removeMonitors()
     }
@@ -404,7 +443,14 @@ final class PreviewController {
     // MARK: - 動作
 
     private func makeActions(for model: PreviewModel) -> PreviewActions {
-        let app = model.app
+        guard let app = model.app else {
+            // App 未執行（只顯示行程）：只有「打開 App」可用
+            let url = model.appURL
+            return PreviewActions(newWindow: { [weak self] in
+                self?.hide()
+                if let url { NSWorkspace.shared.openApplication(at: url, configuration: NSWorkspace.OpenConfiguration()) }
+            })
+        }
         return PreviewActions(
             focus: { [weak self] card in
                 self?.hide()
@@ -464,6 +510,52 @@ final class PreviewController {
         Task { [weak media] in
             let status = await MediaController.status(of: player)
             media?.status = status
+        }
+    }
+
+    // MARK: - 行程
+
+    /// 這個 App 是否要顯示行程區塊（「行事曆」且設定開啟）。
+    private func showsAgenda(for appURL: URL?) -> Bool {
+        guard settings.showsCalendarAgenda, let appURL else { return false }
+        return Bundle(url: appURL)?.bundleIdentifier == CalendarAgenda.calendarBundleID
+    }
+
+    /// 接上行程區塊的動作。
+    private func connect(_ agenda: AgendaModel) {
+        agenda.open = { [weak self] event in
+            self?.hide()
+            CalendarAgenda.open(event)
+        }
+        agenda.join = { [weak self] event in
+            self?.hide()
+            if let url = event.meetingURL { NSWorkspace.shared.open(url) }
+        }
+        agenda.requestAccess = { [weak self] in
+            Task { [weak self] in
+                _ = await CalendarAgenda.requestAccess()
+                // 授權後行數會變，面板大小要重算：走就地更新重建內容
+                self?.refresh(after: .zero)
+            }
+        }
+        agenda.openSettings = { [weak self] in
+            self?.hide()
+            CalendarAgenda.openPrivacySettings()
+        }
+    }
+
+    /// 面板顯示行程期間監聽行事曆資料變動（新增／修改行程、同步完成），變動時就地更新；面板收起即移除。
+    private func observeCalendarChanges(_ enabled: Bool) {
+        if !enabled {
+            if let calendarObserver { NotificationCenter.default.removeObserver(calendarObserver) }
+            calendarObserver = nil
+            return
+        }
+        guard calendarObserver == nil else { return }
+        calendarObserver = NotificationCenter.default.addObserver(
+            forName: .EKEventStoreChanged, object: nil, queue: .main
+        ) { [weak self] _ in
+            MainActor.assumeIsolated { self?.refresh(after: .milliseconds(100)) }
         }
     }
 
