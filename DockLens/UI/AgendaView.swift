@@ -71,6 +71,14 @@ struct AgendaView: View {
         }
     }
 
+    /// 介面實際使用的語言（App 有翻譯的語言中最符合使用者偏好者）＋使用者的地區。
+    /// 為什麼不用 `Locale.current`：使用者的系統語言若是 App 沒翻譯的語言，介面會退回英文，日期與時間長度卻會照系統語言格式化，混成兩種語言。
+    static let uiLocale: Locale = {
+        let language = Bundle.main.preferredLocalizations.first ?? "en"
+        guard let region = Locale.current.region?.identifier else { return Locale(identifier: language) }
+        return Locale(identifier: "\(language)_\(region)")
+    }()
+
     /// 顯示中那一天的 00:00
     private static func dayStart(_ day: AgendaDay, now: Date) -> Date {
         let today = Calendar.current.startOfDay(for: now)
@@ -82,8 +90,8 @@ struct AgendaView: View {
         return HStack(spacing: 6) {
             Text(day.kind == .today ? "今天" : "明天")
                 .font(.system(size: 12, weight: .semibold))
-            // App 沒有本地化資源，系統會以英文格式化日期；介面文字全是繁中，日期也固定用繁中（10月2日 週五）
-            Text(date.formatted(Date.FormatStyle(locale: Locale(identifier: "zh-Hant-TW")).month().day().weekday(.abbreviated)))
+            // 用介面語言格式化（而不是系統地區），日期才會和旁邊的「今天／明天」同一種語言
+            Text(date.formatted(Date.FormatStyle(locale: Self.uiLocale).month().day().weekday(.abbreviated)))
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
             if day.kind == .tomorrow {
@@ -106,6 +114,7 @@ struct AgendaView: View {
                 .font(.system(size: 12))
                 .foregroundStyle(.secondary)
                 .lineLimit(2)
+                .minimumScaleFactor(0.85)
                 .fixedSize(horizontal: false, vertical: true)
             Spacer(minLength: 8)
             trailing()
@@ -141,6 +150,7 @@ private struct AgendaRow: View {
                             Text(detail.text)
                                 .font(.system(size: 11, weight: detail.emphasized ? .medium : .regular))
                                 .foregroundStyle(detail.emphasized ? AnyShapeStyle(detail.tint) : AnyShapeStyle(.secondary))
+                                .minimumScaleFactor(0.85)
                         }
                     }
                     .lineLimit(1)
@@ -184,6 +194,9 @@ private struct AgendaRow: View {
             Text("全天")
                 .font(.system(size: 11, weight: .medium))
                 .foregroundStyle(.secondary)
+                // 時間欄寬度固定，較長的翻譯（例如 Ganztägig）縮小字級塞進去
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
         } else {
             VStack(alignment: .leading, spacing: 1) {
                 Text(startLabel)
@@ -199,19 +212,21 @@ private struct AgendaRow: View {
 
     /// 前一天就開始的跨日行程不顯示前一天的時間，改標「跨日」
     private var startLabel: String {
-        event.start < dayStart ? "跨日" : Self.timeFormatter.string(from: event.start)
+        event.start < dayStart ? String(localized: "跨日", comment: "前一天就開始的行程，時間欄很窄，請盡量短") : Self.timeFormatter.string(from: event.start)
     }
 
     /// 第二行：進行中／即將開始優先，其次是地點（地點只是會議網址時改寫成「視訊會議」）
     private var detail: (text: String, emphasized: Bool, tint: Color)? {
         if isOngoing {
-            return ("進行中 · 還剩 \(Self.duration(event.end.timeIntervalSince(now)))", true, color)
+            let left = Self.duration(event.end.timeIntervalSince(now))
+            return (String(localized: "進行中 · 還剩 \(left)", comment: "%@ 為剩餘時間，例如「25 分鐘」"), true, color)
         }
         if !event.isAllDay, event.start > now, event.start.timeIntervalSince(now) <= 60 * 60 {
-            return ("\(Self.duration(event.start.timeIntervalSince(now)))後開始", true, .orange)
+            let until = Self.duration(event.start.timeIntervalSince(now))
+            return (String(localized: "\(until)後開始", comment: "%@ 為距離開始的時間，例如「9 分鐘」"), true, .orange)
         }
         if let location = event.location, !location.contains("://") { return (location, false, .secondary) }
-        if event.meetingURL != nil { return ("視訊會議", false, .secondary) }
+        if event.meetingURL != nil { return (String(localized: "視訊會議"), false, .secondary) }
         return nil
     }
 
@@ -223,12 +238,12 @@ private struct AgendaRow: View {
         return formatter
     }()
 
-    /// 把秒數寫成「5 分鐘」「1 小時 20 分鐘」（不足 1 分鐘算 1 分鐘）。
+    /// 把秒數寫成介面語言的時間長度，例如「25分鐘」「1小時20分鐘」「1 hr, 20 min」（不足 1 分鐘算 1 分鐘）。
+    /// 交給系統格式化：各語言的單位、複數、數字寫法都不同，自己拼字串只會對中文正確。
     static func duration(_ seconds: TimeInterval) -> String {
         let minutes = max(1, Int((seconds / 60).rounded(.up)))
-        if minutes < 60 { return "\(minutes) 分鐘" }
-        let hours = minutes / 60, rest = minutes % 60
-        return rest == 0 ? "\(hours) 小時" : "\(hours) 小時 \(rest) 分鐘"
+        return Duration.seconds(minutes * 60)
+            .formatted(.units(allowed: [.hours, .minutes], width: .abbreviated).locale(AgendaView.uiLocale))
     }
 }
 

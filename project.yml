@@ -33,8 +33,8 @@ targets:
         LSApplicationCategoryType: public.app-category.productivity
         LSMinimumSystemVersion: "26.0"
         NSHumanReadableCopyright: "© 2026 firstfu"
-        NSAppleEventsUsageDescription: "DockLens 用來控制 Spotify／音樂的播放（播放、暫停、上一首、下一首）並顯示目前播放的歌曲。"
-        NSCalendarsFullAccessUsageDescription: "DockLens 在滑過「行事曆」Dock 圖示時顯示今天的行程；只在本機讀取，不會修改或上傳。"
+        NSAppleEventsUsageDescription: "DockLens uses this to control Spotify or Music playback (play, pause, previous, next) and to show the current song."
+        NSCalendarsFullAccessUsageDescription: "DockLens shows today’s events when you hover the Calendar icon in the Dock. Your calendars are read on your Mac only and are never changed or uploaded."
     entitlements:
       path: DockLens/Resources/DockLens.entitlements
       properties:

@@ -29,6 +29,10 @@ final class AppCoordinator {
     /// App 啟動時呼叫：有輔助使用就開始運作；缺權限時顯示引導視窗並輪詢。
     /// 螢幕錄製是選用的：沒有時以無縮圖模式運作，引導視窗只在使用者還沒表態過時出現。
     func launch() {
+        #if DEBUG
+        // 翻譯排版檢查只畫假資料，不啟動任何服務、不跳引導
+        if UIRender.outputDirectory != nil { return }
+        #endif
         updates.applyAutoCheckSetting()
         permissions.onAccessibilityGranted = { [weak self] in
             guard let self else { return }
@@ -98,10 +102,14 @@ final class AppCoordinator {
             window.titlebarAppearsTransparent = true
             window.titleVisibility = .hidden
             window.isReleasedWhenClosed = false
-            window.contentView = NSHostingView(rootView: OnboardingView(
+            // 視窗高度跟著內容走：翻譯長度各語言差很多（德文、俄文比中文長一倍以上），
+            // 授權後底部說明也會換掉，固定高度會截字或留白
+            let controller = NSHostingController(rootView: OnboardingView(
                 permissions: permissions,
                 continueWithoutScreenRecording: { [weak self] in self?.continueWithoutScreenRecording() }
             ))
+            controller.sizingOptions = [.preferredContentSize]
+            window.contentViewController = controller
             window.center()
             // 關掉引導時：已能運作就停止輪詢（閒置不該每秒喚醒）；還缺輔助使用則繼續等，授權後自動開始
             NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: window, queue: .main) { [weak self] _ in

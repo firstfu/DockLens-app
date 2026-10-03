@@ -23,7 +23,9 @@ struct SettingsView: View {
                         Slider(value: $settings.thumbnailHeight, in: 90...280, step: 10)
                         Text("\(Int(settings.thumbnailHeight)) pt")
                             .monospacedDigit()
-                            .frame(width: 52, alignment: .trailing)
+                            // 單位長度因語言而異（ms／毫秒／миллисекунд），用最小寬度＋不換行，不要固定寬度
+                            .lineLimit(1)
+                            .frame(minWidth: 52, alignment: .trailing)
                     }
                 }
                 Toggle("顯示視窗標題", isOn: $settings.showsTitles)
@@ -34,7 +36,9 @@ struct SettingsView: View {
                         Slider(value: $settings.hoverDelay, in: 0...0.8, step: 0.02)
                         Text("\(Int(settings.hoverDelay * 1000)) ms")
                             .monospacedDigit()
-                            .frame(width: 52, alignment: .trailing)
+                            // 單位長度因語言而異（ms／毫秒／миллисекунд），用最小寬度＋不換行，不要固定寬度
+                            .lineLimit(1)
+                            .frame(minWidth: 52, alignment: .trailing)
                     }
                 }
                 Toggle("包含其他桌面（Space）的視窗", isOn: $settings.includesOtherSpaces)

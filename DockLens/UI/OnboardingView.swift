@@ -101,7 +101,9 @@ private struct StepCard: View {
                         .padding(.vertical, 1)
                         .background(.quaternary, in: Capsule())
                 }
+                // 翻譯長度差很多：說明要能換成多行，卡片高度跟著長
                 Text(detail).font(.callout).foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             Spacer()
             if granted {

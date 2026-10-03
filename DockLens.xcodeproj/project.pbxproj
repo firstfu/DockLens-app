@@ -15,6 +15,7 @@
 		2B4F16B1C2BBCAB31E5C5D4C /* FixtureApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E580E0243C0D5CBC2C53DE99 /* FixtureApp.swift */; };
 		2E2993D3C6E423E2ED48BE02 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2BFDB44F0732F6085F881B /* AppCoordinator.swift */; };
 		40E06295F8F4CD7BE1D6E7C5 /* PrivateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368F0824EF34F42447014524 /* PrivateAPI.swift */; };
+		474B8D3FB6F5E21B29122734 /* UIRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A61FA72481AE4010F87DE6 /* UIRender.swift */; };
 		51533F5BFD9880F600C2705D /* CalendarAgenda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FBBB447625882EDB65B58F /* CalendarAgenda.swift */; };
 		697EF1EA6426BF3EA45FB3F0 /* AXExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B04486B7E87F76AD6FD7332 /* AXExtensions.swift */; };
 		6BB6057EFC648067A0C857FC /* AgendaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE646B9F631E9A1C72DFEB43 /* AgendaView.swift */; };
@@ -24,7 +25,9 @@
 		7D6C4CCCEF06154F25C80808 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA383CCB747BD977130EF68 /* Permissions.swift */; };
 		8462C36650CB7492A320317C /* PreviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C87BFE69E7058EE66749963 /* PreviewPanel.swift */; };
 		8DDBF6CA73AFCEBD7E2EEC26 /* DockLensApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF33E8BBEE2844A72F07E203 /* DockLensApp.swift */; };
+		8FE2A775EE4521B7A46D2B67 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 43FD1E735D8DE682B0AF09FF /* InfoPlist.xcstrings */; };
 		9D55D424371A21C1CE4CBB31 /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */; };
+		A4FA27D002B99C8CDE06D967 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 65E961A92C9CCBA5E0A8FDAE /* Localizable.xcstrings */; };
 		AB9BA514538FA85CD2CD00DC /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1508172945FB08C997A98D /* AppSettings.swift */; };
 		B1D8FAA7963F5CD24AFFD131 /* UpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49A70AFAE4CFFB8117F953B /* UpdateChecker.swift */; };
 		B3D44495BD6E49EF66E23982 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A68D4295E5A03D160C47FE /* OnboardingView.swift */; };
@@ -61,9 +64,12 @@
 		368F0824EF34F42447014524 /* PrivateAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateAPI.swift; sourceTree = "<group>"; };
 		39E3DBE38C0631338146E0AF /* PreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModel.swift; sourceTree = "<group>"; };
 		3B04486B7E87F76AD6FD7332 /* AXExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXExtensions.swift; sourceTree = "<group>"; };
+		40A61FA72481AE4010F87DE6 /* UIRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIRender.swift; sourceTree = "<group>"; };
+		43FD1E735D8DE682B0AF09FF /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelGeometryTests.swift; sourceTree = "<group>"; };
 		4AA383CCB747BD977130EF68 /* Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
 		5825C12F8F642280938B6A65 /* DockObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockObserver.swift; sourceTree = "<group>"; };
+		65E961A92C9CCBA5E0A8FDAE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		65EA262D8D8C10C170608755 /* NoScreenRecordingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoScreenRecordingTests.swift; sourceTree = "<group>"; };
 		6C0A935EAAE1709941F96E0D /* WindowEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEnumerator.swift; sourceTree = "<group>"; };
 		6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
@@ -123,6 +129,8 @@
 				D352030EDD3FCA254F3D200F /* Assets.xcassets */,
 				B56BBD105695400C593B84DA /* DockLens.entitlements */,
 				29D7476D81F173D5A8F67B62 /* Info.plist */,
+				43FD1E735D8DE682B0AF09FF /* InfoPlist.xcstrings */,
+				65E961A92C9CCBA5E0A8FDAE /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -198,6 +206,7 @@
 				0C2BFDB44F0732F6085F881B /* AppCoordinator.swift */,
 				BF33E8BBEE2844A72F07E203 /* DockLensApp.swift */,
 				BF26E7E8487B4378AE6840CA /* SelfTest.swift */,
+				40A61FA72481AE4010F87DE6 /* UIRender.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -286,7 +295,40 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				ar,
+				ca,
+				cs,
+				da,
+				de,
+				el,
 				en,
+				es,
+				fi,
+				fr,
+				he,
+				hi,
+				hr,
+				hu,
+				id,
+				it,
+				ja,
+				ko,
+				ms,
+				nb,
+				nl,
+				pl,
+				"pt-BR",
+				"pt-PT",
+				ro,
+				ru,
+				sk,
+				sv,
+				th,
+				tr,
+				uk,
+				vi,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = C43DBFB7DCFEFF44D4EDD4AC;
 			minimizedProjectReferenceProxies = 1;
@@ -308,6 +350,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0A3B185F371B128A40D4FD2 /* Assets.xcassets in Resources */,
+				8FE2A775EE4521B7A46D2B67 /* InfoPlist.xcstrings in Resources */,
+				A4FA27D002B99C8CDE06D967 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +382,7 @@
 				270D976FBB52A08B6BE1A90F /* SelfTest.swift in Sources */,
 				EB298199D68E980098DFC809 /* SettingsView.swift in Sources */,
 				19D90FB67EDC9533346B6AAD /* ThumbnailService.swift in Sources */,
+				474B8D3FB6F5E21B29122734 /* UIRender.swift in Sources */,
 				B1D8FAA7963F5CD24AFFD131 /* UpdateChecker.swift in Sources */,
 				DBDAF7295FA5346365F86D09 /* WindowActions.swift in Sources */,
 				75A515445DB9E1F1AF08BAD2 /* WindowEnumerator.swift in Sources */,

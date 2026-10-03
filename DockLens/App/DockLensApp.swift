@@ -39,6 +39,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if CommandLine.arguments.contains("--register-login-item") {
             AppSettings.shared.launchAtLogin = true
         }
+        #if DEBUG
+        if let directory = UIRender.outputDirectory {
+            Task { await UIRender.run(coordinator: AppCoordinator.shared, to: directory) }
+            return
+        }
+        #endif
         if CommandLine.arguments.contains("--probe-label") {
             Task { await SelfTest.probeLabel(coordinator: AppCoordinator.shared) }
         } else if SelfTest.isRequested {

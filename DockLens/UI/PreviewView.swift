@@ -78,22 +78,31 @@ struct PreviewView: View {
                     .background(.quaternary, in: Capsule())
             }
             Spacer(minLength: 16)
-            HeaderButton(symbol: "plus", help: model.app == nil ? "打開 App" : "新增視窗", action: model.actions.newWindow)
+            HeaderButton(symbol: "plus", help: model.app == nil ? String(localized: "打開 App") : String(localized: "新增視窗"),
+                         action: model.actions.newWindow)
                 .probe("header.new")
             // App 未執行（只顯示行程）時沒有東西可隱藏或結束
             if model.app != nil {
-                HeaderButton(symbol: "eye.slash", help: "隱藏 App\(shortcutHint("H"))", action: model.actions.hideApp)
+                HeaderButton(symbol: "eye.slash", help: withShortcut(String(localized: "隱藏 App"), "H"), action: model.actions.hideApp)
                     .probe("header.hide")
-                HeaderButton(symbol: "power", help: "結束 App\(shortcutHint("Q"))", role: .destructive, action: model.actions.quitApp)
+                HeaderButton(symbol: "power", help: withShortcut(String(localized: "結束 App"), "Q"), role: .destructive, action: model.actions.quitApp)
                     .probe("header.quit")
             }
         }
         .frame(height: Self.headerHeight)
     }
 
-    /// 按鈕提示後附的快捷鍵，例如「（H）」；快捷鍵停用時為空字串。
-    private func shortcutHint(_ key: String) -> String {
-        model.showsShortcutHints ? "（\(key)）" : ""
+    private func withShortcut(_ text: String, _ key: String) -> String {
+        PreviewView.withShortcut(text, key, shows: model.showsShortcutHints)
+    }
+
+    /// 按鈕提示後附上單鍵快捷鍵，例如「隱藏 App（H）」；括號寫法各語言不同（中日文全形、其他半形），交給翻譯決定。
+    /// - Parameters:
+    ///   - text: 已翻譯的提示文字
+    ///   - key: 快捷鍵字母
+    ///   - shows: 是否附上（快捷鍵停用時不附）
+    static func withShortcut(_ text: String, _ key: String, shows: Bool) -> String {
+        shows ? String(localized: "\(text)（\(key)）", comment: "按鈕提示＋單鍵快捷鍵，例如「隱藏 App（H）」") : text
     }
 
     private var emptyState: some View {
@@ -118,13 +127,13 @@ struct MediaBarView: View {
             .frame(height: Self.height)
             .overlay(alignment: .leading) {
                 HStack(spacing: 6) {
-                    MediaButton(symbol: "backward.fill", help: "上一首") { media.send(.previous) }
+                    MediaButton(symbol: "backward.fill", help: String(localized: "上一首")) { media.send(.previous) }
                         .probe("media.previous")
-                    MediaButton(symbol: isPlaying ? "pause.fill" : "play.fill", help: isPlaying ? "暫停" : "播放", prominent: true) {
+                    MediaButton(symbol: isPlaying ? "pause.fill" : "play.fill", help: isPlaying ? String(localized: "暫停") : String(localized: "播放"), prominent: true) {
                         media.send(.playPause)
                     }
                     .probe("media.playpause")
-                    MediaButton(symbol: "forward.fill", help: "下一首") { media.send(.next) }
+                    MediaButton(symbol: "forward.fill", help: String(localized: "下一首")) { media.send(.next) }
                         .probe("media.next")
                     VStack(alignment: .leading, spacing: 1) {
                         Text(title)
@@ -136,7 +145,9 @@ struct MediaBarView: View {
                         }
                     }
                     .lineLimit(1)
+                    .minimumScaleFactor(0.85)
                     .truncationMode(.tail)
+                    .help([title, subtitle].compactMap { $0 }.joined(separator: "\n"))
                     .padding(.leading, 4)
                 }
             }
@@ -149,19 +160,19 @@ struct MediaBarView: View {
 
     private var title: String {
         switch media.status {
-        case .loading: "讀取中…"
-        case .needsPermission: "按播放鈕以允許控制\(media.player.displayName)"
-        case .denied: "未允許控制\(media.player.displayName)"
-        case .stopped: "未在播放"
+        case .loading: String(localized: "讀取中…")
+        case .needsPermission: String(localized: "按播放鈕以允許控制\(media.player.displayName)", comment: "%@ 為 Spotify 或「音樂」App")
+        case .denied: String(localized: "未允許控制\(media.player.displayName)", comment: "%@ 為 Spotify 或「音樂」App")
+        case .stopped: String(localized: "未在播放")
         case .track(let track): track.title
-        case .unavailable: "無法讀取播放狀態"
+        case .unavailable: String(localized: "無法讀取播放狀態")
         }
     }
 
     private var subtitle: String? {
         switch media.status {
         case .track(let track): track.artist.isEmpty ? nil : track.artist
-        case .denied: "系統設定 › 隱私權與安全性 › 自動化"
+        case .denied: String(localized: "系統設定 › 隱私權與安全性 › 自動化", comment: "macOS 系統設定的路徑，請用該語言 macOS 的實際名稱")
         default: nil
         }
     }
@@ -192,7 +203,8 @@ private struct MediaButton: View {
 /// 標頭右側的小圓鈕。
 private struct HeaderButton: View {
     let symbol: String
-    let help: LocalizedStringKey
+    /// 已翻譯的提示文字（可能附上快捷鍵，所以不是 LocalizedStringKey）
+    let help: String
     var role: ButtonRole?
     let action: () -> Void
     @State private var isHovering = false
@@ -258,7 +270,7 @@ struct WindowCardView: View {
                     if showsThumbnails { badge.padding(6) }
                 }
             if showsTitles {
-                Text(card.window.title.isEmpty ? "未命名視窗" : card.window.title)
+                Text(card.window.title.isEmpty ? String(localized: "未命名視窗") : card.window.title)
                     .font(.system(size: 11, weight: .medium))
                     .foregroundStyle(isHovering ? .primary : .secondary)
                     .lineLimit(1)
@@ -280,9 +292,9 @@ struct WindowCardView: View {
             card.frameInPanel = frame
         }
         .onTapGesture { actions.focus(card) }
-        .help(card.window.isClosed ? "點擊重新打開" : card.window.title)
+        .help(card.window.isClosed ? String(localized: "點擊重新打開") : card.window.title)
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(card.window.title.isEmpty ? "未命名視窗" : card.window.title)
+        .accessibilityLabel(card.window.title.isEmpty ? String(localized: "未命名視窗") : card.window.title)
         .accessibilityAddTraits(.isButton)
         .accessibilityAction { actions.focus(card) }
     }
@@ -321,7 +333,7 @@ struct WindowCardView: View {
                 .resizable()
                 .frame(width: 32, height: 32)
             VStack(alignment: .leading, spacing: 2) {
-                Text(card.window.title.isEmpty ? "未命名視窗" : card.window.title)
+                Text(card.window.title.isEmpty ? String(localized: "未命名視窗") : card.window.title)
                     .font(.system(size: 12, weight: .medium))
                     .foregroundStyle(isHovering ? .primary : .secondary)
                     .lineLimit(statusText == nil ? 2 : 1)
@@ -363,19 +375,18 @@ struct WindowCardView: View {
         }
     }
 
-    /// 按鈕提示後附的快捷鍵，例如「（W）」；快捷鍵停用時為空字串。
-    private func shortcutHint(_ key: String) -> String {
-        showsShortcutHints ? "（\(key)）" : ""
+    private func withShortcut(_ text: String, _ key: String) -> String {
+        PreviewView.withShortcut(text, key, shows: showsShortcutHints)
     }
 
     private var controls: some View {
         HStack(spacing: 6) {
-            TrafficLight(color: .red, symbol: "xmark", help: "關閉視窗\(shortcutHint("W"))") { actions.close(card) }
+            TrafficLight(color: .red, symbol: "xmark", help: withShortcut(String(localized: "關閉視窗"), "W")) { actions.close(card) }
                 .probe("close.\(card.id)")
             TrafficLight(color: .yellow, symbol: card.window.isMinimized ? "plus" : "minus",
-                         help: "\(card.window.isMinimized ? "還原視窗" : "縮到 Dock")\(shortcutHint("M"))") { actions.minimize(card) }
+                         help: withShortcut(card.window.isMinimized ? String(localized: "還原視窗") : String(localized: "縮到 Dock"), "M")) { actions.minimize(card) }
                 .probe("minimize.\(card.id)")
-            TrafficLight(color: .green, symbol: "arrow.up.left.and.arrow.down.right", help: "全螢幕") {
+            TrafficLight(color: .green, symbol: "arrow.up.left.and.arrow.down.right", help: String(localized: "全螢幕")) {
                 actions.toggleFullScreen(card)
             }
             .probe("fullscreen.\(card.id)")
@@ -388,7 +399,8 @@ struct WindowCardView: View {
 private struct TrafficLight: View {
     let color: Color
     let symbol: String
-    let help: LocalizedStringKey
+    /// 已翻譯的提示文字（可能附上快捷鍵）
+    let help: String
     let action: () -> Void
 
     var body: some View {
@@ -417,6 +429,10 @@ private struct BadgeLabel: View {
         Label(text, systemImage: symbol)
             .font(.system(size: 10, weight: .semibold))
             .labelStyle(.titleAndIcon)
+            // 翻譯後可能比中文長很多（德文、俄文），不換行、太長就截斷，不撐破卡片
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
+            .truncationMode(.tail)
             .padding(.horizontal, 7)
             .padding(.vertical, 3)
             .background(.ultraThinMaterial, in: Capsule())
@@ -492,25 +508,32 @@ private struct ProbeModifier: ViewModifier {
 #if DEBUG
 extension PreviewModel {
     /// 產生示範用模型：數個不同長寬比、狀態的假視窗。
-    static func sample(edge: DockEdge = .bottom) -> PreviewModel {
-        let specs: [(String, CGSize, Bool, Bool)] = [
-            ("DockLens — PreviewView.swift", CGSize(width: 1440, height: 900), false, false),
-            ("設計稿 v3.fig", CGSize(width: 1280, height: 800), false, false),
-            ("終端機 — zsh", CGSize(width: 800, height: 600), true, false),
-            ("文件 — 其他桌面", CGSize(width: 1200, height: 900), false, true),
+    /// - Parameters:
+    ///   - edge: Dock 位置
+    ///   - showsThumbnails: false 時為無縮圖模式
+    static func sample(edge: DockEdge = .bottom, showsThumbnails: Bool = true) -> PreviewModel {
+        // (標題, 尺寸, 已縮小, 其他桌面, 已關閉)：涵蓋每一種狀態標籤，檢查翻譯後標籤會不會撐破卡片
+        let specs: [(String, CGSize, Bool, Bool, Bool)] = [
+            ("DockLens — PreviewView.swift", CGSize(width: 1440, height: 900), false, false, false),
+            ("Design v3.fig", CGSize(width: 1280, height: 800), false, false, false),
+            ("Terminal — zsh", CGSize(width: 800, height: 600), true, false, false),
+            ("Notes — Desktop 2", CGSize(width: 1200, height: 900), false, true, false),
+            ("Inbox", CGSize(width: 900, height: 900), false, false, true),
         ]
         let windows = specs.enumerated().map { index, spec in
-            WindowInfo(
+            var window = WindowInfo(
                 id: CGWindowID(index + 1), pid: 0, title: spec.0,
                 frame: CGRect(origin: .zero, size: spec.1),
                 isMinimized: spec.2, isOnOtherSpace: spec.3, ax: nil
             )
+            window.isClosed = spec.4
+            return window
         }
-        let hues: [CGFloat] = [0.6, 0.08, 0.35, 0.8]
+        let hues: [CGFloat] = [0.6, 0.08, 0.35, 0.8, 0.5]
         return PreviewModel(
             app: .current, windows: windows,
             thumbnail: { id in sampleImage(hue: hues[Int(id - 1) % hues.count]) },
-            thumbnailHeight: 150, showsTitles: true, edge: edge,
+            thumbnailHeight: 150, showsTitles: true, showsThumbnails: showsThumbnails, edge: edge,
             screenSize: CGSize(width: 1728, height: 1080)
         )
     }

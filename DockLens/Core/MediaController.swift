@@ -28,7 +28,7 @@ nonisolated enum MediaPlayer: Sendable, Equatable {
 
     var bundleID: String { self == .spotify ? "com.spotify.client" : "com.apple.Music" }
     /// 介面上顯示的名稱
-    var displayName: String { self == .spotify ? "Spotify" : "音樂" }
+    var displayName: String { self == .spotify ? "Spotify" : String(localized: "音樂", comment: "Apple 的「音樂」App，請用該語言 macOS 上的 App 名稱") }
 }
 
 /// 播放指令；rawValue 為 Spotify 與音樂共用的 AppleScript 指令。

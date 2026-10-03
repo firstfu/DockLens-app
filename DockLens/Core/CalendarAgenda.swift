@@ -202,7 +202,7 @@ nonisolated enum CalendarAgenda {
         let location = event.location?.trimmingCharacters(in: .whitespacesAndNewlines)
         return AgendaEvent(
             eventID: event.calendarItemIdentifier,
-            title: (event.title?.isEmpty == false ? event.title : nil) ?? "（無標題）",
+            title: (event.title?.isEmpty == false ? event.title : nil) ?? String(localized: "（無標題）", comment: "沒有標題的行事曆行程"),
             start: event.startDate,
             end: event.endDate,
             isAllDay: event.isAllDay,

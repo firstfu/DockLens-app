@@ -1,0 +1,426 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "NSAppleEventsUsageDescription": {
+      "comment": "macOS permission prompt text. 'Music' = Apple's Music app name in your language",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يستخدم DockLens هذا للتحكم في تشغيل Spotify أو الموسيقى (تشغيل، إيقاف مؤقت، السابق، التالي) ولعرض الأغنية الحالية."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens ho fa servir per controlar la reproducció de Spotify o Música (reproduir, pausa, anterior, següent) i mostrar la cançó actual."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens to používá k ovládání přehrávání ve Spotify nebo v Hudbě (přehrát, pozastavit, předchozí, další) a k zobrazení aktuální skladby."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens bruger dette til at styre afspilningen i Spotify eller Musik (afspil, pause, forrige, næste) og vise det aktuelle nummer."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens verwendet dies, um die Wiedergabe in Spotify oder Musik zu steuern (Wiedergabe, Pause, zurück, weiter) und den aktuellen Titel anzuzeigen."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Το DockLens το χρησιμοποιεί για να ελέγχει την αναπαραγωγή στο Spotify ή στη Μουσική (αναπαραγωγή, παύση, προηγούμενο, επόμενο) και να εμφανίζει το τρέχον τραγούδι."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens uses this to control Spotify or Music playback (play, pause, previous, next) and to show the current song."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens lo usa para controlar la reproducción de Spotify o Música (reproducir, pausar, anterior, siguiente) y mostrar la canción actual."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens käyttää tätä Spotifyn tai Musiikin toiston ohjaamiseen (toista, keskeytä, edellinen, seuraava) ja soivan kappaleen näyttämiseen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens utilise cette autorisation pour contrôler la lecture dans Spotify ou Musique (lecture, pause, précédent, suivant) et afficher le morceau en cours."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens משתמש בזה כדי לשלוט בניגון ב־Spotify או ב״מוזיקה״ (נגן, השהה, הקודם, הבא) וכדי להציג את השיר הנוכחי."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens इसका उपयोग Spotify या संगीत के प्लेबैक को नियंत्रित करने (चलाएँ, पॉज़, पिछला, अगला) और वर्तमान गाना दिखाने के लिए करता है।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens ovo koristi za upravljanje reprodukcijom u aplikaciji Spotify ili Glazba (reprodukcija, pauza, prethodna, sljedeća) i za prikaz trenutačne pjesme."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A DockLens ezzel vezérli a Spotify vagy a Zene lejátszását (lejátszás, szünet, előző, következő), és megjeleníti az aktuális dalt."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens menggunakan ini untuk mengontrol pemutaran Spotify atau Musik (putar, jeda, sebelumnya, berikutnya) dan menampilkan lagu yang sedang diputar."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens usa questo permesso per controllare la riproduzione di Spotify o Musica (riproduci, pausa, precedente, successivo) e mostrare il brano in ascolto."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLensはSpotifyまたは“ミュージック”の再生（再生、一時停止、前へ、次へ）を制御し、再生中の曲を表示するためにこれを使用します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens는 이 권한을 사용하여 Spotify 또는 음악 앱의 재생(재생, 일시 정지, 이전, 다음)을 제어하고 현재 노래를 표시합니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens menggunakan ini untuk mengawal main balik Spotify atau Muzik (main, jeda, sebelumnya, seterusnya) dan menunjukkan lagu semasa."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens bruker dette til å styre avspillingen i Spotify eller Musikk (spill av, pause, forrige, neste) og vise sangen som spilles."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens gebruikt dit om het afspelen in Spotify of Muziek te bedienen (afspelen, pauzeren, vorige, volgende) en het huidige nummer te tonen."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens używa tego do sterowania odtwarzaniem w Spotify lub Muzyce (odtwarzanie, pauza, poprzedni, następny) oraz do wyświetlania bieżącego utworu."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O DockLens usa isso para controlar a reprodução no Spotify ou no app Música (reproduzir, pausar, anterior, próxima) e mostrar a música atual."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O DockLens usa isto para controlar a reprodução no Spotify ou na app Música (reproduzir, pausa, anterior, seguinte) e mostrar a música atual."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens folosește această permisiune pentru a controla redarea în Spotify sau Muzică (redare, pauză, anterior, următor) și pentru a afișa melodia curentă."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens использует это для управления воспроизведением в Spotify или Музыке (воспроизведение, пауза, предыдущий и следующий трек) и для показа текущей песни."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens to používa na ovládanie prehrávania v Spotify alebo v Hudbe (prehrať, pozastaviť, predchádzajúca, ďalšia) a na zobrazenie aktuálnej skladby."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens använder detta för att styra uppspelningen i Spotify eller Musik (spela upp, pausa, föregående, nästa) och visa den aktuella låten."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens ใช้สิ่งนี้เพื่อควบคุมการเล่นของ Spotify หรือเพลง (เล่น หยุดชั่วคราว ก่อนหน้า ถัดไป) และแสดงเพลงที่กำลังเล่นอยู่"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens bu izni Spotify veya Müzik’te çalmayı denetlemek (çal, duraklat, önceki, sonraki) ve o an çalan şarkıyı göstermek için kullanır."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens використовує це, щоб керувати відтворенням у Spotify або Музиці (відтворення, пауза, попередній і наступний трек) і показувати поточну пісню."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens dùng quyền này để điều khiển phát lại trên Spotify hoặc Nhạc (phát, tạm dừng, bài trước, bài tiếp theo) và hiển thị bài hát hiện tại."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens 使用此权限控制 Spotify 或“音乐”的播放（播放、暂停、上一首、下一首）并显示当前歌曲。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens 用來控制 Spotify／音樂的播放（播放、暫停、上一首、下一首）並顯示目前播放的歌曲。"
+          }
+        }
+      }
+    },
+    "NSCalendarsFullAccessUsageDescription": {
+      "comment": "macOS permission prompt text. 'Calendar' = Apple's Calendar app name in your language",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض DockLens أحداث اليوم عند تمرير المؤشر فوق أيقونة التقويم في Dock. تتم قراءة تقاويمك على الـ Mac فقط ولا يتم تغييرها أو رفعها أبدًا."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens mostra els esdeveniments d’avui quan passes el punter per sobre de la icona del Calendari al Dock. Els teus calendaris només es llegeixen al Mac i mai no es modifiquen ni es pugen."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens zobrazuje dnešní události, když najedete na ikonu Kalendáře v Docku. Kalendáře se čtou jen na tomto Macu a nikdy se nemění ani neodesílají."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens viser dagens begivenheder, når du holder markøren over Kalender-symbolet i Dock. Dine kalendere læses kun på din Mac og bliver aldrig ændret eller uploadet."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens zeigt die heutigen Ereignisse an, wenn du im Dock auf das Kalender-Symbol zeigst. Deine Kalender werden nur auf deinem Mac gelesen und nie geändert oder hochgeladen."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Το DockLens εμφανίζει τα σημερινά συμβάντα όταν αφήνετε τον δείκτη πάνω στο εικονίδιο του Ημερολογίου στο Dock. Τα ημερολόγιά σας διαβάζονται μόνο στο Mac σας και δεν τροποποιούνται ούτε αποστέλλονται ποτέ."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens shows today’s events when you hover the Calendar icon in the Dock. Your calendars are read on your Mac only and are never changed or uploaded."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens muestra los eventos de hoy cuando pasas el puntero sobre el icono de Calendario en el Dock. Tus calendarios solo se leen en tu Mac y nunca se modifican ni se suben."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens näyttää tämän päivän tapahtumat, kun pidät osoitinta Dockin Kalenteri-symbolin päällä. Kalentereitasi luetaan vain Macissasi, eikä niitä koskaan muuteta tai ladata palvelimelle."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens affiche les événements du jour lorsque vous survolez l’icône Calendrier dans le Dock. Vos calendriers sont lus uniquement sur votre Mac et ne sont jamais modifiés ni téléversés."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens מציג את אירועי היום כשמרחפים מעל הצלמית של ״לוח שנה״ ב־Dock. לוחות השנה שלך נקראים ב־Mac שלך בלבד ולעולם אינם משתנים או מועלים."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "जब आप Dock में कैलेंडर आइकॉन पर होवर करते हैं, तो DockLens आज के इवेंट दिखाता है। आपके कैलेंडर सिर्फ़ आपके Mac पर पढ़े जाते हैं और कभी बदले या अपलोड नहीं किए जाते।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens prikazuje današnje događaje kad zadržite pokazivač iznad ikone Kalendara u Docku. Vaši se kalendari čitaju samo na vašem Macu i nikad se ne mijenjaju niti prenose."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A DockLens megjeleníti a mai eseményeket, ha a mutatót a Dockban lévő Naptár ikonra viszed. A naptáraidat csak a Maceden olvassa, soha nem módosítja és nem tölti fel őket."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens menampilkan acara hari ini saat Anda mengarahkan penunjuk ke ikon Kalender di Dock. Kalender Anda hanya dibaca di Mac Anda dan tidak pernah diubah atau diunggah."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens mostra gli eventi di oggi quando passi il puntatore sull’icona di Calendario nel Dock. I tuoi calendari vengono letti solo sul Mac e non vengono mai modificati né caricati."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dockの“カレンダー”アイコンにポインタを置くと、DockLensが今日の予定を表示します。カレンダーはこのMac上でのみ読み込まれ、変更やアップロードは一切行われません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dock의 캘린더 아이콘 위에 포인터를 올리면 DockLens가 오늘의 이벤트를 표시합니다. 캘린더는 사용자의 Mac에서만 읽히며 변경되거나 업로드되지 않습니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens menunjukkan acara hari ini apabila anda menuding pada ikon Kalendar dalam Dock. Kalendar anda dibaca pada Mac anda sahaja dan tidak sekali-kali diubah atau dimuat naik."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens viser dagens hendelser når du holder pekeren over Kalender-symbolet i Dock. Kalenderne dine leses bare på Macen din og blir aldri endret eller lastet opp."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens toont de activiteiten van vandaag wanneer je de aanwijzer op het Agenda-symbool in het Dock houdt. Je agenda’s worden alleen op je Mac gelezen en nooit gewijzigd of geüpload."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens pokazuje dzisiejsze wydarzenia po najechaniu na ikonę Kalendarza w Docku. Kalendarze są odczytywane tylko na tym Macu i nigdy nie są zmieniane ani wysyłane."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O DockLens mostra os eventos de hoje quando você passa o cursor sobre o ícone do Calendário no Dock. Seus calendários são lidos apenas no seu Mac e nunca são alterados nem enviados."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O DockLens mostra os eventos de hoje quando passa o cursor sobre o ícone do Calendário na Dock. Os seus calendários são lidos apenas no seu Mac e nunca são alterados nem enviados."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens afișează evenimentele de azi când treci cu cursorul peste pictograma Calendar din Dock. Calendarele tale sunt citite doar pe Mac-ul tău și nu sunt niciodată modificate sau încărcate."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens показывает события на сегодня при наведении на значок Календаря в Dock. Календари читаются только на этом Mac и никогда не изменяются и не загружаются."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens zobrazuje dnešné udalosti, keď prejdete na ikonu Kalendára v Docku. Kalendáre sa čítajú len na tomto Macu a nikdy sa nemenia ani neodosielajú."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens visar dagens händelser när du håller pekaren över Kalender-symbolen i Dock. Dina kalendrar läses bara på din Mac och ändras eller laddas aldrig upp."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens จะแสดงกิจกรรมของวันนี้เมื่อคุณวางตัวชี้บนไอคอนปฏิทินใน Dock ปฏิทินของคุณจะถูกอ่านบน Mac ของคุณเท่านั้น และจะไม่ถูกเปลี่ยนแปลงหรืออัปโหลด"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens, Dock’taki Takvim simgesinin üzerine geldiğinizde bugünün etkinliklerini gösterir. Takvimleriniz yalnızca Mac’inizde okunur; hiçbir zaman değiştirilmez veya yüklenmez."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens показує сьогоднішні події, коли ви наводите курсор на значок Календаря в Dock. Календарі зчитуються лише на цьому Mac і ніколи не змінюються та не вивантажуються."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens hiển thị sự kiện hôm nay khi bạn di con trỏ qua biểu tượng Lịch trên Dock. Lịch của bạn chỉ được đọc trên máy Mac này và không bao giờ bị thay đổi hay tải lên."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将指针悬停在程序坞中的“日历”图标上时，DockLens 会显示今天的日程。你的日历仅在这台 Mac 上读取，绝不会被更改或上传。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DockLens 在滑過「行事曆」Dock 圖示時顯示今天的行程；只在本機讀取，不會修改或上傳。"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

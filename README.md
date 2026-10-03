@@ -20,6 +20,7 @@
 - Spotify and Music get a playback bar: play / pause, previous, next, and the current song
 - Calendar shows today's agenda — even when Calendar isn't running: calendar colors, "in progress" / "starts in 9 min", a **Join** button for Zoom / Meet / Teams links, click an event to open it; shows tomorrow once today is done
 - Windows you closed with ✕ while the app keeps running (Notion, Slack…) stay listed — click to reopen
+- Speaks your language: 34 languages, following your macOS language setting (English, 简体中文, 繁體中文, 日本語, 한국어, Deutsch, Français, Español, Italiano, Português, Русский, العربية, עברית, हिन्दी, Türkçe, Nederlands, Svenska, Polski, Українська, Tiếng Việt, ไทย, Bahasa Indonesia and more — see Settings or `DockLens/Resources/Localizable.xcstrings`). Translations were made with AI assistance and not every one has been checked by a native speaker — corrections are welcome as [issues](../../issues) or pull requests.
 - Works without Screen Recording: skip it and the preview shows each window as app icon + title — switching, closing and minimizing all still work
 - Dock on bottom, left or right; works with auto-hide, magnification and multiple displays
 
@@ -106,6 +107,7 @@ Tests: replace `build` with `test` in the `xcodebuild` command.
 - Spotify 與音樂多一條播放列：播放／暫停、上一首、下一首，並顯示目前的歌曲
 - 行事曆顯示今天的行程（行事曆沒開也行）：日曆顏色、「進行中／9 分鐘後開始」、Zoom／Meet／Teams 連結一鍵「加入」、點行程直接打開；今天結束後改顯示明天
 - 按 ✕ 關掉但 App 還開著的視窗（Notion、Slack 等）會保留在預覽裡，點一下重新打開
+- 支援 34 種語言，跟隨 macOS 的語言設定（English、简体中文、繁體中文、日本語、한국어、Deutsch、Français、Español、Русский、العربية、हिन्दी、Türkçe、Tiếng Việt、ไทย 等，完整清單見 `DockLens/Resources/Localizable.xcstrings`）。翻譯由 AI 協助完成，不是每一種都經過母語者檢查，歡迎用 [issue](../../issues) 或 pull request 指正
 - 不給螢幕錄製也能用：預覽改以 App 圖示＋視窗標題顯示，切換、關閉、縮小照常可用
 - Dock 放底部、左側、右側都能用；支援自動隱藏、放大效果、多螢幕
 
