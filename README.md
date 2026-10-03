@@ -162,7 +162,7 @@ Quit DockLens from the menu bar, delete `DockLens.app` from `/Applications` (or 
 
 ## Languages
 
-34 interface languages, chosen by your macOS language setting. The translations are **AI-assisted and not all checked by native speakers**. If something reads wrong, please [report a translation fix](../../issues/new?template=translation.yml) or send a pull request (strings live in `DockLens/Resources/Localizable.xcstrings`).
+34 interface languages, chosen by your macOS language setting. The translations are **AI-assisted and not all checked by native speakers**. If something reads wrong, please [report a translation fix](../../issues/new?template=translation.yml) or send a pull request (strings live in `DockLens/Resources/Localizable.xcstrings`). **Native speakers wanted:** see [issue #6](../../issues/6) to help check your language.
 
 <p align="center">
   <img src="assets/languages.png" width="780" alt="The welcome window in English, Traditional Chinese, Japanese, German, French, Spanish, Arabic and Russian">

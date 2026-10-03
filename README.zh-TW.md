@@ -162,7 +162,7 @@ DockLens 還沒有經過 Apple 公證。到 系統設定 → 隱私權與安全�
 
 ## 語言
 
-34 種介面語言，依你的 macOS 語言設定。翻譯由 **AI 協助完成，不是每一種都經過母語者檢查**。哪裡不通順，歡迎用[翻譯勘誤表單](../../issues/new?template=translation.yml)或 pull request 指正（字串在 `DockLens/Resources/Localizable.xcstrings`）。
+34 種介面語言，依你的 macOS 語言設定。翻譯由 **AI 協助完成，不是每一種都經過母語者檢查**。哪裡不通順，歡迎用[翻譯勘誤表單](../../issues/new?template=translation.yml)或 pull request 指正（字串在 `DockLens/Resources/Localizable.xcstrings`）。**徵求母語者**：想幫忙檢查你的語言，請看 [issue #6](../../issues/6)。
 
 <p align="center">
   <img src="assets/languages.png" width="780" alt="歡迎視窗的英文、繁體中文、日文、德文、法文、西班牙文、阿拉伯文與俄文版本">
