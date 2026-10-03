@@ -164,7 +164,10 @@ final class SelfTestRunner {
             }
 
             _ = await hoverDock(appURL: url, expectPanelFor: app.processIdentifier, timeout: .milliseconds(1500))
-            _ = await waitUntil(.seconds(1)) { self.preview.metrics?.readyAt != nil }
+            // 無縮圖模式沒有「縮圖就緒」可等
+            if ScreenRecordingAccess.isGranted {
+                _ = await waitUntil(.seconds(1)) { self.preview.metrics?.readyAt != nil }
+            }
             // 讓淡入動畫完成再截圖
             try? await Task.sleep(for: .milliseconds(200))
             let model = preview.currentModel
@@ -318,11 +321,20 @@ final class SelfTestRunner {
 
         // 1. 顯示預覽
         var shown = await hoverDock(appURL: url, expectPanelFor: pid)
-        let thumbnailsReady = await waitUntil(.seconds(1)) {
-            self.preview.currentModel?.cards.allSatisfy { $0.thumbnail != nil } == true
-        }
         let cardCount = preview.currentModel?.cards.count ?? 0
-        record("預覽面板列出 3 個視窗且縮圖就緒", shown && cardCount == 3 && thumbnailsReady, "卡片 \(cardCount)")
+        if ScreenRecordingAccess.isGranted {
+            let thumbnailsReady = await waitUntil(.seconds(1)) {
+                self.preview.currentModel?.cards.allSatisfy { $0.thumbnail != nil } == true
+            }
+            record("預覽面板列出 3 個視窗且縮圖就緒", shown && cardCount == 3 && thumbnailsReady, "卡片 \(cardCount)")
+        } else {
+            // 無縮圖模式（--simulate-no-screen-recording）：卡片是圖示＋標題，標題必須從 AX 讀到
+            let model = preview.currentModel
+            let titles = model?.cards.map(\.window.title) ?? []
+            let listMode = model?.showsThumbnails == false && model?.cards.allSatisfy { $0.thumbnail == nil } == true
+            record("無縮圖模式：面板列出 3 個視窗與標題", shown && cardCount == 3 && listMode && !titles.contains(""),
+                   "卡片 \(cardCount)、標題 \(titles)")
+        }
         try? await Task.sleep(for: .milliseconds(200))
         _ = savePanelScreenshot("fixture")
         checkPanelPlacement(appTitle: "DockLensFixture")

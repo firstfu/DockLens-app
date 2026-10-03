@@ -64,6 +64,41 @@ nonisolated enum AXRemote {
         }
         return nil
     }
+
+    /// 一次掃描找出多個視窗的 AX 標題（含其他 Space 上、以及按 X 後被 App 藏起來的視窗）。
+    ///
+    /// 為什麼需要：沒有螢幕錄製權限時，CGWindowList 不給其他 App 的視窗標題，
+    /// 而這些視窗又不在 `kAXWindowsAttribute` 裡，只能用遠端 token 逐一建立元素來讀。
+    /// 成本與 `windowElement` 相同（掃一輪約 20ms），全部找到就提早結束。
+    /// ⚠️ App 只在有人查過它的 AX 視窗後才替視窗分配元素編號（實測 macOS 27）：從沒在目前桌面被列舉過的視窗可能找不到。
+    /// - Parameters:
+    ///   - pid: 視窗所屬 App 的 pid
+    ///   - windowIDs: 要找標題的視窗
+    ///   - maxElementID: 最多嘗試到的元素編號
+    /// - Returns: 視窗 ID → 標題（只含找到且標題非空者）；私有 API 不可用時為空
+    static func titles(pid: pid_t, windowIDs: Set<CGWindowID>, maxElementID: UInt64 = 1000) -> [CGWindowID: String] {
+        guard let createFn, !windowIDs.isEmpty else { return [:] }
+        var token = Data(count: 20)
+        token.replaceSubrange(0..<4, with: withUnsafeBytes(of: pid) { Data($0) })
+        token.replaceSubrange(8..<12, with: withUnsafeBytes(of: Int32(0x636f636f)) { Data($0) })
+        var result: [CGWindowID: String] = [:]
+        var remaining = windowIDs
+        for elementID in 0..<maxElementID where !remaining.isEmpty {
+            token.replaceSubrange(12..<20, with: withUnsafeBytes(of: elementID) { Data($0) })
+            guard let element = createFn(token as CFData)?.takeRetainedValue() else { continue }
+            var found: CGWindowID = 0
+            guard _AXUIElementGetWindow(element, &found) == .success, remaining.contains(found) else { continue }
+            // 視窗裡的按鈕等子元素也回報同一個視窗 ID，而且編號常比視窗本身小：
+            // 不是視窗就改讀它所屬的視窗；讀到標題才算找到，否則繼續掃（後面可能還有視窗元素本身）
+            AXUIElementSetMessagingTimeout(element, 0.5)
+            let window: AXUIElement? = element.role == kAXWindowRole as String ? element : element.value(kAXWindowAttribute)
+            if let title = window?.title, !title.isEmpty {
+                result[found] = title
+                remaining.remove(found)
+            }
+        }
+        return result
+    }
 }
 
 // MARK: - SkyLight（動態載入）

@@ -159,6 +159,8 @@ final class PreviewController {
             return
         }
         let pid = app.processIdentifier
+        // 每次顯示都重新判斷：使用者可能剛在系統設定開啟或關閉螢幕錄製
+        let showsThumbnails = ScreenRecordingAccess.isGranted
         let includeOtherSpaces = settings.includesOtherSpaces
         let includeClosed = settings.showsClosedWindows
         // 列舉在背景執行緒（AX IPC 遇到忙碌的 App 可能要數十毫秒）
@@ -180,7 +182,8 @@ final class PreviewController {
             windows = Self.keepingOrder(windows, previous: previousOrder)
         }
         // 最後一道防線：無標題、非縮小、非「已關閉」的視窗若拍不出畫面，就是 App 的隱形輔助視窗，
-        // 留著只會顯示「未命名視窗」的空白卡片（列舉規則漏網時兜底）
+        // 留著只會顯示「未命名視窗」的空白卡片（列舉規則漏網時兜底）。
+        // 無縮圖模式無從試拍，這類視窗一律略過（canCapture 直接回 false）：寧可少列，不列出點了沒反應的卡片。
         let probeWidth = Int(settings.thumbnailHeight * PanelGeometry.maxAspect * 2)
         if windows.contains(where: { $0.title.isEmpty && !$0.isMinimized && !$0.isClosed }) {
             let service = thumbnails
@@ -209,6 +212,7 @@ final class PreviewController {
             thumbnail: { [thumbnails] in thumbnails.cached($0)?.image },
             thumbnailHeight: settings.thumbnailHeight,
             showsTitles: settings.showsTitles,
+            showsThumbnails: showsThumbnails,
             edge: edge,
             screenSize: screen.visibleFrame.size
         )

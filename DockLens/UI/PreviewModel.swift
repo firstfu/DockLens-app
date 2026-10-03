@@ -85,6 +85,8 @@ final class PreviewModel {
     /// `.horizontal`：Dock 在底部，卡片橫向排、多列往上疊；`.vertical`：Dock 在側邊，卡片直向排
     let axis: Axis
     let showsTitles: Bool
+    /// 是否顯示縮圖；false 為無縮圖模式（沒有螢幕錄製權限），卡片改為圖示＋標題的長條
+    let showsThumbnails: Bool
     /// 音樂 App 才有的播放列；其他 App 為 nil
     let media: MediaBarModel?
     /// 「行事曆」才有的行程區塊；其他 App 或已關閉此功能時為 nil
@@ -107,32 +109,37 @@ final class PreviewModel {
     ///   - agenda: 行程區塊狀態（只有「行事曆」才傳）
     ///   - thumbnail: 查詢快取縮圖的函式（讓面板一出現就有畫面）
     ///   - thumbnailHeight: 縮圖高度
-    ///   - showsTitles: 是否顯示標題
+    ///   - showsTitles: 是否在縮圖下方顯示標題（無縮圖模式的標題在卡片內，不另外顯示）
+    ///   - showsThumbnails: 是否顯示縮圖（false 為無縮圖模式）
     ///   - edge: Dock 位置
     ///   - screenSize: 可用螢幕尺寸，用於換行
     init(
         app: NSRunningApplication?, appURL: URL? = nil, title: String = "", windows: [WindowInfo],
         agenda: AgendaStatus? = nil,
         thumbnail: (CGWindowID) -> CGImage?,
-        thumbnailHeight: CGFloat, showsTitles: Bool, edge: DockEdge, screenSize: CGSize
+        thumbnailHeight: CGFloat, showsTitles: Bool, showsThumbnails: Bool = true, edge: DockEdge, screenSize: CGSize
     ) {
         self.app = app
         self.appURL = app?.bundleURL ?? appURL
         self.appName = app?.localizedName ?? (title.isEmpty ? "App" : title)
         self.appIcon = app?.icon ?? appURL.map { NSWorkspace.shared.icon(forFile: $0.path) }
             ?? NSWorkspace.shared.icon(for: .application)
+        let showsTitles = showsTitles && showsThumbnails
         self.showsTitles = showsTitles
+        self.showsThumbnails = showsThumbnails
         self.axis = edge == .bottom ? .horizontal : .vertical
         let media = MediaPlayer(bundleID: app?.bundleIdentifier).map(MediaBarModel.init)
         self.media = media
         let agenda = agenda.map(AgendaModel.init)
         self.agenda = agenda
 
+        let listSize = PanelGeometry.listCardSize(thumbnailHeight: thumbnailHeight)
         let cards = windows.map { window in
             WindowCard(
                 window: window,
-                thumbnail: thumbnail(window.id),
-                thumbnailSize: PanelGeometry.thumbnailSize(aspectRatio: window.aspectRatio, height: thumbnailHeight)
+                thumbnail: showsThumbnails ? thumbnail(window.id) : nil,
+                thumbnailSize: showsThumbnails
+                    ? PanelGeometry.thumbnailSize(aspectRatio: window.aspectRatio, height: thumbnailHeight) : listSize
             )
         }
         self.cards = cards
@@ -145,7 +152,8 @@ final class PreviewModel {
             lengths = cards.map { $0.thumbnailSize.width + WindowCardView.horizontalPadding * 2 }
             maxLength = screenSize.width * 0.9 - 2 * PreviewView.padding
         } else {
-            lengths = cards.map { _ in WindowCardView.totalHeight(thumbnailHeight: thumbnailHeight, showsTitles: showsTitles) }
+            let cardHeight = showsThumbnails ? thumbnailHeight : listSize.height
+            lengths = cards.map { _ in WindowCardView.totalHeight(thumbnailHeight: cardHeight, showsTitles: showsTitles) }
             maxLength = screenSize.height * 0.85 - 2 * PreviewView.padding - PreviewView.headerHeight
                 - (media != nil ? MediaBarView.height + PreviewView.sectionSpacing : 0)
                 - (agenda.map { AgendaView.height(for: $0.status) + PreviewView.sectionSpacing } ?? 0)

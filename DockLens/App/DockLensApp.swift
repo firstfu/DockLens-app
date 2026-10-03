@@ -60,8 +60,11 @@ private struct MenuContent: View {
         }
         Toggle("啟用視窗預覽", isOn: $settings.isEnabled)
             .keyboardShortcut("e")
-        if !coordinator.permissions.allGranted {
+        if !coordinator.permissions.accessibility {
             Button("授予權限…") { coordinator.showOnboarding() }
+        } else if !coordinator.permissions.screenRecording {
+            // 選用權限：無縮圖模式下照常運作，只提供開啟縮圖的入口
+            Button("開啟視窗縮圖…") { coordinator.showOnboarding() }
         }
         Divider()
         Button("設定…") {

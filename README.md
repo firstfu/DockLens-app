@@ -20,6 +20,7 @@
 - Spotify and Music get a playback bar: play / pause, previous, next, and the current song
 - Calendar shows today's agenda — even when Calendar isn't running: calendar colors, "in progress" / "starts in 9 min", a **Join** button for Zoom / Meet / Teams links, click an event to open it; shows tomorrow once today is done
 - Windows you closed with ✕ while the app keeps running (Notion, Slack…) stay listed — click to reopen
+- Works without Screen Recording: skip it and the preview shows each window as app icon + title — switching, closing and minimizing all still work
 - Dock on bottom, left or right; works with auto-hide, magnification and multiple displays
 
 <img src="assets/screenshot-spotify.png" width="360" alt="Spotify preview with the playback bar: play / pause, previous, next and the current song">
@@ -58,9 +59,9 @@ macOS 26 or later.
 2. Move `DockLens.app` to `/Applications`.
 3. Open it. macOS will block it the first time, because DockLens isn't notarized by Apple yet:
    - Open **System Settings → Privacy & Security**, scroll down, click **Open Anyway** next to *"DockLens" was blocked to protect your Mac.*
-4. Grant the two permissions the onboarding asks for:
-   - **Accessibility** — to know which Dock icon you're hovering and to switch / close windows
-   - **Screen Recording** — to capture window thumbnails (local only)
+4. Grant the permissions the onboarding asks for:
+   - **Accessibility** (required) — to know which Dock icon you're hovering and to switch / close windows
+   - **Screen Recording** (optional) — to capture window thumbnails (local only). Without it, the preview lists windows by app icon and title instead; you can turn thumbnails on later in Settings
    - **Automation** (optional) — asked only the first time you press play on Spotify or Music
    - **Calendars** (optional) — asked only when you click **Allow** on the Calendar preview
 
@@ -105,6 +106,7 @@ Tests: replace `build` with `test` in the `xcodebuild` command.
 - Spotify 與音樂多一條播放列：播放／暫停、上一首、下一首，並顯示目前的歌曲
 - 行事曆顯示今天的行程（行事曆沒開也行）：日曆顏色、「進行中／9 分鐘後開始」、Zoom／Meet／Teams 連結一鍵「加入」、點行程直接打開；今天結束後改顯示明天
 - 按 ✕ 關掉但 App 還開著的視窗（Notion、Slack 等）會保留在預覽裡，點一下重新打開
+- 不給螢幕錄製也能用：預覽改以 App 圖示＋視窗標題顯示，切換、關閉、縮小照常可用
 - Dock 放底部、左側、右側都能用；支援自動隱藏、放大效果、多螢幕
 
 ### 考慮中的功能：請用 👍 投票
@@ -130,9 +132,9 @@ macOS 26 以上。
 2. 把 `DockLens.app` 拖進「應用程式」資料夾
 3. 打開它。第一次會被系統擋下（DockLens 還沒經過 Apple 公證）：
    到 **系統設定 → 隱私權與安全性**，往下捲，找到「已阻擋『DockLens』以保護你的Mac。」這行，按旁邊的 **強制打開**
-4. 依引導開啟兩個權限：
-   - **輔助使用**：偵測游標停在哪個 Dock 圖示、切換與關閉視窗
-   - **螢幕錄製**：擷取視窗縮圖（只在本機處理）
+4. 依引導開啟權限：
+   - **輔助使用**（必要）：偵測游標停在哪個 Dock 圖示、切換與關閉視窗
+   - **螢幕錄製**（選用）：擷取視窗縮圖（只在本機處理）。不給的話，預覽改以 App 圖示和視窗標題列出視窗，之後可在設定裡開啟縮圖
    - **自動化**（選用）：第一次在 Spotify 或音樂按播放鈕時才會詢問
    - **行事曆**（選用）：在行事曆的預覽上按「允許」時才會詢問
 

@@ -8,6 +8,7 @@
 //    但只回傳「目前桌面（Space）」上的視窗。
 //  - CGWindowList：涵蓋所有 Space，也提供前後層次（z-order）；但混有大量隱藏的輔助視窗（例如自動填寫面板）。
 //  以 AX 為主、CG 補上其他 Space 的具名視窗，兼顧正確性與完整性。
+//  沒有螢幕錄製權限時 CG 不給其他 App 的視窗標題，其他 Space／已關閉的視窗改以 AX 遠端元素讀標題。
 //
 
 import AppKit
@@ -55,9 +56,13 @@ nonisolated enum WindowEnumerator {
     ///   - pid: 目標 App 的 pid
     ///   - includeOtherSpaces: 是否納入其他桌面上的視窗
     ///   - includeClosed: App 沒有任何開著的視窗時，是否納入「按 X 關掉但仍保留」的視窗（供點擊重新打開）
+    ///   - windowServerTitles: CGWindowList 是否給得出標題（= 有螢幕錄製權限）；false 時忽略 CG 標題、改讀 AX
     /// - Returns: 視窗清單（可能為空）
-    static func windows(for pid: pid_t, includeOtherSpaces: Bool, includeClosed: Bool = false) -> [WindowInfo] {
-        let cgWindows = cgWindowList(for: pid)
+    static func windows(
+        for pid: pid_t, includeOtherSpaces: Bool, includeClosed: Bool = false,
+        windowServerTitles: Bool = ScreenRecordingAccess.isGranted
+    ) -> [WindowInfo] {
+        var cgWindows = cgWindowList(for: pid, includesTitles: windowServerTitles)
         // CGWindowList 由前到後排列，索引即 z-order
         var zOrder: [CGWindowID: Int] = [:]
         for (index, entry) in cgWindows.enumerated() { zOrder[entry.id] = index }
@@ -135,9 +140,13 @@ nonisolated enum WindowEnumerator {
         // - 屬於某個 Space 但「沒排上」（ordered out）：按 X 關掉但 App 還保留（實測 Notion 即是）→ 可重新打開
         // 私有 API 不可用時退回「具標題」的保守條件，一律視為其他桌面。
         var closedCandidates: [CGEntry] = []
+        // App 沒回應（AX 逾時）時不補標題：掃描要對它做上千次 AX 呼叫，每次都可能等到逾時
+        let axResponded = axStatus == .success || axStatus == .noValue
+        if !windowServerTitles && axResponded && (includeOtherSpaces || includeClosed) {
+            cgWindows = fillingTitles(cgWindows, pid: pid, excluding: seen)
+        }
         if includeOtherSpaces || includeClosed {
-            for cg in cgWindows where !seen.contains(cg.id) && !cg.isOnScreen
-                && cg.frame.width >= 200 && cg.frame.height >= 150 {
+            for cg in cgWindows where !seen.contains(cg.id) && isOffscreenCandidate(cg) {
                 let spaces = SkyLight.spaces(for: cg.id)
                 if let spaces, spaces.isEmpty { continue }
                 if spaces == nil && cg.title.isEmpty { continue }
@@ -170,6 +179,27 @@ nonisolated enum WindowEnumerator {
         return result
     }
 
+    /// 不在畫面上、夠大到可能是真實視窗的 CG 項目（其他桌面或已關閉的候選）。
+    private static func isOffscreenCandidate(_ cg: CGEntry) -> Bool {
+        !cg.isOnScreen && cg.frame.width >= 200 && cg.frame.height >= 150
+    }
+
+    /// 沒有螢幕錄製權限時，替「不在畫面上、屬於某個桌面、沒有標題」的候選視窗從 AX 補上標題。
+    /// 先用 Space 過濾掉被收起的輔助視窗（例如 Electron 的隱藏視窗），沒有候選就不掃描，省下約 20ms。
+    /// 私有 API 不可用時原樣回傳：這些視窗沒有標題，之後的規則會把它們略過（少列，但不會列錯）。
+    private static func fillingTitles(_ entries: [CGEntry], pid: pid_t, excluding seen: Set<CGWindowID>) -> [CGEntry] {
+        let missing = Set(entries.lazy.filter { cg in
+            !seen.contains(cg.id) && cg.title.isEmpty && isOffscreenCandidate(cg)
+                && SkyLight.spaces(for: cg.id)?.isEmpty != true
+        }.map(\.id))
+        guard !missing.isEmpty else { return entries }
+        let titles = AXRemote.titles(pid: pid, windowIDs: missing)
+        guard !titles.isEmpty else { return entries }
+        return entries.map { cg in
+            titles[cg.id].map { CGEntry(id: cg.id, title: $0, frame: cg.frame, isOnScreen: cg.isOnScreen) } ?? cg
+        }
+    }
+
     // MARK: - CGWindowList
 
     private struct CGEntry {
@@ -180,7 +210,8 @@ nonisolated enum WindowEnumerator {
     }
 
     /// 取得指定 pid 的一般層級（layer 0）、非全透明視窗。
-    private static func cgWindowList(for pid: pid_t) -> [CGEntry] {
+    /// - Parameter includesTitles: false 時一律不取標題（模擬沒有螢幕錄製權限時的系統行為，讓自我測試與實際一致）
+    private static func cgWindowList(for pid: pid_t, includesTitles: Bool) -> [CGEntry] {
         guard let list = CGWindowListCopyWindowInfo([.optionAll, .excludeDesktopElements], kCGNullWindowID)
                 as? [[String: Any]] else { return [] }
         var entries: [CGEntry] = []
@@ -193,7 +224,7 @@ nonisolated enum WindowEnumerator {
                   let bounds = CGRect(dictionaryRepresentation: boundsDict) else { continue }
             entries.append(CGEntry(
                 id: id,
-                title: info[kCGWindowName as String] as? String ?? "",
+                title: includesTitles ? info[kCGWindowName as String] as? String ?? "" : "",
                 frame: bounds,
                 isOnScreen: info[kCGWindowIsOnscreen as String] as? Bool ?? false
             ))

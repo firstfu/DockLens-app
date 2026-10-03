@@ -37,6 +37,8 @@ final class AppSettings {
     var panelShortcuts: Bool { didSet { defaults.set(panelShortcuts, forKey: Key.panelShortcuts) } }
     /// 每週自動檢查有沒有新版本（會連到 GitHub；預設關閉，維持「不主動連網」的承諾）
     var autoChecksForUpdates: Bool { didSet { defaults.set(autoChecksForUpdates, forKey: Key.autoChecksForUpdates) } }
+    /// 使用者在引導中選了「先不要縮圖」：之後啟動不再跳引導要螢幕錄製（設定頁仍可授權）
+    var declinedScreenRecording: Bool { didSet { defaults.set(declinedScreenRecording, forKey: Key.declinedScreenRecording) } }
     /// 上次成功檢查更新的時間
     var lastUpdateCheck: Date? { didSet { defaults.set(lastUpdateCheck, forKey: Key.lastUpdateCheck) } }
 
@@ -69,6 +71,7 @@ final class AppSettings {
         static let panelShortcuts = "panelShortcuts"
         static let autoChecksForUpdates = "autoChecksForUpdates"
         static let lastUpdateCheck = "lastUpdateCheck"
+        static let declinedScreenRecording = "declinedScreenRecording"
     }
 
     private init() {
@@ -83,6 +86,7 @@ final class AppSettings {
             Key.showsCalendarAgenda: true,
             Key.panelShortcuts: true,
             Key.autoChecksForUpdates: false,
+            Key.declinedScreenRecording: false,
         ])
         isEnabled = defaults.bool(forKey: Key.enabled)
         thumbnailHeight = defaults.double(forKey: Key.thumbnailHeight)
@@ -94,6 +98,7 @@ final class AppSettings {
         showsCalendarAgenda = defaults.bool(forKey: Key.showsCalendarAgenda)
         panelShortcuts = defaults.bool(forKey: Key.panelShortcuts)
         autoChecksForUpdates = defaults.bool(forKey: Key.autoChecksForUpdates)
+        declinedScreenRecording = defaults.bool(forKey: Key.declinedScreenRecording)
         lastUpdateCheck = defaults.object(forKey: Key.lastUpdateCheck) as? Date
     }
 }

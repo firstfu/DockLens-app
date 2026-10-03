@@ -61,8 +61,13 @@ struct SettingsView: View {
                 PermissionRow(title: "輔助使用", granted: coordinator.permissions.accessibility) {
                     coordinator.permissions.requestAccessibility()
                 }
-                PermissionRow(title: "螢幕錄製", granted: coordinator.permissions.screenRecording) {
+                PermissionRow(title: "螢幕錄製（縮圖，選用）", granted: coordinator.permissions.screenRecording) {
                     coordinator.permissions.requestScreenRecording()
+                }
+                if !coordinator.permissions.screenRecording {
+                    Text("目前以無縮圖模式運作：預覽顯示 App 圖示和視窗標題，切換、關閉、縮小照常可用。")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
             }
         }

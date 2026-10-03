@@ -9,6 +9,7 @@
 //     讓游標移到下一個 Dock 圖示時，舊的擷取工作立即作廢，不浪費時間拍已經不需要的視窗。
 //  4. 預熱：App 失去焦點時以低優先權先拍好它的視窗，之後游標移過去時快取已是新的。
 //  5. 記憶體：擷取後立即縮小到顯示所需像素，並以 LRU 限制總量。
+//  6. 沒有螢幕錄製權限時一律不擷取（無縮圖模式）：拍不到東西，而且呼叫 ScreenCaptureKit 會再跳一次系統授權詢問。
 //
 
 import AppKit
@@ -75,6 +76,7 @@ nonisolated final class ThumbnailService: Sendable {
         onImage: @escaping @MainActor @Sendable (CGWindowID, Thumbnail) -> Void
     ) {
         let token = generation.add(1, ordering: .relaxed).newValue
+        guard ScreenRecordingAccess.isGranted else { return }
         interactiveQueue.async { [self] in
             let start = ContinuousClock.now
             var count = 0
@@ -92,9 +94,10 @@ nonisolated final class ThumbnailService: Sendable {
     }
 
     /// 同步試拍一張（成功會順便進快取）。供列舉後判斷「無標題視窗是否真的有畫面」，請在背景執行緒呼叫。
-    /// - Returns: 拍得到有效影像為 true
+    /// - Returns: 拍得到有效影像為 true；沒有螢幕錄製權限時一律 false
     func canCapture(_ window: WindowInfo, maxPixelWidth: Int) -> Bool {
-        captureIfNeeded(window, maxPixelWidth: maxPixelWidth) != nil
+        guard ScreenRecordingAccess.isGranted else { return false }
+        return captureIfNeeded(window, maxPixelWidth: maxPixelWidth) != nil
     }
 
     /// 取消所有尚未開始的互動擷取。
@@ -107,6 +110,7 @@ nonisolated final class ThumbnailService: Sendable {
     ///   - pid: App 的 pid
     ///   - maxPixelWidth: 縮圖最大像素寬
     func prewarm(pid: pid_t, maxPixelWidth: Int) {
+        guard ScreenRecordingAccess.isGranted else { return }
         backgroundQueue.async { [self] in
             let windows = WindowEnumerator.windows(for: pid, includeOtherSpaces: false)
             for window in windows where !window.isMinimized {

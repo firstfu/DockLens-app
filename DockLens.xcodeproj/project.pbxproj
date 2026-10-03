@@ -35,6 +35,7 @@
 		DBDAF7295FA5346365F86D09 /* WindowActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15682734BA5217528C42170 /* WindowActions.swift */; };
 		EB298199D68E980098DFC809 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C126766984A8075006FA5B /* SettingsView.swift */; };
 		F5EEBF1698CAA023E726D44F /* DockObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825C12F8F642280938B6A65 /* DockObserver.swift */; };
+		F81B12DD0935151DE363A7B4 /* NoScreenRecordingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA262D8D8C10C170608755 /* NoScreenRecordingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelGeometryTests.swift; sourceTree = "<group>"; };
 		4AA383CCB747BD977130EF68 /* Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
 		5825C12F8F642280938B6A65 /* DockObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockObserver.swift; sourceTree = "<group>"; };
+		65EA262D8D8C10C170608755 /* NoScreenRecordingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoScreenRecordingTests.swift; sourceTree = "<group>"; };
 		6C0A935EAAE1709941F96E0D /* WindowEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEnumerator.swift; sourceTree = "<group>"; };
 		6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
 		70C126766984A8075006FA5B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				00980688C224FD314A3E03B1 /* CalendarAgendaTests.swift */,
+				65EA262D8D8C10C170608755 /* NoScreenRecordingTests.swift */,
 				45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */,
 				B4F6840B52580FE1D91E64DE /* PanelShortcutTests.swift */,
 			);
@@ -346,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71D66CF5DAA4933A9F39D201 /* CalendarAgendaTests.swift in Sources */,
+				F81B12DD0935151DE363A7B4 /* NoScreenRecordingTests.swift in Sources */,
 				C4BA77A9D0FCC36B7997A12C /* PanelGeometryTests.swift in Sources */,
 				7B6E1C36AE74791CB24690DD /* PanelShortcutTests.swift in Sources */,
 			);

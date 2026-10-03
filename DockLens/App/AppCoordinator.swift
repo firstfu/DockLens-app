@@ -26,19 +26,43 @@ final class AppCoordinator {
 
     private init() {}
 
-    /// App 啟動時呼叫：權限齊全就直接開始，否則顯示引導視窗並輪詢權限。
+    /// App 啟動時呼叫：有輔助使用就開始運作；缺權限時顯示引導視窗並輪詢。
+    /// 螢幕錄製是選用的：沒有時以無縮圖模式運作，引導視窗只在使用者還沒表態過時出現。
     func launch() {
         updates.applyAutoCheckSetting()
-        permissions.onAllGranted = { [weak self] in
-            self?.startServices()
-            self?.onboardingWindow?.close()
+        permissions.onAccessibilityGranted = { [weak self] in
+            guard let self else { return }
+            self.startServices()
+            // 引導已被關掉（使用者自己去系統設定授權）：已能運作，不必為了選用的螢幕錄製繼續每秒輪詢
+            if self.onboardingWindow?.isVisible != true { self.permissions.stopPolling() }
         }
-        if permissions.allGranted {
+        permissions.onAllGranted = { [weak self] in self?.onboardingWindow?.close() }
+        if permissions.accessibility {
             startServices()
-        } else {
-            showOnboarding()
-            permissions.startPolling()
         }
+        if Self.needsOnboarding(
+            accessibility: permissions.accessibility,
+            screenRecording: permissions.screenRecording,
+            declinedScreenRecording: settings.declinedScreenRecording || SelfTest.isRequested
+        ) {
+            showOnboarding()
+        }
+    }
+
+    /// 啟動時是否要顯示權限引導。
+    /// - Parameters:
+    ///   - accessibility: 是否已有輔助使用（必要權限）
+    ///   - screenRecording: 是否已有螢幕錄製（選用權限）
+    ///   - declinedScreenRecording: 使用者是否已選擇不給螢幕錄製（自我測試也視為已表態，避免引導擋住面板）
+    /// - Returns: 缺必要權限，或缺選用權限且使用者還沒表態時為 true
+    nonisolated static func needsOnboarding(accessibility: Bool, screenRecording: Bool, declinedScreenRecording: Bool) -> Bool {
+        !accessibility || (!screenRecording && !declinedScreenRecording)
+    }
+
+    /// 使用者在引導中選擇「先不要縮圖」：記下選擇並關閉引導，之後啟動不再詢問。
+    func continueWithoutScreenRecording() {
+        settings.declinedScreenRecording = true
+        onboardingWindow?.close()
     }
 
     /// 開始監聽 Dock 與系統事件。
@@ -63,21 +87,35 @@ final class AppCoordinator {
         dock.currentItem()
     }
 
-    /// 顯示權限引導視窗。agent App 沒有 Dock 圖示，需主動啟用才會浮到最前。
+    /// 顯示權限引導視窗並開始輪詢權限。agent App 沒有 Dock 圖示，需主動啟用才會浮到最前。
     func showOnboarding() {
         if onboardingWindow == nil {
             let window = NSWindow(
-                contentRect: NSRect(x: 0, y: 0, width: 520, height: 460),
+                contentRect: NSRect(x: 0, y: 0, width: 520, height: 520),
                 styleMask: [.titled, .closable, .fullSizeContentView],
                 backing: .buffered, defer: false
             )
             window.titlebarAppearsTransparent = true
             window.titleVisibility = .hidden
             window.isReleasedWhenClosed = false
-            window.contentView = NSHostingView(rootView: OnboardingView(permissions: permissions))
+            window.contentView = NSHostingView(rootView: OnboardingView(
+                permissions: permissions,
+                continueWithoutScreenRecording: { [weak self] in self?.continueWithoutScreenRecording() }
+            ))
             window.center()
+            // 關掉引導時：已能運作就停止輪詢（閒置不該每秒喚醒）；還缺輔助使用則繼續等，授權後自動開始
+            NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: window, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated {
+                    guard let self, self.permissions.accessibility else { return }
+                    self.permissions.stopPolling()
+                }
+            }
             onboardingWindow = window
         }
+        permissions.refresh()
+        // 從選單打開時權限可能已在系統設定裡補齊（選單顯示的狀態是舊的），不必再跳引導
+        guard !permissions.allGranted else { return }
+        permissions.startPolling()
         NSApp.activate()
         onboardingWindow?.makeKeyAndOrderFront(nil)
     }

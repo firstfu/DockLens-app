@@ -56,7 +56,8 @@ struct PreviewView: View {
     }
 
     private func cardView(_ card: WindowCard) -> some View {
-        WindowCardView(card: card, appIcon: model.appIcon, showsTitles: model.showsTitles, actions: model.actions,
+        WindowCardView(card: card, appIcon: model.appIcon, showsTitles: model.showsTitles,
+                       showsThumbnails: model.showsThumbnails, actions: model.actions,
                        showsShortcutHints: model.showsShortcutHints)
     }
 
@@ -227,6 +228,8 @@ struct WindowCardView: View {
     let card: WindowCard
     let appIcon: NSImage
     let showsTitles: Bool
+    /// false 為無縮圖模式：卡片內放 App 圖示與標題
+    var showsThumbnails = true
     let actions: PreviewActions
     let showsShortcutHints: Bool
 
@@ -237,10 +240,23 @@ struct WindowCardView: View {
             thumbnail
                 .frame(width: card.thumbnailSize.width, height: card.thumbnailSize.height)
                 .probe("card.\(card.id)")
-                .overlay(alignment: .topLeading) {
-                    if isHovering && card.window.ax != nil { controls.padding(7) }
+                .overlay(alignment: showsThumbnails ? .topLeading : .trailing) {
+                    if isHovering && card.window.ax != nil {
+                        if showsThumbnails {
+                            controls.padding(7)
+                        } else {
+                            // 長條卡片沒有空角落：浮在右側、墊一層材質，蓋住長標題的尾端時仍看得清楚
+                            controls
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 4)
+                                .background(.ultraThinMaterial, in: Capsule())
+                                .padding(.trailing, 8)
+                        }
+                    }
                 }
-                .overlay(alignment: .bottomTrailing) { badge.padding(6) }
+                .overlay(alignment: .bottomTrailing) {
+                    if showsThumbnails { badge.padding(6) }
+                }
             if showsTitles {
                 Text(card.window.title.isEmpty ? "未命名視窗" : card.window.title)
                     .font(.system(size: 11, weight: .medium))
@@ -273,7 +289,9 @@ struct WindowCardView: View {
 
     @ViewBuilder
     private var thumbnail: some View {
-        if let image = card.thumbnail {
+        if !showsThumbnails {
+            listContent
+        } else if let image = card.thumbnail {
             Image(decorative: image, scale: 1)
                 .resizable()
                 .interpolation(.high)
@@ -293,6 +311,45 @@ struct WindowCardView: View {
                         .opacity(0.85)
                 }
         }
+    }
+
+    /// 無縮圖模式的卡片內容：App 圖示＋標題（最多兩行）＋狀態（已縮小／其他桌面／已關閉）。
+    /// 狀態改成標題下的一行小字，不用縮圖模式的右下角標籤：長條卡片沒有空角落可放。
+    private var listContent: some View {
+        HStack(alignment: .center, spacing: 10) {
+            Image(nsImage: appIcon)
+                .resizable()
+                .frame(width: 32, height: 32)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(card.window.title.isEmpty ? "未命名視窗" : card.window.title)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(isHovering ? .primary : .secondary)
+                    .lineLimit(statusText == nil ? 2 : 1)
+                    .truncationMode(.middle)
+                if let statusText {
+                    Text(statusText)
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundStyle(.tertiary)
+                        .lineLimit(1)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.horizontal, 12)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(.primary.opacity(isHovering ? 0.10 : 0.06))
+        )
+        .opacity(card.window.isMinimized || card.window.isClosed ? 0.7 : 1)
+    }
+
+    /// 無縮圖模式標題下的狀態文字；一般視窗為 nil。
+    private var statusText: LocalizedStringKey? {
+        if card.window.isClosed { return "已關閉・點擊打開" }
+        if card.window.isMinimized { return "已縮小" }
+        if card.window.isOnOtherSpace { return "其他桌面" }
+        return nil
     }
 
     @ViewBuilder

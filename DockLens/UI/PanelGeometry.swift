@@ -49,6 +49,14 @@ nonisolated enum PanelGeometry {
         return CGSize(width: (height * clamped).rounded(), height: height)
     }
 
+    /// 無縮圖模式（沒有螢幕錄製權限）的卡片尺寸：橫向長條，放 App 圖示與兩行標題。
+    /// 沒有畫面可看，卡片不必照視窗比例，也不必和縮圖一樣高；仍隨「縮圖高度」設定等比縮放，維持使用者選的大小感。
+    /// - Parameter thumbnailHeight: 設定中的縮圖高度
+    /// - Returns: 卡片內容區尺寸（points）
+    static func listCardSize(thumbnailHeight: CGFloat) -> CGSize {
+        CGSize(width: (thumbnailHeight * 1.6).rounded(), height: max(56, (thumbnailHeight * 0.45).rounded()))
+    }
+
     /// 把卡片依序分組成列（或欄）：每組總長度不超過 `maxLength`，至少放一張。
     /// - Parameters:
     ///   - lengths: 每張卡片在主軸上的長度
