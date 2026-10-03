@@ -507,18 +507,19 @@ private struct ProbeModifier: ViewModifier {
 
 #if DEBUG
 extension PreviewModel {
-    /// 產生示範用模型：數個不同長寬比、狀態的假視窗。
+    /// 產生示範用模型：虛構的「Gallery」App，數個不同狀態（一般、已縮小、其他桌面、已關閉）的視窗。
+    /// 用在 Xcode Preview 與 `--render-ui` 產生說明圖；內容完全虛構，不含任何使用者資料。
     /// - Parameters:
     ///   - edge: Dock 位置
     ///   - showsThumbnails: false 時為無縮圖模式
     static func sample(edge: DockEdge = .bottom, showsThumbnails: Bool = true) -> PreviewModel {
-        // (標題, 尺寸, 已縮小, 其他桌面, 已關閉)：涵蓋每一種狀態標籤，檢查翻譯後標籤會不會撐破卡片
-        let specs: [(String, CGSize, Bool, Bool, Bool)] = [
-            ("DockLens — PreviewView.swift", CGSize(width: 1440, height: 900), false, false, false),
-            ("Design v3.fig", CGSize(width: 1280, height: 800), false, false, false),
-            ("Terminal — zsh", CGSize(width: 800, height: 600), true, false, false),
-            ("Notes — Desktop 2", CGSize(width: 1200, height: 900), false, true, false),
-            ("Inbox", CGSize(width: 900, height: 900), false, false, true),
+        // (標題, 尺寸, 已縮小, 其他桌面, 已關閉, 風景)
+        let specs: [(String, CGSize, Bool, Bool, Bool, SampleScene)] = [
+            ("Sunrise", CGSize(width: 1440, height: 900), false, false, false, .sunrise),
+            ("Forest", CGSize(width: 1280, height: 800), false, false, false, .forest),
+            ("Ocean", CGSize(width: 1440, height: 900), false, false, false, .ocean),
+            ("Desert", CGSize(width: 1200, height: 800), true, false, false, .desert),
+            ("Aurora", CGSize(width: 1280, height: 800), false, true, false, .aurora),
         ]
         let windows = specs.enumerated().map { index, spec in
             var window = WindowInfo(
@@ -529,32 +530,94 @@ extension PreviewModel {
             window.isClosed = spec.4
             return window
         }
-        let hues: [CGFloat] = [0.6, 0.08, 0.35, 0.8, 0.5]
         return PreviewModel(
             app: .current, windows: windows,
-            thumbnail: { id in sampleImage(hue: hues[Int(id - 1) % hues.count]) },
+            thumbnail: { id in specs[Int(id - 1) % specs.count].5.image() },
             thumbnailHeight: 150, showsTitles: true, showsThumbnails: showsThumbnails, edge: edge,
-            screenSize: CGSize(width: 1728, height: 1080)
+            screenSize: CGSize(width: 1728, height: 1080),
+            displayName: "Gallery", icon: SampleScene.appIcon()
         )
     }
+}
 
-    /// 畫一張帶標題列與內容區塊的假視窗縮圖。
-    private static func sampleImage(hue: CGFloat) -> CGImage? {
-        let size = CGSize(width: 480, height: 300)
+extension PreviewModel {
+    /// 示範用：App 只剩一個「按 ✕ 關掉但 App 仍在執行」的視窗（Notion、Slack 這類），卡片標示已關閉、點一下重新打開。
+    /// 已關閉的視窗沒有縮圖（畫面已不在 WindowServer），所以顯示 App 圖示佔位，與實際行為一致。
+    static func sampleClosed() -> PreviewModel {
+        var window = WindowInfo(id: 1, pid: 0, title: "Sketchbook", frame: CGRect(x: 0, y: 0, width: 1280, height: 800),
+                                isMinimized: false, isOnOtherSpace: false, ax: nil)
+        window.isClosed = true
+        return PreviewModel(
+            app: .current, windows: [window], thumbnail: { _ in nil },
+            thumbnailHeight: 150, showsTitles: true, edge: .bottom,
+            screenSize: CGSize(width: 1728, height: 1080),
+            displayName: "Gallery", icon: SampleScene.appIcon()
+        )
+    }
+}
+
+/// 示範用的風景縮圖（漸層天空＋太陽＋層疊山丘），用 Core Graphics 畫，不需要任何圖檔。
+enum SampleScene {
+    case sunrise, forest, ocean, desert, aurora
+
+    /// (天空起點, 中間, 終點, 太陽位置與半徑, 山丘顏色由遠到近)
+    private var palette: (sky: [NSColor], sun: (CGFloat, CGFloat, CGFloat), hills: [NSColor]) {
+        func c(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> NSColor { NSColor(red: r / 255, green: g / 255, blue: b / 255, alpha: 1) }
+        switch self {
+        case .sunrise: return ([c(255, 176, 120), c(255, 120, 150), c(90, 70, 170)], (0.70, 0.62, 0.11), [c(120, 60, 150), c(80, 40, 120), c(40, 25, 80)])
+        case .forest: return ([c(190, 235, 170), c(90, 190, 140), c(20, 90, 90)], (0.76, 0.70, 0.09), [c(40, 130, 90), c(25, 100, 75), c(15, 70, 60)])
+        case .ocean: return ([c(120, 200, 255), c(60, 130, 230), c(20, 50, 140)], (0.30, 0.66, 0.09), [c(30, 100, 190), c(20, 70, 160), c(10, 40, 110)])
+        case .desert: return ([c(255, 220, 150), c(255, 170, 110), c(190, 90, 90)], (0.52, 0.60, 0.12), [c(205, 120, 80), c(165, 85, 65), c(120, 60, 55)])
+        case .aurora: return ([c(20, 30, 70), c(30, 120, 120), c(110, 60, 160)], (0.18, 0.72, 0.05), [c(15, 40, 60), c(10, 28, 45), c(6, 16, 30)])
+        }
+    }
+
+    func image() -> CGImage? {
+        let width = 480, height = 300
         guard let context = CGContext(
-            data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bytesPerRow: 0,
+            data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0,
             space: CGColorSpace(name: CGColorSpace.sRGB)!, bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue
         ) else { return nil }
-        let base = NSColor(hue: hue, saturation: 0.35, brightness: 0.95, alpha: 1)
-        context.setFillColor(base.cgColor)
-        context.fill(CGRect(origin: .zero, size: size))
-        context.setFillColor(NSColor(hue: hue, saturation: 0.5, brightness: 0.75, alpha: 1).cgColor)
-        context.fill(CGRect(x: 0, y: size.height - 28, width: size.width, height: 28))
-        context.setFillColor(NSColor.white.withAlphaComponent(0.8).cgColor)
-        for row in 0..<5 {
-            context.fill(CGRect(x: 24, y: size.height - 70 - CGFloat(row) * 40, width: size.width * (0.8 - CGFloat(row) * 0.1), height: 16))
+        let p = palette
+        let rect = CGRect(x: 0, y: 0, width: width, height: height)
+        let gradient = CGGradient(colorsSpace: CGColorSpace(name: CGColorSpace.sRGB), colors: p.sky.map(\.cgColor) as CFArray, locations: [0, 0.5, 1])!
+        context.drawLinearGradient(gradient, start: CGPoint(x: 0, y: CGFloat(height)), end: CGPoint(x: CGFloat(width), y: 0), options: [])
+        // 太陽
+        context.setFillColor(NSColor(red: 1, green: 0.96, blue: 0.84, alpha: 0.95).cgColor)
+        let radius = p.sun.2 * CGFloat(width)
+        context.fillEllipse(in: CGRect(x: p.sun.0 * CGFloat(width) - radius, y: p.sun.1 * CGFloat(height) - radius, width: radius * 2, height: radius * 2))
+        // 山丘：由遠到近三層
+        for (index, color) in p.hills.enumerated() {
+            context.setFillColor(color.cgColor)
+            let base = CGFloat(height) * (0.38 - CGFloat(index) * 0.11)
+            context.beginPath()
+            context.move(to: CGPoint(x: 0, y: 0))
+            for x in stride(from: 0, through: width, by: 8) {
+                let t = CGFloat(x)
+                context.addLine(to: CGPoint(x: t, y: base + sin(t / 70 + CGFloat(index) * 1.7) * 16 + sin(t / 23 + CGFloat(index)) * 4))
+            }
+            context.addLine(to: CGPoint(x: CGFloat(width), y: 0))
+            context.closePath()
+            context.fillPath()
         }
+        _ = rect
         return context.makeImage()
+    }
+
+    /// 「Gallery」的 App 圖示：圓角漸層底＋太陽＋山丘。
+    static func appIcon() -> NSImage {
+        NSImage(size: NSSize(width: 512, height: 512), flipped: false) { r in
+            let path = NSBezierPath(roundedRect: r.insetBy(dx: 28, dy: 28), xRadius: 110, yRadius: 110)
+            NSGradient(colors: [NSColor(red: 1, green: 0.62, blue: 0.4, alpha: 1), NSColor(red: 0.42, green: 0.25, blue: 0.75, alpha: 1)])!.draw(in: path, angle: -60)
+            NSColor(white: 1, alpha: 0.92).setFill(); NSBezierPath(ovalIn: NSRect(x: 300, y: 300, width: 80, height: 80)).fill()
+            let hills = NSBezierPath()
+            hills.move(to: NSPoint(x: 28, y: 150))
+            hills.curve(to: NSPoint(x: 260, y: 200), controlPoint1: NSPoint(x: 100, y: 260), controlPoint2: NSPoint(x: 190, y: 120))
+            hills.curve(to: NSPoint(x: 484, y: 160), controlPoint1: NSPoint(x: 340, y: 270), controlPoint2: NSPoint(x: 430, y: 200))
+            hills.line(to: NSPoint(x: 484, y: 60)); hills.line(to: NSPoint(x: 28, y: 60)); hills.close()
+            NSColor(red: 0.22, green: 0.12, blue: 0.45, alpha: 0.95).setFill(); hills.fill()
+            return true
+        }
     }
 }
 

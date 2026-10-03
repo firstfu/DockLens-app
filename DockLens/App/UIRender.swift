@@ -27,8 +27,10 @@ enum UIRender {
             ("onboarding", AnyView(OnboardingView(permissions: coordinator.permissions, continueWithoutScreenRecording: {}))),
             ("settings", AnyView(SettingsView(coordinator: coordinator))),
             ("panel-thumbnails", AnyView(PreviewView(model: .sample()))),
+            ("panel-side", AnyView(PreviewView(model: .sample(edge: .left)))),
             ("panel-list", AnyView(PreviewView(model: .sample(showsThumbnails: false)))),
             ("panel-list-side", AnyView(PreviewView(model: .sample(edge: .left, showsThumbnails: false)))),
+            ("panel-closed", AnyView(PreviewView(model: .sampleClosed()))),
             ("media", AnyView(mediaBars)),
             ("agenda", AnyView(agendas)),
         ]
@@ -38,41 +40,51 @@ enum UIRender {
         NSApp.terminate(nil)
     }
 
-    /// 放進實體視窗（Liquid Glass 要經 WindowServer 合成才畫得出來），等一下再用 WindowServer 擷取。
+    /// 放進實體視窗（Liquid Glass 要經 WindowServer 合成才畫得出來），等一下再擷取。
+    /// 輸出 2x 高解析：這台機器若只有 1x 螢幕，就把整個畫面放大 2 倍再擷取（文字與玻璃都是向量，放大後依然銳利），
+    /// README 與說明文件放大看才不會糊。
     private static func render(_ view: AnyView, to url: URL) async {
-        let hosting = NSHostingView(rootView: view
-            .padding(24)
-            .background(LinearGradient(colors: [.indigo, .teal], startPoint: .topLeading, endPoint: .bottomTrailing)))
-        let size = hosting.fittingSize
-        let window = NSWindow(contentRect: NSRect(origin: CGPoint(x: 40, y: 40), size: size),
-                              styleMask: [.borderless], backing: .buffered, defer: false)
+        let content = view
+            .padding(32)
+            .background(LinearGradient(colors: [Color(red: 0.27, green: 0.26, blue: 0.62), Color(red: 0.12, green: 0.55, blue: 0.68)],
+                                       startPoint: .topLeading, endPoint: .bottomTrailing))
+        let size = NSHostingView(rootView: content).fittingSize
+        let scale: CGFloat = 2
+        let scaled = content.fixedSize().scaleEffect(scale, anchor: .topLeading)
+            .frame(width: size.width * scale, height: size.height * scale, alignment: .topLeading)
+        let hosting = NSHostingView(rootView: scaled)
+        let screen = NSScreen.screens.first ?? NSScreen.main!
+        let frame = NSRect(x: screen.frame.minX + 40, y: screen.frame.minY + 40, width: size.width * scale, height: size.height * scale)
+        let window = NSWindow(contentRect: frame, styleMask: [.borderless], backing: .buffered, defer: false)
         window.contentView = hosting
         window.level = .floating
         window.orderFrontRegardless()
-        try? await Task.sleep(for: .milliseconds(500))
-        if let image = SkyLight.captureWindow(CGWindowID(window.windowNumber)) {
+        try? await Task.sleep(for: .milliseconds(800))
+        let id = CGWindowID(window.windowNumber)
+        let image = ScreenCaptureKitFallback().capture(id, maxPixelWidth: 8000) ?? SkyLight.captureWindow(id)
+        if let image {
             let rep = NSBitmapImageRep(cgImage: image)
             try? rep.representation(using: .png, properties: [:])?.write(to: url)
         }
         window.orderOut(nil)
     }
 
-    /// 播放列的兩種最長文字：未授權、被拒（含系統設定路徑）。
+    /// 播放列：Spotify 播放中、音樂暫停（曲名皆為虛構）。
     private static var mediaBars: some View {
-        let needsPermission = MediaBarModel(player: .music)
-        needsPermission.status = .needsPermission
-        let denied = MediaBarModel(player: .spotify)
-        denied.status = .denied
+        let playing = MediaBarModel(player: .spotify)
+        playing.status = .track(NowPlaying(title: "Blue Hour", artist: "The Example Band", isPlaying: true))
+        let paused = MediaBarModel(player: .music)
+        paused.status = .track(NowPlaying(title: "Morning Light", artist: "Sample Artist", isPlaying: false))
         return VStack(alignment: .leading, spacing: 12) {
-            MediaBarView(media: needsPermission)
-            MediaBarView(media: denied)
+            MediaBarView(media: playing)
+            MediaBarView(media: paused)
         }
-        .frame(width: 320)
+        .frame(width: 340)
         .padding(12)
         .glassEffect(.regular, in: .rect(cornerRadius: 22))
     }
 
-    /// 行程區塊：今天（全天、進行中＋會議、即將開始、跨日、省略數）、明天、未授權。
+    /// 行事曆行程（虛構）：全天、進行中＋會議、即將開始＋會議、一般行程，並顯示「還有 N 個行程」。
     private static var agendas: some View {
         let now = Date.now
         let today = Calendar.current.startOfDay(for: now)
@@ -80,23 +92,16 @@ enum UIRender {
             AgendaEvent(eventID: title, title: title, start: start, end: end, isAllDay: allDay, location: location,
                         color: .fallback, meetingURL: meeting ? URL(string: "https://zoom.us/j/1") : nil)
         }
-        let todayEvents = [
-            event("Holiday", today, today.addingTimeInterval(86_400), allDay: true),
-            event("Overnight build", today.addingTimeInterval(-3_600), now.addingTimeInterval(1_500)),
-            event("Design review", now.addingTimeInterval(-600), now.addingTimeInterval(4_800), meeting: true),
-            event("1:1", now.addingTimeInterval(540), now.addingTimeInterval(2_340), meeting: true),
+        let events = [
+            event("Product launch", today, today.addingTimeInterval(86_400), allDay: true),
+            event("Design review", now.addingTimeInterval(-900), now.addingTimeInterval(2_700), meeting: true),
+            event("1:1 with Sam", now.addingTimeInterval(540), now.addingTimeInterval(2_340), meeting: true),
+            event("Lunch", now.addingTimeInterval(7_200), now.addingTimeInterval(10_800), location: "Cafe Nord"),
         ]
-        let tomorrow = today.addingTimeInterval(86_400)
-        let tomorrowEvents = [event("Standup", tomorrow.addingTimeInterval(9 * 3_600), tomorrow.addingTimeInterval(9.5 * 3_600), location: "Room 4")]
-        return VStack(alignment: .leading, spacing: 12) {
-            AgendaView(agenda: AgendaModel(status: .day(AgendaDay(kind: .today, events: todayEvents, hiddenCount: 3))))
-            AgendaView(agenda: AgendaModel(status: .day(AgendaDay(kind: .tomorrow, events: tomorrowEvents, hiddenCount: 1))))
-            AgendaView(agenda: AgendaModel(status: .needsPermission))
-            AgendaView(agenda: AgendaModel(status: .denied))
-        }
-        .frame(width: AgendaView.minWidth)
-        .padding(12)
-        .glassEffect(.regular, in: .rect(cornerRadius: 22))
+        return AgendaView(agenda: AgendaModel(status: .day(AgendaDay(kind: .today, events: events, hiddenCount: 2))))
+            .frame(width: AgendaView.minWidth)
+            .padding(12)
+            .glassEffect(.regular, in: .rect(cornerRadius: 22))
     }
 }
 #endif

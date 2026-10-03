@@ -113,16 +113,20 @@ final class PreviewModel {
     ///   - showsThumbnails: 是否顯示縮圖（false 為無縮圖模式）
     ///   - edge: Dock 位置
     ///   - screenSize: 可用螢幕尺寸，用於換行
+    ///   - displayName: 覆寫標頭顯示的 App 名稱（僅示範用）
+    ///   - icon: 覆寫標頭與佔位圖示（僅示範用）
     init(
         app: NSRunningApplication?, appURL: URL? = nil, title: String = "", windows: [WindowInfo],
         agenda: AgendaStatus? = nil,
         thumbnail: (CGWindowID) -> CGImage?,
-        thumbnailHeight: CGFloat, showsTitles: Bool, showsThumbnails: Bool = true, edge: DockEdge, screenSize: CGSize
+        thumbnailHeight: CGFloat, showsTitles: Bool, showsThumbnails: Bool = true, edge: DockEdge, screenSize: CGSize,
+        displayName: String? = nil, icon: NSImage? = nil
     ) {
         self.app = app
         self.appURL = app?.bundleURL ?? appURL
-        self.appName = app?.localizedName ?? (title.isEmpty ? "App" : title)
-        self.appIcon = app?.icon ?? appURL.map { NSWorkspace.shared.icon(forFile: $0.path) }
+        // displayName／icon 只給示範與說明圖用（UIRender、Xcode Preview）；正式流程一律傳 nil
+        self.appName = displayName ?? app?.localizedName ?? (title.isEmpty ? "App" : title)
+        self.appIcon = icon ?? app?.icon ?? appURL.map { NSWorkspace.shared.icon(forFile: $0.path) }
             ?? NSWorkspace.shared.icon(for: .application)
         let showsTitles = showsTitles && showsThumbnails
         self.showsTitles = showsTitles

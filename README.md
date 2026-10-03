@@ -1,43 +1,181 @@
-# DockLens
+<p align="center">
+  <img src="assets/icon.png" width="128" alt="DockLens app icon">
+</p>
 
-**Hover a Dock icon, see every window of that app.** Click a thumbnail to switch, or close / minimize / full-screen it right from the preview.
+<h1 align="center">DockLens</h1>
 
-游標停在 Dock 圖示上，就能看到這個 App 的所有視窗縮圖；點縮圖直接切換，也能在預覽上關閉、縮小、全螢幕。（中文說明在下方）
+<p align="center">
+  <b>Hover a Dock icon, see every window of that app.</b><br>
+  Live thumbnails. Click to switch, or close, minimize and full-screen right from the preview.<br>
+  Free and open source (GPLv3).
+</p>
 
-> **Free and open source (GPLv3).** Every line of code is here — read it, build it yourself, or check what the permissions are used for.
->
-> I'm building this on my own and want to learn what you actually need — please open an [Issue](../../issues/new/choose) with bugs or ideas.
+<p align="center">
+  English · <a href="README.zh-TW.md">繁體中文</a>
+</p>
 
-![Demo: moving the pointer onto a Dock icon pops up live thumbnails of all its windows; hovering a thumbnail shows the close / minimize / full-screen buttons](assets/demo.gif)
+<p align="center">
+  <a href="../../releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/firstfu/DockLens-app?style=flat-square"></a>
+  <img alt="macOS 26 or later" src="https://img.shields.io/badge/macOS-26%2B-blue?style=flat-square">
+  <a href="LICENSE"><img alt="GPLv3 license" src="https://img.shields.io/github/license/firstfu/DockLens-app?style=flat-square"></a>
+  <a href="../../releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/firstfu/DockLens-app/total?style=flat-square"></a>
+</p>
 
-![DockLens: hovering the Finder icon in the Dock shows live thumbnails of all three Finder windows](assets/screenshot.png)
+<p align="center">
+  <a href="../../releases/latest"><b>Download DockLens.zip</b></a>
+  &nbsp;·&nbsp;
+  <code>brew install --cask firstfu/tap/docklens</code>
+</p>
+
+> [!NOTE]
+> DockLens needs **macOS 26 or later**. It is **not notarized by Apple yet**, so macOS blocks the first launch: open System Settings → Privacy & Security and click **Open Anyway** once ([steps](#install)). All the code is here, and [what each permission is used for](#privacy) is spelled out below.
+
+<p align="center">
+  <img src="assets/hero.png" width="780" alt="Hovering a Dock icon opens a panel with live thumbnails of every window of that app">
+</p>
+
+## See it in action
+
+<p align="center">
+  <img src="assets/demo.gif" width="780" alt="Moving the pointer onto a Dock icon pops up live thumbnails of all its windows; hovering a thumbnail shows the close, minimize and full-screen buttons">
+  <br>
+  <sub>Hover a Dock icon, click a thumbnail to switch, close or minimize from the preview.</sub>
+</p>
+
+<p align="center">
+  <img src="assets/preview-panel.png" width="780" alt="Preview panel with five windows; one is labeled Minimized and one Other Desktop">
+  <br>
+  <sub>Minimized windows and windows on other desktops are labeled; click one to jump straight to it.</sub>
+</p>
+
+<table>
+  <tr>
+    <td width="50%" align="center"><img src="assets/closed-window.png" alt="A window closed with the red button is still listed as closed and reopens with one click"><br><sub><b>Closed with ✕ but the app is still running?</b><br>Notion, Slack and similar apps keep the window in the list; one click reopens it.</sub></td>
+    <td width="50%" align="center"><img src="assets/calendar.png" alt="Calendar agenda for today with a Join button for video calls"><br><sub><b>Calendar agenda.</b><br>Today, then tomorrow. “Now”, “starts in 10 min”, and a Join button for Zoom, Meet and Teams links.</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/media-bar.png" alt="Spotify and Music playback bar with play, pause, previous and next"><br><sub><b>Playback bar</b> for Spotify and Music: play / pause, previous, next, current song.</sub></td>
+    <td align="center"><img src="assets/onboarding.png" alt="Onboarding window: Accessibility is required, Screen Recording is optional"><br><sub><b>Screen Recording is optional.</b><br>Skip it and the preview lists each window by app icon and title.</sub></td>
+  </tr>
+</table>
+
+<p align="center">
+  <img src="assets/no-screen-recording.png" width="780" alt="Preview without Screen Recording permission: each window is listed with the app icon and its title">
+  <br>
+  <sub>Without Screen Recording, switching, closing and minimizing still work.</sub>
+</p>
+
+## Install
+
+**Homebrew** (a [personal tap](https://github.com/firstfu/homebrew-tap)):
+
+```sh
+brew install --cask firstfu/tap/docklens
+```
+
+**Or download manually:**
+
+1. Download `DockLens.zip` from [Releases](../../releases/latest) and unzip it.
+2. Move `DockLens.app` to `/Applications`.
+3. Open it. macOS blocks the first launch because DockLens isn't notarized yet: open **System Settings → Privacy & Security**, scroll down and click **Open Anyway** next to *"DockLens" was blocked to protect your Mac.* You only do this once per version.
+4. Allow the permissions the welcome window asks for (see the table below).
+
+Requires **macOS 26 or later**. The app is a universal binary (Apple silicon and Intel).
+
+### Updating
+
+Replace `DockLens.app` in `/Applications` with the new one, or run `brew upgrade --cask docklens` once the tap is updated. From 1.0.4 on, releases are signed with the same certificate, so **your permissions are kept**; you only click **Open Anyway** once for the new version.
+To hear about new versions: choose **Check for Updates…** in the menu bar menu, turn on **Check weekly** in Settings, or use **Watch → Custom → Releases** on this page.
+
+## Permissions at a glance
+
+| Permission | Needed? | Why | If you skip it |
+|---|---|---|---|
+| **Accessibility** | Required | Know which Dock icon you are hovering; switch and close windows | DockLens can't work |
+| **Screen Recording** | Optional | Show live thumbnails (processed on your Mac only) | The preview lists windows by app icon and title |
+| **Automation** (Spotify / Music) | Optional | Playback bar | No playback bar; asked only when you first press play |
+| **Calendars** | Optional | Today's agenda on the Calendar icon | No agenda; asked only when you click **Allow** there |
 
 ## Features
 
-- Live thumbnails of all windows when you hover a Dock icon; click to switch
-- Traffic-light buttons on each thumbnail: close, minimize / restore, full screen
-- Header actions: new window, hide app, quit app
-- Single-key shortcuts while the pointer is on the preview: **W** close, **M** minimize / restore the window under the pointer, **H** hide, **Q** quit the app (other keys and ⌘ combos pass through; can be turned off in Settings)
-- Shows minimized windows and windows on other Spaces — clicking one switches to that Space
-- Spotify and Music get a playback bar: play / pause, previous, next, and the current song
-- Calendar shows today's agenda — even when Calendar isn't running: calendar colors, "in progress" / "starts in 9 min", a **Join** button for Zoom / Meet / Teams links, click an event to open it; shows tomorrow once today is done
-- Windows you closed with ✕ while the app keeps running (Notion, Slack…) stay listed — click to reopen
-- Speaks your language: 34 languages, following your macOS language setting (English, 简体中文, 繁體中文, 日本語, 한국어, Deutsch, Français, Español, Italiano, Português, Русский, العربية, עברית, हिन्दी, Türkçe, Nederlands, Svenska, Polski, Українська, Tiếng Việt, ไทย, Bahasa Indonesia and more — see Settings or `DockLens/Resources/Localizable.xcstrings`). Translations were made with AI assistance and not every one has been checked by a native speaker — corrections are welcome — [report a translation fix](../../issues/new?template=translation.yml) or send a pull request (strings live in `DockLens/Resources/Localizable.xcstrings`).
-- Works without Screen Recording: skip it and the preview shows each window as app icon + title — switching, closing and minimizing all still work
-- Dock on bottom, left or right; works with auto-hide, magnification and multiple displays
+- Live thumbnails of every window of an app when you hover its Dock icon; click to switch
+- Close, minimize / restore or full-screen from the preview; header buttons for new window, hide app, quit app
+- Shows minimized windows and windows on other Spaces (clicking one switches to that Space)
+- Windows closed with ✕ in apps that keep running (Notion, Slack…) stay listed; click to reopen
+- Calendar agenda (today, then tomorrow) with a Join button, even when Calendar isn't running
+- Spotify and Music playback bar
+- Works without Screen Recording (icon + title list)
+- Dock at the bottom, left or right; auto-hide, magnification and multiple displays
+- [34 languages](#languages), following your macOS language setting
+- Event-driven: 0% CPU and no wakeups when idle (~20–30 MB memory, Apple silicon, measured)
 
-<img src="assets/screenshot-spotify.png" width="360" alt="Spotify preview with the playback bar: play / pause, previous, next and the current song">
+<details>
+<summary>Single-key shortcuts on the preview</summary>
 
-## Performance (Apple silicon, measured)
+While the pointer is on the preview: **W** closes the window under the pointer, **M** minimizes / restores it, **H** hides the app, **Q** quits it. Other keys and ⌘ combinations pass through unchanged. Turn it off in Settings if you don't want it.
+</details>
 
-| | |
-|---|---|
-| Hover → preview | ~125–140 ms (includes an adjustable 120 ms hover delay) |
-| Idle | 0% CPU, 0 wakeups, ~20–30 MB memory |
+## Privacy
 
-Event-driven — nothing polls while you're not using it.
+DockLens makes **no network connections** unless you ask it to check for updates. Thumbnails are captured and shown locally and never leave your Mac.
+The only connection it can make is the update check: one request to the GitHub API to read the latest version number, sent only when you click **Check for Updates** or turn on **Check weekly** in Settings (off by default). No data about you is sent.
 
-## Under consideration — vote with 👍
+Don't take my word for it: the code that uses each permission lives in [`DockLens/Core`](DockLens/Core): `DockObserver.swift` (Accessibility: which Dock icon you're hovering), `ThumbnailService.swift` (Screen Recording: thumbnails), `MediaController.swift` (Automation: Spotify / Music), `CalendarAgenda.swift` (Calendars: read-only agenda), and the update check in `UpdateChecker.swift`. You can also confirm there's no other network traffic with a firewall such as Little Snitch or LuLu.
+
+## FAQ
+
+<details>
+<summary><b>The preview doesn't appear when I hover a Dock icon</b></summary>
+
+1. Check that **Accessibility** is allowed: System Settings → Privacy & Security → Accessibility, and DockLens is switched on. If it is already on, switch it off and on again.
+2. Open the DockLens menu bar icon and check that **Enable window previews** is ticked.
+3. The preview only appears for apps that have windows (turn on *Show preview even when an app has no windows* in Settings if you want it always).
+4. Try a longer rest on the icon: the hover delay is adjustable in Settings.
+</details>
+
+<details>
+<summary><b>Thumbnails are replaced by an icon and a title</b></summary>
+
+That is the mode without the **Screen Recording** permission. Allow it in System Settings → Privacy & Security → Screen & System Audio Recording, or click *Turn on window thumbnails…* in the DockLens menu.
+</details>
+
+<details>
+<summary><b>macOS says "DockLens was blocked to protect your Mac"</b></summary>
+
+DockLens isn't notarized by Apple yet. Open System Settings → Privacy & Security, scroll down and click **Open Anyway** next to the message. It is a one-time step per version.
+</details>
+
+<details>
+<summary><b>Do I lose permissions when I update?</b></summary>
+
+No, from 1.0.4 on: every release is signed with the same certificate, so macOS keeps your permissions. You only click **Open Anyway** once for the new version.
+</details>
+
+<details>
+<summary><b>How do I uninstall it?</b></summary>
+
+Quit DockLens from the menu bar, delete `DockLens.app` from `/Applications` (or `brew uninstall --cask docklens`), and remove it from System Settings → General → Login Items if you enabled *Open at Login*. To remove its settings too: `defaults delete com.firstfu.DockLens` and delete `~/Library/Caches/com.firstfu.DockLens`.
+</details>
+
+## How it differs from similar tools
+
+[DockDoor](https://github.com/ejbills/DockDoor) and [AltTab](https://github.com/lwouis/alt-tab-macos) are established, excellent tools. DockDoor is free and open source with a larger feature set (Alt+Tab-style switcher, gestures, macOS 13+, Intel). DockLens is smaller and needs macOS 26. What it adds: closed-but-running windows stay listed, a Calendar agenda with a Join button, and 34 interface languages. If you need an Alt+Tab switcher, gestures or an older macOS, use one of those.
+
+## Languages
+
+34 interface languages, chosen by your macOS language setting. The translations are **AI-assisted and not all checked by native speakers**. If something reads wrong, please [report a translation fix](../../issues/new?template=translation.yml) or send a pull request (strings live in `DockLens/Resources/Localizable.xcstrings`).
+
+<p align="center">
+  <img src="assets/languages.png" width="780" alt="The welcome window in English, Traditional Chinese, Japanese, German, French, Spanish, Arabic and Russian">
+</p>
+
+<details>
+<summary>All languages</summary>
+
+العربية, Català, Čeština, Dansk, Deutsch, Ελληνικά, English, Español, Suomi, Français, עברית, हिन्दी, Hrvatski, Magyar, Bahasa Indonesia, Italiano, 日本語, 한국어, Bahasa Melayu, Norsk bokmål, Nederlands, Polski, Português (Brasil), Português (Portugal), Română, Русский, Slovenčina, Svenska, ไทย, Türkçe, Українська, Tiếng Việt, 简体中文, 繁體中文.
+</details>
+
+## Under consideration: vote with 👍
 
 I won't build these until real people ask for them. If one matters to you, 👍 the issue and tell me **how you'd use it** in a comment.
 
@@ -46,34 +184,7 @@ I won't build these until real people ask for them. If one matters to you, 👍 
 - [Windows-style taskbar](../../issues?q=is%3Aissue+label%3Aconsidering)
 - [Support for macOS older than 26](../../issues?q=is%3Aissue+label%3Aconsidering)
 
-## Privacy
-
-DockLens makes **no network connections** unless you ask it to check for updates. Thumbnails are captured and shown locally and never leave your Mac.
-The only connection it can make is the update check — one request to the GitHub API to read the latest version number, sent only when you click **Check for Updates** or turn on **Check weekly** in Settings (off by default). No data about you is sent.
-Don't take my word for it: the code that uses each permission lives in [`DockLens/Core`](DockLens/Core) — `DockObserver.swift` (Accessibility: which Dock icon you're hovering), `ThumbnailService.swift` (Screen Recording: thumbnails), `MediaController.swift` (Automation: Spotify / Music), `CalendarAgenda.swift` (Calendars: read-only agenda), and the update check in `UpdateChecker.swift`. You can also confirm there's no other network traffic with a firewall such as Little Snitch or LuLu.
-
-## Requirements
-
-macOS 26 or later.
-
-## Install
-
-**Homebrew:** `brew install --cask firstfu/tap/docklens` (a [personal tap](https://github.com/firstfu/homebrew-tap); the app is not notarized yet, so you still need **Open Anyway** once, see step 3 below). Or download manually:
-
-1. Download `DockLens.zip` from [Releases](../../releases/latest) and unzip it.
-2. Move `DockLens.app` to `/Applications`.
-3. Open it. macOS will block it the first time, because DockLens isn't notarized by Apple yet:
-   - Open **System Settings → Privacy & Security**, scroll down, click **Open Anyway** next to *"DockLens" was blocked to protect your Mac.*
-4. Grant the permissions the onboarding asks for:
-   - **Accessibility** (required) — to know which Dock icon you're hovering and to switch / close windows
-   - **Screen Recording** (optional) — to capture window thumbnails (local only). Without it, the preview lists windows by app icon and title instead; you can turn thumbnails on later in Settings
-   - **Automation** (optional) — asked only the first time you press play on Spotify or Music
-   - **Calendars** (optional) — asked only when you click **Allow** on the Calendar preview
-
-### Updating
-
-Replace `DockLens.app` in `/Applications` with the new one. From 1.0.4 on, releases are signed with the same certificate, so **your permissions are kept** — you only click **Open Anyway** once for the new version.
-To hear about new versions: choose **Check for Updates…** in the menu bar menu, turn on **Check weekly** in Settings, or click **Watch → Custom → Releases** at the top of this GitHub page.
+I'm building this on my own and want to learn what you actually need. Please open an [Issue](../../issues/new/choose) with bugs or ideas.
 
 ## Build from source
 
@@ -86,76 +197,9 @@ xcodebuild -project DockLens.xcodeproj -scheme DockLens -configuration Release -
 open build/Build/Products/Release/DockLens.app
 ```
 
-No Apple account needed — builds are ad-hoc signed by default. To sign with your own certificate (so macOS keeps the permissions across rebuilds), see [`Config/Signing.xcconfig`](Config/Signing.xcconfig).
+No Apple account needed: builds are ad-hoc signed by default. To sign with your own certificate (so macOS keeps the permissions across rebuilds), see [`Config/Signing.xcconfig`](Config/Signing.xcconfig).
 Tests: replace `build` with `test` in the `xcodebuild` command.
 
 ## License
 
 [GPLv3](LICENSE). You're free to use, study, modify and share it; modified versions you distribute must stay open source under the same license.
-
----
-
-## 中文說明
-
-**免費、開源（GPLv3）。**所有程式碼都在這裡，可以自己看、自己建置，確認權限拿來做什麼。
-
-這是我一個人開發的小工具，想知道大家真正需要什麼——有問題或想要的功能，請開 [Issue](../../issues/new/choose) 告訴我。
-
-### 功能
-
-- 游標停在 Dock 圖示上，即時顯示該 App 所有視窗的縮圖，點縮圖切換
-- 縮圖上的紅黃綠按鈕：關閉、縮到 Dock／還原、全螢幕
-- 游標在預覽上時可用單鍵操作：**W** 關閉、**M** 縮小／還原游標所在的視窗，**H** 隱藏、**Q** 結束 App（其他鍵與 ⌘ 組合鍵照常輸入；可在設定關閉）
-- 標頭：開新視窗、隱藏 App、結束 App
-- 會列出已縮小的視窗、其他桌面（Space）上的視窗，點一下會切到那個桌面
-- Spotify 與音樂多一條播放列：播放／暫停、上一首、下一首，並顯示目前的歌曲
-- 行事曆顯示今天的行程（行事曆沒開也行）：日曆顏色、「進行中／9 分鐘後開始」、Zoom／Meet／Teams 連結一鍵「加入」、點行程直接打開；今天結束後改顯示明天
-- 按 ✕ 關掉但 App 還開著的視窗（Notion、Slack 等）會保留在預覽裡，點一下重新打開
-- 支援 34 種語言，跟隨 macOS 的語言設定（English、简体中文、繁體中文、日本語、한국어、Deutsch、Français、Español、Русский、العربية、हिन्दी、Türkçe、Tiếng Việt、ไทย 等，完整清單見 `DockLens/Resources/Localizable.xcstrings`）。翻譯由 AI 協助完成，不是每一種都經過母語者檢查，歡迎用[翻譯勘誤表單](../../issues/new?template=translation.yml)或 pull request 指正（字串在 `DockLens/Resources/Localizable.xcstrings`）
-- 不給螢幕錄製也能用：預覽改以 App 圖示＋視窗標題顯示，切換、關閉、縮小照常可用
-- Dock 放底部、左側、右側都能用；支援自動隱藏、放大效果、多螢幕
-
-### 考慮中的功能：請用 👍 投票
-
-這些功能我**不會預先做**，要有人真的需要才做。如果有一項對你重要，請到對應的 Issue 按 👍，並留言說明**你會怎麼用**。
-
-- Alt+Tab 式視窗切換、三指手勢開啟預覽、Windows 式工作列、支援 macOS 26 以前的系統
-  （清單見 [Issues](../../issues?q=is%3Aissue+label%3Aconsidering)）
-
-### 隱私
-
-除非你要它檢查更新，DockLens **不會連網**。縮圖只在你的 Mac 上擷取與顯示，不會上傳。
-唯一可能的連線是檢查更新：向 GitHub API 發一個請求讀取最新版本號，只在你按「檢查更新」或在設定打開「每週自動檢查更新」（預設關閉）時才發出，不送出任何關於你的資料。
-不用只聽我說：用到各權限的程式碼都在 [`DockLens/Core`](DockLens/Core)——`DockObserver.swift`（輔助使用：偵測游標停在哪個 Dock 圖示）、`ThumbnailService.swift`（螢幕錄製：縮圖）、`MediaController.swift`（自動化：Spotify／音樂）、`CalendarAgenda.swift`（行事曆：唯讀讀取行程），檢查更新在 `UpdateChecker.swift`。也可以用 Little Snitch、LuLu 等防火牆確認它沒有其他網路連線。
-
-### 系統需求
-
-macOS 26 以上。
-
-### 安裝
-
-**Homebrew：** `brew install --cask firstfu/tap/docklens`（[個人 tap](https://github.com/firstfu/homebrew-tap)；App 尚未公證，所以仍要在「系統設定 › 隱私權與安全性」按一次「強制打開」，見下方步驟 3）。或手動下載：
-
-1. 從 [Releases](../../releases/latest) 下載 `DockLens.zip` 並解壓縮
-2. 把 `DockLens.app` 拖進「應用程式」資料夾
-3. 打開它。第一次會被系統擋下（DockLens 還沒經過 Apple 公證）：
-   到 **系統設定 → 隱私權與安全性**，往下捲，找到「已阻擋『DockLens』以保護你的Mac。」這行，按旁邊的 **強制打開**
-4. 依引導開啟權限：
-   - **輔助使用**（必要）：偵測游標停在哪個 Dock 圖示、切換與關閉視窗
-   - **螢幕錄製**（選用）：擷取視窗縮圖（只在本機處理）。不給的話，預覽改以 App 圖示和視窗標題列出視窗，之後可在設定裡開啟縮圖
-   - **自動化**（選用）：第一次在 Spotify 或音樂按播放鈕時才會詢問
-   - **行事曆**（選用）：在行事曆的預覽上按「允許」時才會詢問
-
-### 更新
-
-用新的 `DockLens.app` 取代「應用程式」裡的舊版。從 1.0.4 起，每個版本都用同一張憑證簽章，**系統權限會保留**，新版只需要再按一次「強制打開」。
-想知道有新版本：在選單列選單按「檢查更新…」、在設定打開「每週自動檢查更新」，或在這個 GitHub 頁面上方按 **Watch → Custom → Releases** 訂閱。
-
-### 從原始碼建置
-
-需要 Xcode 26 與 [XcodeGen](https://github.com/yonaskolb/XcodeGen)（`brew install xcodegen`），指令見上方英文的 **Build from source**。
-預設為 ad-hoc 簽章，不需要 Apple 帳號；想用自己的憑證（重建後系統權限不必重開），請看 [`Config/Signing.xcconfig`](Config/Signing.xcconfig)。
-
-### 授權
-
-[GPLv3](LICENSE)：可自由使用、研究、修改與散布；散布修改後的版本時，必須以同樣授權開源。
