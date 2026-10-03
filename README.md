@@ -18,7 +18,6 @@
   <a href="../../releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/firstfu/DockLens-app?style=flat-square"></a>
   <img alt="macOS 26 or later" src="https://img.shields.io/badge/macOS-26%2B-blue?style=flat-square">
   <a href="LICENSE"><img alt="GPLv3 license" src="https://img.shields.io/github/license/firstfu/DockLens-app?style=flat-square"></a>
-  <a href="../../releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/firstfu/DockLens-app/total?style=flat-square"></a>
 </p>
 
 <p align="center">
