@@ -49,6 +49,25 @@ final class PreviewController {
     /// 用來即時查詢游標所在圖示的位置（放大動畫後）
     weak var dockObserver: DockObserver?
 
+    /// 預覽某個 App 時通知「最近關閉」的偵測重讀它的視窗（補上建立後才設定的文件位置、剛啟動時掛失敗的情況）
+    var refreshClosedWindowWatching: ((NSRunningApplication) -> Void)?
+
+    /// 最近關閉的文件。面板開著時有新的項目加進來，就地更新讓它立刻出現（例如在面板上按 X 關掉文件視窗）。
+    weak var closedWindows: ClosedWindowStore? {
+        didSet {
+            closedWindows?.onAdd = { [weak self] entry in
+                guard let self, self.panel.isVisible, let model = self.model,
+                      model.app?.bundleIdentifier == entry.bundleID,
+                      // 面板上已經列著這一筆就不重建：重建期間點擊會落空，也會閃一下
+                      !model.closed.contains(where: { ClosedWindowPolicy.key($0.url) == ClosedWindowPolicy.key(entry.url) }),
+                      // 游標已經移到別的圖示、新內容還在準備時，不要取消它又把面板換回舊 App
+                      self.hoveredItem.map({ $0.appURL == model.appURL?.standardizedFileURL || $0.title == model.appName }) ?? true
+                else { return }
+                self.refresh(after: .zero)
+            }
+        }
+    }
+
     /// 游標離開圖示/面板後，面板保留多久才隱藏
     private let hideGrace: Duration = .milliseconds(250)
 
@@ -159,6 +178,7 @@ final class PreviewController {
             return
         }
         let pid = app.processIdentifier
+        if settings.remembersClosedWindows { refreshClosedWindowWatching?(app) }
         // 每次顯示都重新判斷：使用者可能剛在系統設定開啟或關閉螢幕錄製
         let showsThumbnails = ScreenRecordingAccess.isGranted
         let includeOtherSpaces = settings.includesOtherSpaces
@@ -197,8 +217,24 @@ final class PreviewController {
         guard !Task.isCancelled else { return }
         log.notice("列舉 \(app.localizedName ?? "", privacy: .public)：\(windows.count) 個視窗，耗時 \(ContinuousClock.now - start, privacy: .public)")
 
-        // 音樂 App、行事曆沒有視窗時仍顯示面板：播放列與行程本身就有用
-        if windows.isEmpty && !settings.showsEmptyState && MediaPlayer(bundleID: app.bundleIdentifier) == nil && agenda == nil {
+        // 最近關閉、可重開的文件：略過現在已經又開著的（使用者可能已用別的方式重開）與已不存在的檔案。
+        // 檔案系統檢查在背景執行緒做：檔案在斷線的網路磁碟上時可能阻塞數秒，不能卡住面板
+        var closed: [ClosedWindowEntry] = []
+        if settings.remembersClosedWindows, let bundleID = app.bundleIdentifier, let store = closedWindows {
+            let candidates = store.entries.filter { $0.bundleID == bundleID }
+            if !candidates.isEmpty {
+                let openKeys = Set(windows.compactMap { $0.documentURL.map(ClosedWindowPolicy.key) })
+                let limit = ClosedWindowStore.panelLimit
+                closed = await Task.detached(priority: .userInitiated) {
+                    ClosedWindowStore.visible(candidates, excludingOpen: openKeys, limit: limit)
+                }.value
+            }
+        }
+        guard !Task.isCancelled else { return }
+
+        // 音樂 App、行事曆沒有視窗時仍顯示面板：播放列與行程本身就有用；剛關掉的文件可重開時也一樣
+        if windows.isEmpty && !settings.showsEmptyState && MediaPlayer(bundleID: app.bundleIdentifier) == nil
+            && agenda == nil && closed.isEmpty {
             // 就地更新（剛關掉最後一個視窗）時直接收起；途中擦過的空 App 則給寬限
             if previousOrder != nil { hide() } else { dismissForUnpreviewableItem() }
             return
@@ -208,7 +244,7 @@ final class PreviewController {
         let dockPrefs = DockPreferences.current
         let edge = dockPrefs.edge
         let model = PreviewModel(
-            app: app, windows: windows, agenda: agenda,
+            app: app, windows: windows, agenda: agenda, closed: closed,
             thumbnail: { [thumbnails] in thumbnails.cached($0)?.image },
             thumbnailHeight: settings.thumbnailHeight,
             showsTitles: settings.showsTitles,
@@ -474,6 +510,13 @@ final class PreviewController {
             },
             close: { [weak self] card in
                 if WindowActions.close(card.window) {
+                    // 在面板上關的視窗，檔案位置此刻就知道：立刻記下，面板才能馬上列出「最近關閉」
+                    // （等偵測機制回報要再過半秒多；它之後報同一次關閉會被去重）
+                    if let self, self.settings.remembersClosedWindows, let url = card.window.documentURL,
+                       ClosedWindowPolicy.isRestorable(url), let bundleID = app.bundleIdentifier {
+                        // 這裡接著就會就地更新面板；不讓 add 再觸發一次更新（兩個更新互相取消會把面板收掉）
+                        self.closedWindows?.add(ClosedWindowEntry(bundleID: bundleID, title: card.window.title, url: url), notify: false)
+                    }
                     self?.thumbnails.purge(windowID: card.id)
                     self?.refresh(after: .milliseconds(250))
                 }
@@ -497,6 +540,13 @@ final class PreviewController {
             newWindow: { [weak self] in
                 self?.hide()
                 WindowActions.newWindow(app)
+            },
+            restore: { [weak self] entry in
+                self?.hide()
+                WindowActions.restore(entry, appURL: app.bundleURL) { success in
+                    // 成功才從清單拿掉；失敗（App 拒絕開啟）留著，使用者可以再試
+                    if success { self?.closedWindows?.remove(entry.id) }
+                }
             }
         )
     }

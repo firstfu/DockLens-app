@@ -6,6 +6,9 @@
 //  自我測試會對它執行關閉視窗、隱藏、結束等破壞性操作，避免動到使用者真正在用的 App。
 //  `--hide-on-close` 模式模擬 Notion、Slack 這類 App：只有一個主視窗，按 X 只是藏起來，
 //  點 Dock 圖示（重新打開事件）時再把它叫回來。`--auto-close` 會在啟動 1.5 秒後自動按 X（量測用）。
+//  `--document <路徑>`（可重複）模擬文件型 App（TextEdit、預覽程式）：每個路徑開一個視窗，視窗的文件位置（AXDocument）
+//  就是該檔案，關掉時視窗物件會被釋放（真實文件 App 的行為），也能收到「用這個 App 開啟檔案」的請求再開回來——
+//  用來測「最近關閉」的偵測與重開。
 //
 
 import AppKit
@@ -15,6 +18,11 @@ final class FixtureApp: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var windows: [NSWindow] = []
     private var counter = 0
     private let hidesOnClose = CommandLine.arguments.contains("--hide-on-close")
+    /// `--document` 後面的檔案路徑（可多個）
+    private let documentURLs: [URL] = CommandLine.arguments.enumerated().compactMap { index, argument in
+        argument == "--document" && index + 1 < CommandLine.arguments.count
+            ? URL(fileURLWithPath: CommandLine.arguments[index + 1]) : nil
+    }
 
     static func main() {
         let app = NSApplication.shared
@@ -26,7 +34,9 @@ final class FixtureApp: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         buildMenu()
-        if hidesOnClose {
+        if !documentURLs.isEmpty {
+            documentURLs.forEach(openDocument)
+        } else if hidesOnClose {
             newWindow(nil)
             windows.first?.title = "Fixture Main"
             if CommandLine.arguments.contains("--auto-close") {
@@ -52,6 +62,29 @@ final class FixtureApp: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     /// 關掉最後一個視窗也不結束（模擬一般文件型 App）。
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
+
+    /// 開啟一份文件：已經開著就前置，否則開新視窗。視窗標題是檔名、`representedURL` 是檔案位置（即 AXDocument）。
+    private func openDocument(_ url: URL) {
+        if let existing = windows.first(where: { $0.representedURL == url }) {
+            existing.makeKeyAndOrderFront(nil)
+            return
+        }
+        newWindow(nil)
+        guard let window = windows.last else { return }
+        window.title = url.lastPathComponent
+        window.representedURL = url
+    }
+
+    /// 「用這個 App 開啟檔案」（NSWorkspace.open、拖到 Dock 圖示、`open -a`）。
+    func application(_ application: NSApplication, open urls: [URL]) {
+        urls.forEach(openDocument)
+    }
+
+    /// 文件視窗關閉後就放掉它（真實的文件型 App 都是如此）；留著的話 AX 元素不會被銷毀，也就收不到「視窗關閉」通知。
+    func windowWillClose(_ notification: Notification) {
+        guard !documentURLs.isEmpty, let window = notification.object as? NSWindow else { return }
+        windows.removeAll { $0 === window }
+    }
 
     /// 開一個新視窗，標題為「Fixture N」，尺寸依序循環三種長寬比。
     @objc func newWindow(_ sender: Any?) {

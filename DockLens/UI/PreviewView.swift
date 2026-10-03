@@ -29,8 +29,8 @@ struct PreviewView: View {
                 AgendaView(agenda: agenda)
             }
             if model.cards.isEmpty {
-                // 音樂 App 沒有視窗時仍有播放列可用、行事曆仍有行程，不再顯示「沒有開啟的視窗」
-                if model.media == nil && model.agenda == nil { emptyState }
+                // 音樂 App 沒有視窗時仍有播放列可用、行事曆仍有行程、剛關掉的文件仍可重開，不再顯示「沒有開啟的視窗」
+                if model.media == nil && model.agenda == nil && model.closed.isEmpty { emptyState }
             } else if model.axis == .horizontal {
                 VStack(alignment: .leading, spacing: PreviewModel.spacing) {
                     ForEach(model.groups.indices, id: \.self) { index in
@@ -47,6 +47,9 @@ struct PreviewView: View {
                         }
                     }
                 }
+            }
+            if !model.closed.isEmpty {
+                RecentlyClosedView(entries: model.closed, restore: model.actions.restore)
             }
         }
         .padding(Self.padding)
@@ -550,6 +553,34 @@ extension PreviewModel {
         return PreviewModel(
             app: .current, windows: [window], thumbnail: { _ in nil },
             thumbnailHeight: 150, showsTitles: true, edge: .bottom,
+            screenSize: CGSize(width: 1728, height: 1080),
+            displayName: "Gallery", icon: SampleScene.appIcon()
+        )
+    }
+}
+
+extension PreviewModel {
+    /// 示範用：兩個開著的視窗，加上剛關掉的三個文件（檔名與資料夾皆虛構），看「最近關閉」區塊的排版。
+    static func sampleRecentlyClosed(edge: DockEdge = .bottom, openWindows: Int = 2) -> PreviewModel {
+        let scenes: [SampleScene] = [.sunrise, .forest]
+        let windows = (0..<openWindows).map { index in
+            WindowInfo(id: CGWindowID(index + 1), pid: 0, title: ["Sunrise", "Forest"][index % 2],
+                       frame: CGRect(x: 0, y: 0, width: 1440, height: 900), isMinimized: false, isOnOtherSpace: false, ax: nil)
+        }
+        let now = Date.now
+        let closed = [
+            ClosedWindowEntry(bundleID: "demo", title: "Trip plan.txt", url: URL(fileURLWithPath: "/Users/example/Documents/Trip plan.txt"),
+                              closedAt: now.addingTimeInterval(-20)),
+            ClosedWindowEntry(bundleID: "demo", title: "Budget 2026.numbers", url: URL(fileURLWithPath: "/Users/example/Documents/Finance/Budget 2026.numbers"),
+                              closedAt: now.addingTimeInterval(-5 * 60)),
+            ClosedWindowEntry(bundleID: "demo", title: "A very long document name that keeps going and going.md",
+                              url: URL(fileURLWithPath: "/Users/example/Projects/Notes/A very long document name that keeps going and going.md"),
+                              closedAt: now.addingTimeInterval(-3 * 3600)),
+        ]
+        return PreviewModel(
+            app: .current, windows: windows, closed: closed,
+            thumbnail: { id in scenes[Int(id - 1) % scenes.count].image() },
+            thumbnailHeight: 150, showsTitles: true, edge: edge,
             screenSize: CGSize(width: 1728, height: 1080),
             displayName: "Gallery", icon: SampleScene.appIcon()
         )

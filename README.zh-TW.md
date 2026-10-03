@@ -101,6 +101,7 @@ brew install --cask firstfu/tap/docklens
 - 在預覽上關閉、縮到 Dock／還原、全螢幕；標頭有開新視窗、隱藏 App、結束 App
 - 會列出已縮小的視窗與其他桌面（Space）上的視窗，點一下會切到那個桌面
 - 按 ✕ 關掉但 App 還開著的視窗（Notion、Slack 等）會保留在預覽裡，點一下重新打開
+- **最近關閉**：剛在某個 App 關掉的文件（TextEdit、預覽程式等有檔案的 App）會列在它預覽的底部，點一下重新打開檔案
 - 行事曆顯示今天，之後是明天的行程（行事曆沒開也行），視訊會議一鍵「加入」
 - Spotify 與音樂的播放列
 - 不給螢幕錄製也能用（以圖示加標題列出視窗）
@@ -119,7 +120,9 @@ brew install --cask firstfu/tap/docklens
 除非你要它檢查更新，DockLens **不會連網**。縮圖只在你的 Mac 上擷取與顯示，不會上傳。
 唯一可能的連線是檢查更新：向 GitHub API 發一個請求讀取最新版本號，只在你按「檢查更新」或在設定打開「每週自動檢查更新」（預設關閉）時才發出，不送出任何關於你的資料。
 
-不用只聽我說：用到各權限的程式碼都在 [`DockLens/Core`](DockLens/Core)：`DockObserver.swift`（輔助使用：偵測游標停在哪個 Dock 圖示）、`ThumbnailService.swift`（螢幕錄製：縮圖）、`MediaController.swift`（自動化：Spotify／音樂）、`CalendarAgenda.swift`（行事曆：唯讀讀取行程），檢查更新在 `UpdateChecker.swift`。也可以用 Little Snitch、LuLu 等防火牆確認它沒有其他網路連線。
+「最近關閉」清單（你關掉的文件名稱）只存在記憶體：不寫入磁碟、不傳到任何地方，結束 DockLens 就消失。只記檔案，不記網頁。在設定關閉它，清單會立刻清空。
+
+不用只聽我說：用到各權限的程式碼都在 [`DockLens/Core`](DockLens/Core)：`DockObserver.swift`（輔助使用：偵測游標停在哪個 Dock 圖示）、`ThumbnailService.swift`（螢幕錄製：縮圖）、`MediaController.swift`（自動化：Spotify／音樂）、`CalendarAgenda.swift`（行事曆：唯讀讀取行程），「最近關閉」的記憶體清單在 `ClosedWindowStore.swift`／`ClosedWindowWatcher.swift`，檢查更新在 `UpdateChecker.swift`。也可以用 Little Snitch、LuLu 等防火牆確認它沒有其他網路連線。
 
 ## 常見問題
 

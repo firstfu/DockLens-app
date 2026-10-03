@@ -101,6 +101,7 @@ To hear about new versions: choose **Check for Updates…** in the menu bar menu
 - Close, minimize / restore or full-screen from the preview; header buttons for new window, hide app, quit app
 - Shows minimized windows and windows on other Spaces (clicking one switches to that Space)
 - Windows closed with ✕ in apps that keep running (Notion, Slack…) stay listed; click to reopen
+- **Recently closed**: documents you just closed in an app (TextEdit, Preview and other file-based apps) are listed at the bottom of its preview; click to reopen the file
 - Calendar agenda (today, then tomorrow) with a Join button, even when Calendar isn't running
 - Spotify and Music playback bar
 - Works without Screen Recording (icon + title list)
@@ -119,7 +120,9 @@ While the pointer is on the preview: **W** closes the window under the pointer, 
 DockLens makes **no network connections** unless you ask it to check for updates. Thumbnails are captured and shown locally and never leave your Mac.
 The only connection it can make is the update check: one request to the GitHub API to read the latest version number, sent only when you click **Check for Updates** or turn on **Check weekly** in Settings (off by default). No data about you is sent.
 
-Don't take my word for it: the code that uses each permission lives in [`DockLens/Core`](DockLens/Core): `DockObserver.swift` (Accessibility: which Dock icon you're hovering), `ThumbnailService.swift` (Screen Recording: thumbnails), `MediaController.swift` (Automation: Spotify / Music), `CalendarAgenda.swift` (Calendars: read-only agenda), and the update check in `UpdateChecker.swift`. You can also confirm there's no other network traffic with a firewall such as Little Snitch or LuLu.
+The **Recently closed** list (names of documents you closed) is kept in memory only: never written to disk, never sent anywhere, and gone when DockLens quits. Only files are remembered, not web pages. Turn it off in Settings and it is cleared immediately.
+
+Don't take my word for it: the code that uses each permission lives in [`DockLens/Core`](DockLens/Core): `DockObserver.swift` (Accessibility: which Dock icon you're hovering), `ThumbnailService.swift` (Screen Recording: thumbnails), `MediaController.swift` (Automation: Spotify / Music), `CalendarAgenda.swift` (Calendars: read-only agenda), `ClosedWindowStore.swift` / `ClosedWindowWatcher.swift` (the in-memory Recently closed list), and the update check in `UpdateChecker.swift`. You can also confirm there's no other network traffic with a firewall such as Little Snitch or LuLu.
 
 ## FAQ
 

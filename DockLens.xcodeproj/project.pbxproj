@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		098A8DD335F5561B6B6F257D /* RecentlyClosedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAAC8248ED3240D71E945CE /* RecentlyClosedView.swift */; };
+		12E7BA5D9A84404397AAFB38 /* ClosedWindowWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB434F29AA3CC1E2E1F2650 /* ClosedWindowWatcher.swift */; };
 		138FB0D817307332D623A6AE /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D14485A026701CD0455BED3 /* PreviewView.swift */; };
 		19D90FB67EDC9533346B6AAD /* ThumbnailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B741EA87A233EF542E06538B /* ThumbnailService.swift */; };
 		1E5FBCB4EE099535306639D1 /* PanelShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F941EF308FACBD61FC3FA /* PanelShortcuts.swift */; };
@@ -24,6 +26,7 @@
 		7B6E1C36AE74791CB24690DD /* PanelShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F6840B52580FE1D91E64DE /* PanelShortcutTests.swift */; };
 		7D6C4CCCEF06154F25C80808 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA383CCB747BD977130EF68 /* Permissions.swift */; };
 		8462C36650CB7492A320317C /* PreviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C87BFE69E7058EE66749963 /* PreviewPanel.swift */; };
+		858834925C9DA07D504368E1 /* ClosedWindowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD728959F5795DD7DDB3612E /* ClosedWindowStore.swift */; };
 		8DDBF6CA73AFCEBD7E2EEC26 /* DockLensApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF33E8BBEE2844A72F07E203 /* DockLensApp.swift */; };
 		8FE2A775EE4521B7A46D2B67 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 43FD1E735D8DE682B0AF09FF /* InfoPlist.xcstrings */; };
 		9D55D424371A21C1CE4CBB31 /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */; };
@@ -36,6 +39,7 @@
 		C4BA77A9D0FCC36B7997A12C /* PanelGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */; };
 		CF33999269C7F809C0BD7F31 /* MediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDD24B2FDE554FFDEC8FC9D /* MediaController.swift */; };
 		D0A3B185F371B128A40D4FD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D352030EDD3FCA254F3D200F /* Assets.xcassets */; };
+		D2287F8C551BC0B52001623A /* ClosedWindowStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F2F3D943E93628BFC9584 /* ClosedWindowStoreTests.swift */; };
 		DBDAF7295FA5346365F86D09 /* WindowActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15682734BA5217528C42170 /* WindowActions.swift */; };
 		EB298199D68E980098DFC809 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C126766984A8075006FA5B /* SettingsView.swift */; };
 		F5EEBF1698CAA023E726D44F /* DockObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825C12F8F642280938B6A65 /* DockObserver.swift */; };
@@ -76,11 +80,13 @@
 		6C0A935EAAE1709941F96E0D /* WindowEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEnumerator.swift; sourceTree = "<group>"; };
 		6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
 		70C126766984A8075006FA5B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7E7F2F3D943E93628BFC9584 /* ClosedWindowStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedWindowStoreTests.swift; sourceTree = "<group>"; };
 		89B4F12EE66D18E11E9700FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8DA5F7B38FD4DCACF7CCA898 /* PanelGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelGeometry.swift; sourceTree = "<group>"; };
 		9108DDC5B2019C8CD5436505 /* DockLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DockLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D14485A026701CD0455BED3 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		A15682734BA5217528C42170 /* WindowActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowActions.swift; sourceTree = "<group>"; };
+		ADB434F29AA3CC1E2E1F2650 /* ClosedWindowWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedWindowWatcher.swift; sourceTree = "<group>"; };
 		B4F6840B52580FE1D91E64DE /* PanelShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelShortcutTests.swift; sourceTree = "<group>"; };
 		B56BBD105695400C593B84DA /* DockLens.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DockLens.entitlements; sourceTree = "<group>"; };
 		B741EA87A233EF542E06538B /* ThumbnailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailService.swift; sourceTree = "<group>"; };
@@ -93,6 +99,8 @@
 		EBDD24B2FDE554FFDEC8FC9D /* MediaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaController.swift; sourceTree = "<group>"; };
 		EE646B9F631E9A1C72DFEB43 /* AgendaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaView.swift; sourceTree = "<group>"; };
 		FBE17F5C01D35782CDA80682 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
+		FD728959F5795DD7DDB3612E /* ClosedWindowStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedWindowStore.swift; sourceTree = "<group>"; };
+		FFAAC8248ED3240D71E945CE /* RecentlyClosedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyClosedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -102,6 +110,8 @@
 				2D1508172945FB08C997A98D /* AppSettings.swift */,
 				3B04486B7E87F76AD6FD7332 /* AXExtensions.swift */,
 				16FBBB447625882EDB65B58F /* CalendarAgenda.swift */,
+				FD728959F5795DD7DDB3612E /* ClosedWindowStore.swift */,
+				ADB434F29AA3CC1E2E1F2650 /* ClosedWindowWatcher.swift */,
 				5825C12F8F642280938B6A65 /* DockObserver.swift */,
 				EBDD24B2FDE554FFDEC8FC9D /* MediaController.swift */,
 				4AA383CCB747BD977130EF68 /* Permissions.swift */,
@@ -148,6 +158,7 @@
 				39E3DBE38C0631338146E0AF /* PreviewModel.swift */,
 				2C87BFE69E7058EE66749963 /* PreviewPanel.swift */,
 				9D14485A026701CD0455BED3 /* PreviewView.swift */,
+				FFAAC8248ED3240D71E945CE /* RecentlyClosedView.swift */,
 				70C126766984A8075006FA5B /* SettingsView.swift */,
 			);
 			path = UI;
@@ -195,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				00980688C224FD314A3E03B1 /* CalendarAgendaTests.swift */,
+				7E7F2F3D943E93628BFC9584 /* ClosedWindowStoreTests.swift */,
 				21A07C756A41E6BF2909E573 /* LocalizationTests.swift */,
 				65EA262D8D8C10C170608755 /* NoScreenRecordingTests.swift */,
 				45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */,
@@ -370,6 +382,8 @@
 				2E2993D3C6E423E2ED48BE02 /* AppCoordinator.swift in Sources */,
 				AB9BA514538FA85CD2CD00DC /* AppSettings.swift in Sources */,
 				51533F5BFD9880F600C2705D /* CalendarAgenda.swift in Sources */,
+				858834925C9DA07D504368E1 /* ClosedWindowStore.swift in Sources */,
+				12E7BA5D9A84404397AAFB38 /* ClosedWindowWatcher.swift in Sources */,
 				8DDBF6CA73AFCEBD7E2EEC26 /* DockLensApp.swift in Sources */,
 				F5EEBF1698CAA023E726D44F /* DockObserver.swift in Sources */,
 				CF33999269C7F809C0BD7F31 /* MediaController.swift in Sources */,
@@ -382,6 +396,7 @@
 				8462C36650CB7492A320317C /* PreviewPanel.swift in Sources */,
 				138FB0D817307332D623A6AE /* PreviewView.swift in Sources */,
 				40E06295F8F4CD7BE1D6E7C5 /* PrivateAPI.swift in Sources */,
+				098A8DD335F5561B6B6F257D /* RecentlyClosedView.swift in Sources */,
 				270D976FBB52A08B6BE1A90F /* SelfTest.swift in Sources */,
 				EB298199D68E980098DFC809 /* SettingsView.swift in Sources */,
 				19D90FB67EDC9533346B6AAD /* ThumbnailService.swift in Sources */,
@@ -397,6 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71D66CF5DAA4933A9F39D201 /* CalendarAgendaTests.swift in Sources */,
+				D2287F8C551BC0B52001623A /* ClosedWindowStoreTests.swift in Sources */,
 				A3AB3F1B238F8A38498EB6C5 /* LocalizationTests.swift in Sources */,
 				F81B12DD0935151DE363A7B4 /* NoScreenRecordingTests.swift in Sources */,
 				C4BA77A9D0FCC36B7997A12C /* PanelGeometryTests.swift in Sources */,

@@ -28,6 +28,8 @@ nonisolated struct WindowInfo: Identifiable, Sendable, Equatable {
     /// 按 X 關掉、但 App 仍保留著的視窗（Notion、Slack 等按 X 只是把主視窗藏起來）。
     /// 沒辦法直接叫出別的 App 的隱藏視窗，點擊時改為「重新打開 App」（等同點 Dock 圖示），由 App 自己把視窗叫回來。
     var isClosed = false
+    /// 視窗所開啟的文件位置（AXDocument）；沒有文件的視窗為 nil。用來判斷「最近關閉」的檔案現在是否又開著
+    var documentURL: URL?
 
     /// 視窗寬高比，用來決定縮圖卡片大小（在影像還沒拍到前就能先排版，避免面板跳動）
     var aspectRatio: CGFloat {
@@ -81,6 +83,7 @@ nonisolated enum WindowEnumerator {
         let attributes = [
             kAXRoleAttribute as String, kAXSubroleAttribute as String, kAXMinimizedAttribute as String,
             kAXTitleAttribute as String, kAXPositionAttribute as String, kAXSizeAttribute as String,
+            "AXDocument",
         ]
         for window in axWindows {
             // 每個視窗只做一次批次 IPC，而非 6 次個別呼叫
@@ -117,7 +120,8 @@ nonisolated enum WindowEnumerator {
                 frame: frame,
                 isMinimized: minimized,
                 isOnOtherSpace: false,
-                ax: AXRef(element: window)
+                ax: AXRef(element: window),
+                documentURL: ClosedWindowPolicy.documentURL(from: values["AXDocument"])
             ))
         }
 

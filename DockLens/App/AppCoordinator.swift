@@ -19,6 +19,9 @@ final class AppCoordinator {
     @ObservationIgnored let thumbnails = ThumbnailService()
     @ObservationIgnored private(set) lazy var preview = PreviewController(settings: settings, thumbnails: thumbnails)
     @ObservationIgnored private let dock = DockObserver()
+    /// 最近關閉的文件視窗（只在記憶體）；`closedWatcher` 負責偵測，只在設定開啟時存在
+    @ObservationIgnored let closedWindows = ClosedWindowStore()
+    @ObservationIgnored private(set) var closedWatcher: ClosedWindowWatcher?
     @ObservationIgnored private var workspaceObservations: [NSObjectProtocol] = []
     @ObservationIgnored private var onboardingWindow: NSWindow?
 
@@ -74,6 +77,8 @@ final class AppCoordinator {
         guard !isRunning else { return }
         dock.onHoverChange = { [weak self] item in self?.preview.dockHoverChanged(item) }
         preview.dockObserver = dock
+        preview.closedWindows = closedWindows
+        preview.refreshClosedWindowWatching = { [weak self] app in self?.watchClosedWindows(of: app) }
         guard dock.start() else {
             // Dock 尚未就緒（或權限剛授予、AX 樹還沒建立），稍後重試
             Task { @MainActor [weak self] in
@@ -83,7 +88,40 @@ final class AppCoordinator {
             return
         }
         observeWorkspace()
+        applyClosedWindowSetting()
         isRunning = true
+    }
+
+    /// 依設定啟動或停止「最近關閉」的偵測；關閉時一併清空已記下的項目（不留任何使用者檔案路徑）。
+    func applyClosedWindowSetting() {
+        guard isRunning || permissions.accessibility else { return }
+        if settings.remembersClosedWindows {
+            guard closedWatcher == nil else { return }
+            let store = closedWindows
+            closedWatcher = ClosedWindowWatcher { [weak self] closed in
+                MainActor.assumeIsolated {
+                    // 回報在關閉後約半秒才到：這段時間內使用者可能已經把設定關掉，不能再留下檔案路徑
+                    guard self?.settings.remembersClosedWindows == true, self?.closedWatcher != nil else { return }
+                    store.add(ClosedWindowEntry(
+                        bundleID: closed.bundleID, title: closed.title, url: closed.url, closedAt: closed.closedAt
+                    ))
+                }
+            }
+            // 已經在前景的 App 不會再收到「切到前景」通知，啟動時先掛上
+            if let front = NSWorkspace.shared.frontmostApplication { watchClosedWindows(of: front) }
+        } else {
+            closedWatcher?.stop()
+            closedWatcher = nil
+            closedWindows.removeAll()
+        }
+    }
+
+    /// 開始監看某個 App 的視窗關閉（只監看一般 App，不含 DockLens 自己）。
+    private func watchClosedWindows(of app: NSRunningApplication) {
+        guard let watcher = closedWatcher, app.activationPolicy == .regular, !app.isTerminated,
+              app.processIdentifier != ProcessInfo.processInfo.processIdentifier,
+              let bundleID = app.bundleIdentifier else { return }
+        watcher.attach(pid: app.processIdentifier, bundleID: bundleID)
     }
 
     /// 直接向 Dock 查詢游標目前停在哪個 App 圖示上（不依賴通知；自我測試用）。
@@ -145,13 +183,25 @@ final class AppCoordinator {
                 self.thumbnails.prewarm(pid: pid, maxPixelWidth: maxPixelWidth)
             }
         })
+        // 使用者切到某個 App：開始（或重新整理）監看它的視窗，之後關掉的文件才記得住
+        workspaceObservations.append(center.addObserver(
+            forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main
+        ) { [weak self] note in
+            guard let app = note.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else { return }
+            MainActor.assumeIsolated { self?.watchClosedWindows(of: app) }
+        })
         // App 結束時釋放它的縮圖
         workspaceObservations.append(center.addObserver(
             forName: NSWorkspace.didTerminateApplicationNotification, object: nil, queue: .main
         ) { [weak self] note in
             guard let app = note.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else { return }
             let pid = app.processIdentifier
-            MainActor.assumeIsolated { self?.thumbnails.purge(pid: pid) }
+            MainActor.assumeIsolated {
+                self?.thumbnails.purge(pid: pid)
+                self?.closedWatcher?.detach(pid: pid)
+                // 結束得慢的 App（要存檔、跳詢問）視窗是一個個被銷毀的，可能被誤當成「關掉的視窗」：把剛記下的清掉
+                if let bundleID = app.bundleIdentifier { self?.closedWindows.removeRecent(bundleID: bundleID, within: 3) }
+            }
         })
         // 切換桌面時收起面板
         workspaceObservations.append(center.addObserver(

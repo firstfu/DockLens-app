@@ -116,6 +116,37 @@ final class SelfTestRunner {
             NSApp.terminate(nil)
             return
         }
+        // --recently-closed-app <App 路徑>：對「真的文件型 App」（例如 TextEdit）跑同一組檢查。
+        // 只開、只關自己建立的測試文件（以檔案位置精確比對），不碰使用者原本開著的視窗，也不結束 App。
+        if let index = CommandLine.arguments.firstIndex(of: "--recently-closed-app"), index + 1 < CommandLine.arguments.count {
+            await runRecentlyClosedChecks(URL(fileURLWithPath: CommandLine.arguments[index + 1]), isFixture: false)
+            writeReport()
+            move(to: CGPoint(x: originalMouse.x, y: primaryHeight - originalMouse.y))
+            if let originalApp, let window = WindowEnumerator.windows(for: originalApp.processIdentifier, includeOtherSpaces: false).first {
+                WindowActions.focus(window)
+            }
+            NSApp.terminate(nil)
+            return
+        }
+        // --recently-closed-soak <次數>：反覆開關 Fixture 的文件視窗，檢查偵測的紀錄不累積、記憶體不上漲（長時間使用的洩漏檢查）
+        if let index = CommandLine.arguments.firstIndex(of: "--recently-closed-soak"), index + 1 < CommandLine.arguments.count,
+           let fixtureIndex = CommandLine.arguments.firstIndex(of: "--fixture"), fixtureIndex + 1 < CommandLine.arguments.count {
+            await runRecentlyClosedSoak(
+                URL(fileURLWithPath: CommandLine.arguments[fixtureIndex + 1]), cycles: Int(CommandLine.arguments[index + 1]) ?? 100
+            )
+            writeReport()
+            NSApp.terminate(nil)
+            return
+        }
+        // --recently-closed-only：只跑「最近關閉」檢查（約 30 秒）
+        if CommandLine.arguments.contains("--recently-closed-only"),
+           let index = CommandLine.arguments.firstIndex(of: "--fixture"), index + 1 < CommandLine.arguments.count {
+            await runRecentlyClosedChecks(URL(fileURLWithPath: CommandLine.arguments[index + 1]))
+            writeReport()
+            move(to: CGPoint(x: originalMouse.x, y: primaryHeight - originalMouse.y))
+            NSApp.terminate(nil)
+            return
+        }
         await measureHoverLatency()
         await checkAutoHide()
         await runMediaChecks()
@@ -124,6 +155,7 @@ final class SelfTestRunner {
             let fixtureURL = URL(fileURLWithPath: CommandLine.arguments[index + 1])
             await runFixtureChecks(fixtureURL)
             await runClosedWindowChecks(fixtureURL)
+            await runRecentlyClosedChecks(fixtureURL)
         } else {
             record("功能測試", false, "未提供 --fixture，略過按鈕操作測試")
         }
@@ -555,6 +587,224 @@ final class SelfTestRunner {
         _ = await waitUntil(.seconds(2)) { fixture.isTerminated }
     }
 
+    // MARK: - 最近關閉（文件視窗）
+
+    /// 模擬 TextEdit、預覽程式這類文件型 App：關掉文件視窗後，面板的「最近關閉」要列出它，點一下能重開。
+    /// 涵蓋：偵測（真的經過 AXObserver）、面板就地出現、重開、全部關掉也能叫出面板、App 結束不算關視窗、設定開關。
+    /// - Parameters:
+    ///   - url: 測試 App 的位置
+    ///   - isFixture: true 為 DockLensFixture（可任意啟動、結束）；false 為真實 App（不重啟、不結束，只動自己開的測試文件）
+    private func runRecentlyClosedChecks(_ url: URL, isFixture: Bool = true) async {
+        let bundleID = Bundle(url: url)?.bundleIdentifier ?? "com.firstfu.DockLensFixture"
+        let store = coordinator.closedWindows
+        let label = isFixture ? "" : "（\(Bundle(url: url)?.object(forInfoDictionaryKey: "CFBundleName") as? String ?? "真實 App")）"
+        if isFixture {
+            // 前面的測試關過沒有檔案的視窗（Fixture 1、2…）：它們不該出現在清單裡
+            record("沒有檔案的視窗關掉不會進清單", store.entries(for: bundleID, limit: 10).isEmpty,
+                   "筆數 \(store.entries(for: bundleID, limit: 10).count)")
+            NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).forEach { $0.forceTerminate() }
+            _ = await waitUntil(.seconds(2)) { NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).isEmpty }
+        }
+        store.removeAll()
+
+        // 兩份測試文件放在測試輸出資料夾（不碰使用者的任何檔案）
+        let docs = output.appending(path: "docs", directoryHint: .isDirectory)
+        try? FileManager.default.createDirectory(at: docs, withIntermediateDirectories: true)
+        let fileA = docs.appending(path: "undo-A.txt"), fileB = docs.appending(path: "undo-B.txt")
+        for file in [fileA, fileB] { try? "DockLens 最近關閉測試".write(to: file, atomically: true, encoding: .utf8) }
+
+        // 要走真正的路徑：App 被切到前景 → DockLens 掛上監看 → 之後才關視窗
+        let configuration = NSWorkspace.OpenConfiguration()
+        configuration.activates = true
+        let launched: NSRunningApplication?
+        if isFixture {
+            configuration.arguments = ["--document", fileA.path, "--document", fileB.path]
+            launched = try? await NSWorkspace.shared.openApplication(at: url, configuration: configuration)
+        } else {
+            // 真實 App：用「開啟檔案」請它開兩份測試文件（App 已在執行就沿用，不重啟）
+            _ = try? await NSWorkspace.shared.open([fileA, fileB], withApplicationAt: url, configuration: configuration)
+            launched = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).first
+        }
+        guard let fixture = launched else {
+            record("啟動測試 App（文件模式）\(label)", false)
+            return
+        }
+        let pid = fixture.processIdentifier
+        defer { if isFixture, !fixture.isTerminated { fixture.forceTerminate() } }
+        // 真實 App 可能還開著使用者自己的文件：一律只看我們的兩份測試文件
+        func documentWindows() -> [WindowInfo] { self.documentWindows(pid, matching: [fileA, fileB]) }
+        func window(for file: URL) -> WindowInfo? {
+            documentWindows().first { $0.documentURL.map(ClosedWindowPolicy.key) == ClosedWindowPolicy.key(file) }
+        }
+        guard await waitUntil(.seconds(5), { documentWindows().count == 2 }),
+              await waitUntil(.seconds(3), { self.dockItem(appURL: url) != nil }),
+              let windowB = window(for: fileB) else {
+            record("啟動測試 App（文件模式）", false, "文件視窗 \(documentWindows().count)")
+            return
+        }
+        record("視窗回報文件位置（AXDocument）\(label)", documentWindows().allSatisfy { ClosedWindowPolicy.isRestorable($0.documentURL) },
+               documentWindows().compactMap { $0.documentURL?.lastPathComponent }.joined(separator: "、"))
+        let attached = await waitUntil(.seconds(3)) { (self.coordinator.closedWatcher?.statistics(pid: pid).windows ?? 0) >= 2 }
+        record("切到前景的 App 會被掛上監看\(label)", attached, "監看中 \(coordinator.closedWatcher?.statistics(pid: pid).windows ?? -1) 個視窗")
+        try? await Task.sleep(for: .milliseconds(400))
+
+        // 1. 用面板上的紅燈關掉 B：清單出現一筆，面板就地長出「最近關閉」
+        _ = await leaveDock()
+        _ = await hoverDock(appURL: url, expectPanelFor: pid)
+        _ = await hoverCard(windowB.id)
+        let clicked = await clickProbe("close.\(windowB.id)")
+        let recorded = await waitUntil(.seconds(3)) { store.entries(for: bundleID).count == 1 }
+        record("關掉文件視窗後進入最近關閉清單\(label)",
+               clicked && recorded && store.entries(for: bundleID).first.map { ClosedWindowPolicy.key($0.url) == ClosedWindowPolicy.key(fileB) } == true,
+               "點擊 \(clicked)、筆數 \(store.entries(for: bundleID).count)")
+        let shown = await waitUntil(.seconds(3)) { self.preview.isVisible && self.preview.currentModel?.closed.count == 1 }
+        _ = await waitUntil(.seconds(1)) { self.probeRect("closed.0") != nil }
+        try? await Task.sleep(for: .milliseconds(200))
+        _ = savePanelScreenshot("recently-closed")
+        record("開著的面板就地出現「最近關閉」\(label)", shown && probeRect("closed.0") != nil, "面板 \(preview.isVisible)")
+
+        // 2. 點那一筆：App 用同一個檔案重開視窗，清單拿掉這筆
+        let clickedRow = await clickProbe("closed.0")
+        let reopened = await waitUntil(.seconds(4)) { window(for: fileB) != nil }
+        let removed = await waitUntil(.seconds(2)) { store.entries(for: bundleID).isEmpty }
+        record("點最近關閉的項目會用原檔案重開視窗\(label)", clickedRow && reopened && removed,
+               "點擊 \(clickedRow)、重開 \(reopened)、移除 \(removed)")
+
+        // 3. 現在已經開著的文件不會再列出來（例如使用者自己用 ⌘O 重開）
+        store.add(ClosedWindowEntry(bundleID: bundleID, title: "undo-B.txt", url: fileB))
+        let hiddenWhenOpen = store.entries(for: bundleID, excludingOpen: [ClosedWindowPolicy.key(fileB)]).isEmpty
+        store.removeAll()
+        record("文件已經又開著時不列在最近關閉", hiddenWhenOpen)
+
+        // 4. 兩個文件都關掉：App 沒有任何視窗，面板仍要能叫出來，列出兩筆（新的在前）
+        for file in [fileA, fileB] {
+            if let w = window(for: file) { WindowActions.close(w) }
+        }
+        let bothRecorded = await waitUntil(.seconds(4)) { store.entries(for: bundleID).count == 2 }
+        record("連關兩個文件視窗都記得住\(label)", bothRecorded, "筆數 \(store.entries(for: bundleID).count)")
+        _ = await leaveDock()
+        let panelNoWindows = await hoverDock(appURL: url, expectPanelFor: pid)
+        _ = await waitUntil(.seconds(1)) { self.probeRect("closed.1") != nil }
+        _ = savePanelScreenshot("recently-closed-no-windows")
+        record("App 沒有視窗時仍叫得出面板並列出最近關閉\(label)",
+               // Fixture 的視窗物件關掉後還活一小段時間，會以「已關閉」卡片（點了重開 App）留在面板上；
+               // 真正要驗的是：沒有任何「開著」的視窗時面板照樣叫得出來、最近關閉有兩筆
+               // （真實 App 可能還有使用者自己開著的視窗，這項只在 Fixture 檢查）
+               panelNoWindows && (!isFixture || preview.currentModel?.cards.allSatisfy(\.window.isClosed) == true)
+                   && preview.currentModel?.closed.count == 2,
+               "面板 \(panelNoWindows)、卡片 \(preview.currentModel?.cards.map(\.window.title) ?? [])、最近關閉 \(preview.currentModel?.closed.count ?? -1)")
+        let clickedFirst = await clickProbe("closed.0")
+        let restoredOne = await waitUntil(.seconds(4)) { documentWindows().count == 1 }
+        record("全部關掉後也能從面板重開\(label)", clickedFirst && restoredOne, "文件視窗 \(documentWindows().count)")
+
+        if isFixture {
+            // 5. App 結束時視窗會一起被銷毀，不算使用者關掉視窗
+            store.removeAll()
+            fixture.terminate()
+            _ = await waitUntil(.seconds(3)) { fixture.isTerminated }
+            try? await Task.sleep(for: .milliseconds(1500))
+            record("結束 App 不會把它的視窗當成關閉", store.entries(for: bundleID, limit: 10).isEmpty,
+                   "筆數 \(store.entries(for: bundleID, limit: 10).count)")
+        } else {
+            // 真實 App：收尾，只關掉自己開的測試文件（以檔案位置精確比對），其餘視窗一概不動
+            for file in [fileA, fileB] {
+                if let w = window(for: file) { WindowActions.close(w) }
+            }
+            _ = await waitUntil(.seconds(3)) { self.documentWindows(pid, matching: [fileA, fileB]).isEmpty }
+            store.removeAll()
+        }
+
+        // 6. 設定關閉：停止偵測並清空清單，不留任何檔案路徑；重新開啟後恢復
+        store.add(ClosedWindowEntry(bundleID: bundleID, title: "x", url: fileA))
+        let original = coordinator.settings.remembersClosedWindows
+        coordinator.settings.remembersClosedWindows = false
+        coordinator.applyClosedWindowSetting()
+        let cleared = store.entries.isEmpty && coordinator.closedWatcher == nil
+        coordinator.settings.remembersClosedWindows = true
+        coordinator.applyClosedWindowSetting()
+        record("關閉設定會停止偵測並清空清單", cleared && coordinator.closedWatcher != nil)
+        coordinator.settings.remembersClosedWindows = original
+        coordinator.applyClosedWindowSetting()
+        try? FileManager.default.removeItem(at: docs)
+    }
+
+    /// 洩漏檢查：反覆「開檔案 → 視窗出現 → 關掉」N 次。每次都換新檔名，所以清單會一路填滿再擠掉舊的（容量 40）。
+    /// 期望：偵測的 records 回到基準（視窗銷毀後不殘留）、清單不超過容量、DockLens 的實體記憶體不隨次數成長。
+    private func runRecentlyClosedSoak(_ url: URL, cycles: Int) async {
+        let bundleID = Bundle(url: url)?.bundleIdentifier ?? "com.firstfu.DockLensFixture"
+        NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).forEach { $0.forceTerminate() }
+        _ = await waitUntil(.seconds(2)) { NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).isEmpty }
+        let store = coordinator.closedWindows
+        store.removeAll()
+        let docs = output.appending(path: "soak", directoryHint: .isDirectory)
+        try? FileManager.default.createDirectory(at: docs, withIntermediateDirectories: true)
+        let first = docs.appending(path: "soak-first.txt")
+        try? "soak".write(to: first, atomically: true, encoding: .utf8)
+        let configuration = NSWorkspace.OpenConfiguration()
+        configuration.activates = true
+        configuration.arguments = ["--document", first.path]
+        guard let fixture = try? await NSWorkspace.shared.openApplication(at: url, configuration: configuration) else {
+            record("洩漏檢查：啟動測試 App", false)
+            return
+        }
+        let pid = fixture.processIdentifier
+        defer { if !fixture.isTerminated { fixture.forceTerminate() } }
+        _ = await waitUntil(.seconds(5)) { (self.coordinator.closedWatcher?.statistics(pid: pid).windows ?? 0) >= 1 }
+        let baseline = coordinator.closedWatcher?.statistics(pid: pid).windows ?? -1
+        let openConfiguration = NSWorkspace.OpenConfiguration()
+        openConfiguration.activates = false
+        var failures = 0
+        var footprints: [Double] = []
+        for index in 0..<cycles {
+            let file = docs.appending(path: "soak-\(index).txt")
+            try? "soak \(index)".write(to: file, atomically: true, encoding: .utf8)
+            _ = try? await NSWorkspace.shared.open([file], withApplicationAt: url, configuration: openConfiguration)
+            let key = ClosedWindowPolicy.key(file)
+            func target() -> WindowInfo? {
+                WindowEnumerator.windows(for: pid, includeOtherSpaces: false)
+                    .first { $0.documentURL.map(ClosedWindowPolicy.key) == key }
+            }
+            guard await waitUntil(.seconds(3), { target() != nil }), let window = target() else { failures += 1; continue }
+            WindowActions.close(window)
+            if !(await waitUntil(.seconds(3)) { target() == nil }) { failures += 1 }
+            try? FileManager.default.removeItem(at: file)
+            if index % max(1, cycles / 5) == 0 { footprints.append(physicalFootprintMB()) }
+        }
+        // 使用者之後再切到這個 App、或把游標停到它的 Dock 圖示時，偵測會重讀視窗並修剪已失效的紀錄；
+        // 這裡走同一條路（面板顯示時會呼叫它），等視窗物件被系統真正釋放（Fixture 關掉的視窗還會活一小段時間）
+        let fixtureBundleID = bundleID
+        _ = await waitUntil(.seconds(8)) {
+            self.coordinator.closedWatcher?.attach(pid: pid, bundleID: fixtureBundleID)
+            return (self.coordinator.closedWatcher?.statistics(pid: pid).windows ?? -1) == baseline
+        }
+        footprints.append(physicalFootprintMB())
+        let after = coordinator.closedWatcher?.statistics(pid: pid).windows ?? -1
+        record("洩漏檢查：\(cycles) 次開關後偵測紀錄回到基準", after == baseline && failures == 0,
+               "基準 \(baseline)、結束 \(after)、失敗 \(failures)、實際還開著 \(WindowEnumerator.windows(for: pid, includeOtherSpaces: false).map(\.title))、App 的 AX 視窗總數（含已關但未釋放的）\(rawWindowCount(pid))、紀錄 \(coordinator.closedWatcher?.recordSummaries(pid: pid) ?? [])")
+        record("洩漏檢查：清單不超過容量", store.entries.count <= ClosedWindowStore.capacity,
+               "筆數 \(store.entries.count)／\(ClosedWindowStore.capacity)")
+        let growth = (footprints.last ?? 0) - (footprints.first ?? 0)
+        record("洩漏檢查：實體記憶體沒有隨次數成長", growth < 8,
+               "MB 走勢 \(footprints.map { String(format: "%.1f", $0) }.joined(separator: " → "))（增加 \(String(format: "%.1f", growth))）")
+        try? FileManager.default.removeItem(at: docs)
+    }
+
+    /// App 回報的 AX 視窗總數（含已關閉但物件還沒被釋放的）。
+    private func rawWindowCount(_ pid: pid_t) -> Int {
+        let windows: [AXUIElement] = AXUIElementCreateApplication(pid).value(kAXWindowsAttribute) ?? []
+        return windows.filter { $0.subrole == kAXStandardWindowSubrole as String }.count
+    }
+
+    /// DockLens 目前的實體記憶體用量（MB）。
+    private func physicalFootprintMB() -> Double {
+        var info = task_vm_info_data_t()
+        var count = mach_msg_type_number_t(MemoryLayout<task_vm_info_data_t>.size / MemoryLayout<integer_t>.size)
+        let result = withUnsafeMutablePointer(to: &info) {
+            $0.withMemoryRebound(to: integer_t.self, capacity: Int(count)) { task_info(mach_task_self_, task_flavor_t(TASK_VM_INFO), $0, &count) }
+        }
+        return result == KERN_SUCCESS ? Double(info.phys_footprint) / 1_048_576 : 0
+    }
+
     /// 面板應位於「放大圖示＋名稱標籤」之外，不蓋住 Dock。
     /// 底部 Dock 的標籤高度是實測常數；側邊 Dock 的標籤寬度隨 App 名稱而變，這裡檢查不蓋住放大圖示，標籤另以全景截圖目視確認。
     private func checkPanelPlacement(appTitle: String) {
@@ -851,6 +1101,13 @@ final class SelfTestRunner {
 
     private func windowTitles(_ pid: pid_t) -> [String] {
         WindowEnumerator.windows(for: pid, includeOtherSpaces: false).map(\.title)
+    }
+
+    /// App 目前開著、且文件位置屬於 `files` 的視窗。
+    private func documentWindows(_ pid: pid_t, matching files: [URL]) -> [WindowInfo] {
+        let keys = Set(files.map(ClosedWindowPolicy.key))
+        return WindowEnumerator.windows(for: pid, includeOtherSpaces: false)
+            .filter { $0.documentURL.map { keys.contains(ClosedWindowPolicy.key($0)) } == true }
     }
 
     private func window(_ pid: pid_t, titled title: String) -> WindowInfo? {

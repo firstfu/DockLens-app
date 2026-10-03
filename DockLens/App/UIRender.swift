@@ -31,6 +31,9 @@ enum UIRender {
             ("panel-list", AnyView(PreviewView(model: .sample(showsThumbnails: false)))),
             ("panel-list-side", AnyView(PreviewView(model: .sample(edge: .left, showsThumbnails: false)))),
             ("panel-closed", AnyView(PreviewView(model: .sampleClosed()))),
+            ("panel-recently-closed", AnyView(PreviewView(model: .sampleRecentlyClosed()))),
+            ("panel-recently-closed-side", AnyView(PreviewView(model: .sampleRecentlyClosed(edge: .left)))),
+            ("panel-recently-closed-only", AnyView(PreviewView(model: .sampleRecentlyClosed(openWindows: 0)))),
             ("media", AnyView(mediaBars)),
             ("agenda", AnyView(agendas)),
         ]

@@ -7,6 +7,7 @@
 //
 
 import AppKit
+import os
 
 enum WindowActions {
     /// 切換到指定視窗：取消最小化 → 前置 App 並讓該視窗成為 key → AXRaise 確保它在同 App 視窗的最上層。
@@ -40,6 +41,30 @@ enum WindowActions {
         configuration.activates = true
         NSWorkspace.shared.openApplication(at: url, configuration: configuration) { _, error in
             if let error { NSLog("DockLens 重新打開 App 失敗：\(error.localizedDescription)") }
+        }
+    }
+
+    /// 重開「最近關閉」的文件：請原本的 App 開啟同一個檔案（資料夾則由 Finder 開成視窗），App 自己會還原內容與位置。
+    /// - Parameters:
+    ///   - entry: 要重開的項目
+    ///   - appURL: 原本那個 App 的位置；nil 時交給系統挑預設 App
+    ///   - completion: 開啟結果（主執行緒）
+    static func restore(_ entry: ClosedWindowEntry, appURL: URL?, completion: @escaping @MainActor (Bool) -> Void) {
+        let configuration = NSWorkspace.OpenConfiguration()
+        configuration.activates = true
+        let finish: @Sendable (Error?) -> Void = { error in
+            // 錯誤說明常含檔名（「找不到檔案『報稅資料.pdf』」），系統日誌誰都讀得到：標為 private，只記錯誤代碼
+            if let error {
+                let code = (error as NSError).code
+                Logger(subsystem: "com.firstfu.DockLens", category: "closed-windows")
+                    .notice("重開最近關閉的文件失敗：錯誤碼 \(code) \(error.localizedDescription, privacy: .private)")
+            }
+            Task { @MainActor in completion(error == nil) }
+        }
+        if let appURL {
+            NSWorkspace.shared.open([entry.url], withApplicationAt: appURL, configuration: configuration) { _, error in finish(error) }
+        } else {
+            NSWorkspace.shared.open(entry.url, configuration: configuration) { _, error in finish(error) }
         }
     }
 

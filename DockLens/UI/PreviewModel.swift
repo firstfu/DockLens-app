@@ -41,6 +41,8 @@ struct PreviewActions {
     var hideApp: () -> Void = {}
     var quitApp: () -> Void = {}
     var newWindow: () -> Void = {}
+    /// 重開「最近關閉」清單裡的一筆
+    var restore: (ClosedWindowEntry) -> Void = { _ in }
 }
 
 /// 音樂 App 的播放列狀態（Spotify、音樂）。
@@ -91,6 +93,8 @@ final class PreviewModel {
     let media: MediaBarModel?
     /// 「行事曆」才有的行程區塊；其他 App 或已關閉此功能時為 nil
     let agenda: AgendaModel?
+    /// 這個 App 最近關掉、可以重開的文件（新的在前）；沒有時為空陣列、面板不顯示該區塊
+    let closed: [ClosedWindowEntry]
     @ObservationIgnored var actions = PreviewActions()
     /// 按鈕提示是否附上單鍵快捷鍵（設定開啟且有 App 可操作時）
     @ObservationIgnored var showsShortcutHints = false
@@ -107,6 +111,7 @@ final class PreviewModel {
     ///   - title: Dock 圖示標題（App 未執行時當作名稱）
     ///   - windows: 已排序的視窗
     ///   - agenda: 行程區塊狀態（只有「行事曆」才傳）
+    ///   - closed: 最近關閉、可重開的文件
     ///   - thumbnail: 查詢快取縮圖的函式（讓面板一出現就有畫面）
     ///   - thumbnailHeight: 縮圖高度
     ///   - showsTitles: 是否在縮圖下方顯示標題（無縮圖模式的標題在卡片內，不另外顯示）
@@ -117,7 +122,7 @@ final class PreviewModel {
     ///   - icon: 覆寫標頭與佔位圖示（僅示範用）
     init(
         app: NSRunningApplication?, appURL: URL? = nil, title: String = "", windows: [WindowInfo],
-        agenda: AgendaStatus? = nil,
+        agenda: AgendaStatus? = nil, closed: [ClosedWindowEntry] = [],
         thumbnail: (CGWindowID) -> CGImage?,
         thumbnailHeight: CGFloat, showsTitles: Bool, showsThumbnails: Bool = true, edge: DockEdge, screenSize: CGSize,
         displayName: String? = nil, icon: NSImage? = nil
@@ -136,6 +141,7 @@ final class PreviewModel {
         self.media = media
         let agenda = agenda.map(AgendaModel.init)
         self.agenda = agenda
+        self.closed = closed
 
         let listSize = PanelGeometry.listCardSize(thumbnailHeight: thumbnailHeight)
         let cards = windows.map { window in
@@ -161,6 +167,7 @@ final class PreviewModel {
             maxLength = screenSize.height * 0.85 - 2 * PreviewView.padding - PreviewView.headerHeight
                 - (media != nil ? MediaBarView.height + PreviewView.sectionSpacing : 0)
                 - (agenda.map { AgendaView.height(for: $0.status) + PreviewView.sectionSpacing } ?? 0)
+                - (closed.isEmpty ? 0 : RecentlyClosedView.height(count: closed.count) + PreviewView.sectionSpacing)
         }
         self.groups = PanelGeometry.group(lengths: lengths, maxLength: maxLength, spacing: Self.spacing)
             .map { $0.map { cards[$0] } }

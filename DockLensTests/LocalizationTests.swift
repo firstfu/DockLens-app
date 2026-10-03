@@ -33,6 +33,18 @@ struct LocalizationTests {
         #expect(value != marker, "\(language) 沒有字串表（使用者會看到別的語言）")
     }
 
+    @Test(arguments: expectedLanguages)
+    func recentlyClosedStringsAreTranslated(language: String) throws {
+        // 「最近關閉」功能的三條新字串：每種語言都要有譯文，且英文版不能還是中文
+        let languageBundle = try #require(bundle(for: language))
+        let marker = "‹missing›"
+        for key in ["最近關閉", "記住最近關閉的文件視窗", "在該 App 的預覽上一鍵重開。只存在記憶體，結束 DockLens 就清空。"] {
+            let value = languageBundle.localizedString(forKey: key, value: marker, table: nil)
+            #expect(value != marker, "\(language) 缺少「\(key)」的翻譯")
+            if language == "en" { #expect(value != key, "en 還是中文：\(key)") }
+        }
+    }
+
     @Test func traditionalChineseShowsChineseNotEnglish() throws {
         let zh = try #require(bundle(for: "zh-Hant"))
         #expect(zh.localizedString(forKey: "歡迎使用 DockLens", value: nil, table: nil) == "歡迎使用 DockLens")

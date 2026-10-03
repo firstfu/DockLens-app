@@ -19938,6 +19938,636 @@
           }
         }
       }
+    },
+    "最近關閉": {
+      "comment": "Section heading in the preview panel: documents the user closed a moment ago in this app, click one to reopen. Short label, one line.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أُغلقت مؤخرًا"
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tancades recentment"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nedávno zavřené"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lukket for nylig"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zuletzt geschlossen"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Πρόσφατα κλειστά"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recently closed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerradas recientemente"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Äskettäin suljetut"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fermées récemment"
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "נסגרו לאחרונה"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "हाल ही में बंद किए गए"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nedavno zatvoreno"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nemrég bezárt"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baru saja ditutup"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiuse di recente"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最近閉じた項目"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "최근에 닫은 항목"
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baru ditutup"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nylig lukket"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onlangs gesloten"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostatnio zamknięte"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fechados recentemente"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fechados recentemente"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Închise recent"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недавно закрытые"
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nedávno zatvorené"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nyligen stängda"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ปิดล่าสุด"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son kapatılanlar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нещодавно закриті"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã đóng gần đây"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最近关闭"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最近關閉"
+          }
+        }
+      }
+    },
+    "記住最近關閉的文件視窗": {
+      "comment": "Settings toggle title. 'Document windows' = windows of a file (e.g. a text file) opened in an app",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تذكّر نوافذ المستندات المغلقة مؤخرًا"
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recorda les finestres de documents tancades recentment"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pamatovat si nedávno zavřená okna dokumentů"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Husk nyligt lukkede dokumentvinduer"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zuletzt geschlossene Dokumentfenster merken"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Απομνημόνευση πρόσφατα κλειστών παραθύρων εγγράφων"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remember recently closed document windows"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recordar las ventanas de documentos cerradas recientemente"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muista äskettäin suljetut asiakirjaikkunat"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mémoriser les fenêtres de documents fermées récemment"
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "זכור חלונות מסמכים שנסגרו לאחרונה"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "हाल ही में बंद की गई दस्तावेज़ विंडो याद रखें"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pamti nedavno zatvorene prozore dokumenata"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nemrég bezárt dokumentumablakok megjegyzése"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingat jendela dokumen yang baru ditutup"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricorda le finestre dei documenti chiuse di recente"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最近閉じた書類ウインドウを記憶する"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "최근에 닫은 문서 윈도우 기억하기"
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingat tetingkap dokumen yang baru ditutup"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Husk nylig lukkede dokumentvinduer"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onlangs gesloten documentvensters onthouden"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapamiętuj ostatnio zamknięte okna dokumentów"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lembrar janelas de documentos fechadas recentemente"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Memorizar janelas de documentos fechadas recentemente"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reține ferestrele de documente închise recent"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запоминать недавно закрытые окна документов"
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pamätať si nedávno zatvorené okná dokumentov"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kom ihåg nyligen stängda dokumentfönster"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "จดจำหน้าต่างเอกสารที่เพิ่งปิด"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son kapatılan belge pencerelerini hatırla"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запам’ятовувати нещодавно закриті вікна документів"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi nhớ các cửa sổ tài liệu vừa đóng"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "记住最近关闭的文档窗口"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記住最近關閉的文件視窗"
+          }
+        }
+      }
+    },
+    "在該 App 的預覽上一鍵重開。只存在記憶體，結束 DockLens 就清空。": {
+      "comment": "Settings toggle description under the title. Say: reopen with one click from that app's preview; kept in memory only, cleared when DockLens quits.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أعد فتحها بنقرة واحدة من معاينة ذلك التطبيق. تُحفظ في الذاكرة فقط وتُمسح عند إنهاء DockLens."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reobre-les amb un clic des de la previsualització de l’app. Només es guarden a la memòria i s’esborren en sortir de DockLens."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jedním kliknutím je znovu otevřete z náhledu dané aplikace. Uloženo jen v paměti a po ukončení DockLens se smaže."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genåbn dem med ét klik fra appens forhåndsvisning. Gemmes kun i hukommelsen og ryddes, når DockLens lukkes."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit einem Klick in der Vorschau der App wieder öffnen. Wird nur im Arbeitsspeicher gehalten und beim Beenden von DockLens gelöscht."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ανοίξτε τα ξανά με ένα κλικ από την προεπισκόπηση της εφαρμογής. Αποθηκεύονται μόνο στη μνήμη και διαγράφονται όταν κλείσει το DockLens."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reopen them with one click from that app’s preview. Kept in memory only and cleared when DockLens quits."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reábrelas con un clic desde la vista previa de la app. Solo se guardan en memoria y se borran al salir de DockLens."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaa ne uudelleen yhdellä napsautuksella kyseisen apin esikatselusta. Säilytetään vain muistissa ja tyhjennetään, kun DockLens sulkeutuu."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rouvrez-les en un clic depuis l’aperçu de l’app. Conservées en mémoire uniquement, effacées à la fermeture de DockLens."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "פתחו אותם מחדש בלחיצה אחת מהתצוגה המקדימה של היישום. נשמרים בזיכרון בלבד ונמחקים כש‑DockLens נסגר."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "उस ऐप के पूर्वावलोकन से एक क्लिक में फिर से खोलें। केवल मेमोरी में रहता है और DockLens बंद होने पर साफ़ हो जाता है।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponovno ih otvorite jednim klikom iz pregleda aplikacije. Čuva se samo u memoriji i briše se kad se DockLens zatvori."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Egy kattintással újra megnyithatók az adott app előnézetéből. Csak a memóriában tárolódnak, a DockLens kilépésekor törlődnek."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buka lagi dengan satu klik dari pratinjau app tersebut. Hanya disimpan di memori dan dihapus saat DockLens ditutup."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riaprili con un clic dall’anteprima dell’app. Conservati solo in memoria e cancellati all’uscita da DockLens."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "そのAppのプレビューからワンクリックで開き直せます。メモリ上にのみ保持され、DockLensを終了すると消去されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "해당 앱의 미리보기에서 한 번 클릭해 다시 열 수 있습니다. 메모리에만 보관되며 DockLens를 종료하면 지워집니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buka semula dengan satu klik daripada pratonton app itu. Disimpan dalam memori sahaja dan dipadam apabila DockLens ditutup."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Åpne dem igjen med ett klikk fra forhåndsvisningen av appen. Lagres kun i minnet og tømmes når DockLens avsluttes."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open ze met één klik opnieuw vanuit het voorbeeld van de app. Wordt alleen in het geheugen bewaard en gewist als DockLens stopt."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwórz je ponownie jednym kliknięciem z podglądu aplikacji. Przechowywane tylko w pamięci i czyszczone po zamknięciu DockLens."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reabra com um clique na pré-visualização do app. Fica apenas na memória e é apagado quando o DockLens é encerrado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reabra com um clique na pré-visualização da app. Fica apenas na memória e é apagado quando o DockLens termina."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redeschide-le cu un clic din previzualizarea aplicației. Se păstrează doar în memorie și se șterge când DockLens se închide."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте их снова одним щелчком в окне предпросмотра приложения. Хранится только в памяти и стирается при выходе из DockLens."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Znova ich otvoríte jedným kliknutím v náhľade aplikácie. Uchovávajú sa iba v pamäti a po ukončení DockLens sa vymažú."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna dem igen med ett klick från appens förhandsvisning. Sparas bara i minnet och töms när DockLens avslutas."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เปิดใหม่ได้ด้วยการคลิกเดียวจากตัวอย่างของแอปนั้น เก็บไว้ในหน่วยความจำเท่านั้น และจะถูกล้างเมื่อออกจาก DockLens"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O uygulamanın önizlemesinden tek tıkla yeniden açın. Yalnızca bellekte tutulur ve DockLens kapanınca temizlenir."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрийте їх знову одним клацанням у попередньому перегляді програми. Зберігається лише в пам’яті й очищується під час виходу з DockLens."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở lại bằng một cú nhấp từ bản xem trước của ứng dụng. Chỉ lưu trong bộ nhớ và được xóa khi thoát DockLens."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在该 App 的预览上一键重新打开。只保存在内存中，退出 DockLens 就会清空。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在該 App 的預覽上一鍵重開。只存在記憶體，結束 DockLens 就清空。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

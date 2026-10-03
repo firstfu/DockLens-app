@@ -27,6 +27,8 @@ final class AppSettings {
     var includesOtherSpaces: Bool { didSet { defaults.set(includesOtherSpaces, forKey: Key.includesOtherSpaces) } }
     /// App 沒有開著的視窗時，是否列出「按 X 關掉但仍保留」的視窗（點擊重新打開）
     var showsClosedWindows: Bool { didSet { defaults.set(showsClosedWindows, forKey: Key.showsClosedWindows) } }
+    /// 記住最近關閉的文件視窗，之後能在 Dock 圖示的預覽上一鍵重開（只存在記憶體，結束 DockLens 就清空）
+    var remembersClosedWindows: Bool { didSet { defaults.set(remembersClosedWindows, forKey: Key.remembersClosedWindows) } }
     /// App 沒有視窗時是否仍顯示提示面板
     var showsEmptyState: Bool { didSet { defaults.set(showsEmptyState, forKey: Key.showsEmptyState) } }
 
@@ -67,6 +69,7 @@ final class AppSettings {
         static let includesOtherSpaces = "includesOtherSpaces"
         static let showsEmptyState = "showsEmptyState"
         static let showsClosedWindows = "showsClosedWindows"
+        static let remembersClosedWindows = "remembersClosedWindows"
         static let showsCalendarAgenda = "showsCalendarAgenda"
         static let panelShortcuts = "panelShortcuts"
         static let autoChecksForUpdates = "autoChecksForUpdates"
@@ -83,6 +86,7 @@ final class AppSettings {
             Key.includesOtherSpaces: true,
             Key.showsEmptyState: false,
             Key.showsClosedWindows: true,
+            Key.remembersClosedWindows: true,
             Key.showsCalendarAgenda: true,
             Key.panelShortcuts: true,
             Key.autoChecksForUpdates: false,
@@ -95,6 +99,7 @@ final class AppSettings {
         includesOtherSpaces = defaults.bool(forKey: Key.includesOtherSpaces)
         showsEmptyState = defaults.bool(forKey: Key.showsEmptyState)
         showsClosedWindows = defaults.bool(forKey: Key.showsClosedWindows)
+        remembersClosedWindows = defaults.bool(forKey: Key.remembersClosedWindows)
         showsCalendarAgenda = defaults.bool(forKey: Key.showsCalendarAgenda)
         panelShortcuts = defaults.bool(forKey: Key.panelShortcuts)
         autoChecksForUpdates = defaults.bool(forKey: Key.autoChecksForUpdates)
