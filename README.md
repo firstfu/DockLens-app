@@ -21,6 +21,8 @@
 </p>
 
 <p align="center">
+  <a href="https://firstfu.github.io/DockLens-app/"><b>Website</b></a>
+  &nbsp;·&nbsp;
   <a href="../../releases/latest"><b>Download DockLens.zip</b></a>
   &nbsp;·&nbsp;
   <code>brew install --cask firstfu/tap/docklens</code>
