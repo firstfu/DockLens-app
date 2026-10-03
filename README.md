@@ -202,6 +202,10 @@ open build/Build/Products/Release/DockLens.app
 No Apple account needed: builds are ad-hoc signed by default. To sign with your own certificate (so macOS keeps the permissions across rebuilds), see [`Config/Signing.xcconfig`](Config/Signing.xcconfig).
 Tests: replace `build` with `test` in the `xcodebuild` command.
 
+## Also by the same author
+
+[Liftoff](https://github.com/firstfu/Liftoff) — the Launchpad grid that macOS 26 removed, back, with live window previews and one-click Smart Organize. Free and open source, for macOS 26+.
+
 ## License
 
 [GPLv3](LICENSE). You're free to use, study, modify and share it; modified versions you distribute must stay open source under the same license.

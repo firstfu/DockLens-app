@@ -190,6 +190,10 @@ DockLens 還沒有經過 Apple 公證。到 系統設定 → 隱私權與安全�
 需要 Xcode 26 與 [XcodeGen](https://github.com/yonaskolb/XcodeGen)（`brew install xcodegen`），指令見英文版的 [Build from source](README.md#build-from-source)。
 預設為 ad-hoc 簽章，不需要 Apple 帳號；想用自己的憑證（重建後系統權限不必重開），請看 [`Config/Signing.xcconfig`](Config/Signing.xcconfig)。
 
+## 同一位作者的其他作品
+
+[Liftoff](https://github.com/firstfu/Liftoff)：macOS 26 拿掉的啟動台，現在回來了，還多了即時視窗預覽與一鍵智慧整理。免費、開源，適用 macOS 26 以上。
+
 ## 授權
 
 [GPLv3](LICENSE)：可自由使用、研究、修改與散布；散布修改後的版本時，必須以同樣授權開源。
