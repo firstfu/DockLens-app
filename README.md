@@ -58,6 +58,8 @@ macOS 26 or later.
 
 ## Install
 
+**Homebrew:** `brew install --cask firstfu/tap/docklens` (a [personal tap](https://github.com/firstfu/homebrew-tap); the app is not notarized yet, so you still need **Open Anyway** once, see step 3 below). Or download manually:
+
 1. Download `DockLens.zip` from [Releases](../../releases/latest) and unzip it.
 2. Move `DockLens.app` to `/Applications`.
 3. Open it. macOS will block it the first time, because DockLens isn't notarized by Apple yet:
@@ -131,6 +133,8 @@ Tests: replace `build` with `test` in the `xcodebuild` command.
 macOS 26 以上。
 
 ### 安裝
+
+**Homebrew：** `brew install --cask firstfu/tap/docklens`（[個人 tap](https://github.com/firstfu/homebrew-tap)；App 尚未公證，所以仍要在「系統設定 › 隱私權與安全性」按一次「強制打開」，見下方步驟 3）。或手動下載：
 
 1. 從 [Releases](../../releases/latest) 下載 `DockLens.zip` 並解壓縮
 2. 把 `DockLens.app` 拖進「應用程式」資料夾
