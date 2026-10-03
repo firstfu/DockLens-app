@@ -141,7 +141,7 @@ private struct AgendaRow: View {
                         .fill(color)
                         .frame(width: 3, height: 26)
                     timeColumn
-                        .frame(width: 44, alignment: .leading)
+                        .frame(width: 50, alignment: .leading)
                     VStack(alignment: .leading, spacing: 1) {
                         Text(event.title)
                             .font(.system(size: 12, weight: .semibold))
@@ -150,7 +150,7 @@ private struct AgendaRow: View {
                             Text(detail.text)
                                 .font(.system(size: 11, weight: detail.emphasized ? .medium : .regular))
                                 .foregroundStyle(detail.emphasized ? AnyShapeStyle(detail.tint) : AnyShapeStyle(.secondary))
-                                .minimumScaleFactor(0.85)
+                                .minimumScaleFactor(0.75)
                         }
                     }
                     .lineLimit(1)
@@ -196,7 +196,7 @@ private struct AgendaRow: View {
                 .foregroundStyle(.secondary)
                 // 時間欄寬度固定，較長的翻譯（例如 Ganztägig）縮小字級塞進去
                 .lineLimit(1)
-                .minimumScaleFactor(0.7)
+                .minimumScaleFactor(0.8)
         } else {
             VStack(alignment: .leading, spacing: 1) {
                 Text(startLabel)

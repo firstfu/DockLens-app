@@ -93,7 +93,8 @@ private struct StepCard: View {
                 .foregroundStyle(granted ? .green : .accentColor)
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 6) {
-                    Text(title).font(.headline)
+                    // 完整的權限名稱在有些語言很長（例如荷蘭文「Scherm- en systeemaudio-opname」），換行比截斷好
+                    Text(title).font(.headline).fixedSize(horizontal: false, vertical: true)
                     Text(tag)
                         .font(.caption2.weight(.semibold))
                         .foregroundStyle(.secondary)
