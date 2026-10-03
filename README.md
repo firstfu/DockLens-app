@@ -8,6 +8,8 @@
 >
 > I'm building this on my own and want to learn what you actually need — please open an [Issue](../../issues/new/choose) with bugs or ideas.
 
+![Demo: moving the pointer onto a Dock icon pops up live thumbnails of all its windows; hovering a thumbnail shows the close / minimize / full-screen buttons](assets/demo.gif)
+
 ![DockLens: hovering the Finder icon in the Dock shows live thumbnails of all three Finder windows](assets/screenshot.png)
 
 ## Features
