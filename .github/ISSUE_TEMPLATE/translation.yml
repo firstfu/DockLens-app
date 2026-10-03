@@ -1,0 +1,69 @@
+name: Translation fix / 翻譯勘誤
+description: Something in your language reads wrong or doesn't match macOS / 你的語言有不通順或與 macOS 用詞不符的地方
+labels: [translation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        DockLens ships 34 languages. The translations are **AI-assisted and not all checked by native speakers**, so corrections are very welcome. A native speaker who can compare the wording with a real Mac set to your language is the most valuable kind of feedback.
+        DockLens 支援 34 種語言，翻譯由 AI 協助完成，**並非每一種都經過母語者檢查**。如果你有一台設成該語言的 Mac，可以對照畫面指出哪裡不對，那是最有價值的回饋。
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language / 語言
+      options:
+        - Arabic (ar)
+        - Catalan (ca)
+        - Chinese, Simplified (zh-Hans)
+        - Chinese, Traditional (zh-Hant)
+        - Croatian (hr)
+        - Czech (cs)
+        - Danish (da)
+        - Dutch (nl)
+        - English (en)
+        - Finnish (fi)
+        - French (fr)
+        - German (de)
+        - Greek (el)
+        - Hebrew (he)
+        - Hindi (hi)
+        - Hungarian (hu)
+        - Indonesian (id)
+        - Italian (it)
+        - Japanese (ja)
+        - Korean (ko)
+        - Malay (ms)
+        - Norwegian Bokmål (nb)
+        - Polish (pl)
+        - Portuguese, Brazil (pt-BR)
+        - Portuguese, Portugal (pt-PT)
+        - Romanian (ro)
+        - Russian (ru)
+        - Slovak (sk)
+        - Spanish (es)
+        - Swedish (sv)
+        - Thai (th)
+        - Turkish (tr)
+        - Ukrainian (uk)
+        - Vietnamese (vi)
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Where and what it says now / 在哪裡、現在寫什麼
+      description: The screen (onboarding, Settings, preview panel, menu bar, Calendar agenda) and the exact current text. A screenshot helps. / 哪個畫面（引導、設定、預覽面板、選單列、行事曆）與目前的文字，附截圖更好。
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What it should say / 應該怎麼寫
+      description: If it is a macOS feature name (e.g. Screen Recording, Accessibility, Automation), please tell us what your macOS 26 shows. / 如果是 macOS 功能名稱（螢幕錄製、輔助使用、自動化等），請寫你的 macOS 26 實際顯示的名稱。
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source (optional) / 依據（選填）
+      description: A link to an Apple support page in your language, or "my Mac shows this". / Apple 該語言的說明頁連結，或「我的 Mac 就是這樣顯示」。
