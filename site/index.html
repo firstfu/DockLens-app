@@ -1,0 +1,221 @@
+<!doctype html>
+<!--
+  DockLens 官網（GitHub Pages 單頁）。
+  英文直接寫在 HTML 裡（利於搜尋引擎）；其他語言放 i18n/<code>.json，依瀏覽器語言或下拉選單切換。
+  文案只用 docs/launch/positioning.md 列為「可以寫」的事實，不跟其他工具比較好壞。
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta_title">DockLens — Hover a Dock icon, see every window</title>
+<meta name="description" content="A free, open-source Dock window preview for macOS 26+. Live thumbnails of every window; switch, close or minimize from the preview. Closed windows stay one click away. 34 languages." data-i18n-attr="content:meta_desc">
+<link rel="canonical" href="https://firstfu.github.io/DockLens-app/">
+<link rel="icon" href="assets/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DockLens — Hover a Dock icon, see every window">
+<meta property="og:description" content="A free, open-source Dock window preview for macOS 26+. Live thumbnails of every window; switch, close or minimize from the preview. Closed windows stay one click away. 34 languages.">
+<meta property="og:image" content="https://firstfu.github.io/DockLens-app/assets/social-preview.png">
+<meta property="og:url" content="https://firstfu.github.io/DockLens-app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://firstfu.github.io/DockLens-app/assets/social-preview.png">
+<meta name="theme-color" content="#0e1118">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DockLens","applicationCategory":"UtilitiesApplication","operatingSystem":"macOS 26 or later","description":"A free, open-source Dock window preview for macOS 26+. Live thumbnails of every window; switch, close or minimize from the preview. Closed windows stay one click away. 34 languages.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"license":"https://www.gnu.org/licenses/gpl-3.0.html","url":"https://firstfu.github.io/DockLens-app/","downloadUrl":"https://github.com/firstfu/DockLens-app/releases/latest","image":"https://firstfu.github.io/DockLens-app/assets/social-preview.png"}
+</script>
+<style>
+:root{--bg:#0e1118;--bg2:#161b26;--card:#1a2030;--text:#eef1f7;--muted:#a3adc2;--accent:#6aa5ff;--accent-ink:#06142e;--line:rgba(255,255,255,.09);--code:#0a0d13}
+@media (prefers-color-scheme:light){:root{--bg:#f6f7fb;--bg2:#ffffff;--card:#ffffff;--text:#141824;--muted:#5b6579;--accent:#1a6dff;--accent-ink:#ffffff;--line:rgba(10,20,40,.1);--code:#eef1f7}}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,"PingFang TC","PingFang SC","Hiragino Sans","Apple SD Gothic Neo",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit} img,video{max-width:100%;height:auto;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;z-index:5;backdrop-filter:saturate(1.4) blur(14px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:20px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;text-decoration:none}
+.brand img{width:30px;height:30px;border-radius:7px}
+nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-size:15px;color:var(--muted)}
+nav a{text-decoration:none} nav a:hover{color:var(--text)}
+select{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit;font-size:14px}
+.hero{text-align:center;padding:72px 0 40px}
+.hero .icon{width:96px;height:96px;margin:0 auto 22px}
+h1{font-size:clamp(34px,5.6vw,60px);line-height:1.12;letter-spacing:-.02em;margin:0 auto 18px;max-width:880px;text-wrap:balance}
+.sub{font-size:clamp(18px,2.2vw,22px);color:var(--muted);max-width:700px;margin:0 auto 30px;text-wrap:balance}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 24px;border-radius:12px;font-weight:600;text-decoration:none;font-size:17px}
+.btn.primary{background:var(--accent);color:var(--accent-ink)} .btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border:1px solid var(--line);background:var(--card)} .btn.ghost:hover{border-color:var(--accent)}
+.note{margin-top:16px;color:var(--muted);font-size:14px}
+.brew{display:inline-block;margin-top:14px;background:var(--code);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font:14px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;user-select:all;max-width:100%;overflow-x:auto;white-space:nowrap}
+.demo{margin:44px auto 0;max-width:880px;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.demo video{width:100%;height:auto}
+section{padding:72px 0} section.alt{background:var(--bg2)}
+h2{text-wrap:balance;font-size:clamp(28px,3.6vw,40px);line-height:1.15;letter-spacing:-.015em;text-align:center;margin:0 auto 20px;max-width:760px}
+.lead{text-align:center;color:var(--muted);max-width:720px;margin:0 auto 40px}
+.wide{margin:0 auto 68px}
+.wide .shot{margin-bottom:16px}
+.wide h3{font-size:24px;margin:0 0 6px;letter-spacing:-.01em;text-align:center} .wide p{color:var(--muted);margin:0 auto;text-align:center;max-width:720px}
+.row{display:grid;grid-template-columns:1fr 1.15fr;gap:44px;align-items:center;margin-bottom:68px}
+.rows .row:nth-child(even) .txt{order:2}
+.row h3{font-size:26px;margin:0 0 10px;letter-spacing:-.01em} .row p{color:var(--muted);margin:0}
+.shot{border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.28)}
+.shot img{width:100%}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+.card h3{margin:0 0 8px;font-size:19px} .card p{margin:0;color:var(--muted);font-size:15.5px}
+kbd{font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--code)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 14px}
+.stat b{display:block;font-size:30px;letter-spacing:-.02em;color:var(--accent)} .stat span{color:var(--muted);font-size:14.5px}
+table{width:100%;max-width:820px;margin:0 auto;border-collapse:collapse;font-size:15.5px}
+th,td{text-align:left;padding:12px 10px;overflow-wrap:anywhere;hyphens:auto;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:14px}
+td:first-child{font-weight:600;white-space:nowrap}
+.req{color:var(--accent);font-weight:600}
+ol{max-width:720px;margin:0 auto;padding:0;list-style:none;counter-reset:s}
+ol li{counter-increment:s;position:relative;padding:14px 0 14px 54px;border-bottom:1px solid var(--line)}
+ol li::before{content:counter(s);position:absolute;left:0;top:12px;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;display:grid;place-items:center}
+.or{text-align:center;color:var(--muted);margin:26px 0 12px}
+.fine{text-align:center;color:var(--muted);font-size:14.5px;max-width:720px;margin:22px auto 0}
+.fine a{color:var(--accent)}
+.langs{text-align:center;color:var(--muted);max-width:760px;margin:0 auto 32px}
+.langs a{color:var(--accent)}
+.final{text-align:center} footer{padding:34px 0 50px;text-align:center;color:var(--muted);font-size:14.5px;border-top:1px solid var(--line)}
+footer p{margin:6px 0} footer a{color:var(--accent)}
+@media(max-width:820px){.row{grid-template-columns:1fr;gap:22px}.rows .row:nth-child(even) .txt{order:0}.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}nav a.hide-sm{display:none}td:first-child{white-space:normal}table{table-layout:fixed;font-size:14.5px}th,td{padding:10px 6px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="brand" href="#top"><img src="assets/icon.png" alt="" width="30" height="30">DockLens</a>
+  <nav>
+    <a class="hide-sm" href="#features" data-i18n="nav_features">Features</a>
+    <a class="hide-sm" href="#privacy" data-i18n="nav_privacy">Privacy</a>
+    <a class="hide-sm" href="#install" data-i18n="nav_install">Install</a>
+    <a href="https://github.com/firstfu/DockLens-app" data-i18n="nav_github">GitHub</a>
+    <select id="lang" aria-label="Language"></select>
+  </nav>
+</div></header>
+<main id="top">
+<div class="wrap hero">
+  <img class="icon" src="assets/icon.png" alt="" width="96" height="96">
+  <h1 data-i18n="hero_title">Hover a Dock icon. See every window.</h1>
+  <p class="sub" data-i18n="hero_sub">Live thumbnails of every window of an app. Click to switch, or close, minimize and go full screen right from the preview.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/firstfu/DockLens-app/releases/latest" data-i18n="cta_download">Download for macOS 26+</a>
+    <a class="btn ghost" href="https://github.com/firstfu/DockLens-app" data-i18n="cta_github">View on GitHub</a>
+  </div>
+  <div><code class="brew">brew install --cask firstfu/tap/docklens</code></div>
+  <p class="note" data-i18n="hero_note">Free · Open source (GPLv3) · No network unless you check for updates · 34 languages</p>
+  <div class="demo"><video autoplay muted loop playsinline preload="metadata" poster="assets/demo-poster.jpg" width="880" height="448" aria-label="DockLens demo"><source src="assets/demo.mp4" type="video/mp4"></video></div>
+</div>
+<section id="features" class="alt"><div class="wrap">
+  <h2 data-i18n="features_title">Every window, one hover away.</h2>
+  <p class="lead" data-i18n="features_lead">DockLens adds a preview panel to the macOS Dock. It stays out of the way until you rest the pointer on an icon.</p>
+  <div class="wide">
+    <div class="shot"><img src="assets/preview-panel.png" data-zh="assets/zh-TW/preview-panel.png" alt="" loading="lazy" width="2000" height="444"></div>
+    <h3 data-i18n="f1_title">Including the windows you can't see</h3>
+    <p data-i18n="f1_text">Minimized windows and windows on other desktops are listed and labeled. Click one to jump straight to it, even if it's on another Space.</p>
+  </div>
+  <div class="rows">
+    <div class="row"><div class="txt"><h3 data-i18n="f2_title">Closed with ✕? Still there.</h3><p data-i18n="f2_text">Apps like Notion and Slack keep running after you close their window. DockLens keeps that window in the list, so one click brings it back.</p></div><div class="shot"><img src="assets/closed-window.png" data-zh="assets/zh-TW/closed-window.png" alt="" loading="lazy" width="680" height="614"></div></div>
+    <div class="row"><div class="txt"><h3 data-i18n="f3_title">Your agenda on the Calendar icon</h3><p data-i18n="f3_text">Today, then tomorrow. “Now” and “starts in 10 min” at a glance, plus a Join button for Zoom, Meet and Teams links. Works even when Calendar isn't running.</p></div><div class="shot"><img src="assets/calendar.png" data-zh="assets/zh-TW/calendar.png" alt="" loading="lazy" width="856" height="568"></div></div>
+    <div class="row"><div class="txt"><h3 data-i18n="f4_title">A playback bar for Spotify and Music</h3><p data-i18n="f4_text">See the current song, then play, pause, skip back or forward without leaving what you're doing.</p></div><div class="shot"><img src="assets/media-bar.png" data-zh="assets/zh-TW/media-bar.png" alt="" loading="lazy" width="856" height="336"></div></div>
+  </div>
+  <div class="grid">
+    <div class="card"><h3 data-i18n="f5_title">Recently closed</h3><p data-i18n="f5_text">Documents you just closed in TextEdit, Preview and other file-based apps appear at the bottom of the preview. Click to open the file again. Kept in memory only.</p></div>
+    <div class="card"><h3 data-i18n="f6_title">Act from the preview</h3><p data-i18n="f6_text">Close, minimize or go full screen per window; open a new window, hide or quit the app. Optional single keys: W, M, H, Q.</p></div>
+    <div class="card"><h3 data-i18n="f7_title">Fits your Dock</h3><p data-i18n="f7_text">Dock at the bottom, left or right. Works with auto-hide, magnification and multiple displays.</p></div>
+  </div>
+</div></section>
+<section id="privacy"><div class="wrap">
+  <h2 data-i18n="privacy_title">Screen Recording is optional</h2>
+  <p class="lead" data-i18n="privacy_lead">Skip it and the preview lists each window by app icon and title. Switching, closing and minimizing still work.</p>
+  <div class="wide"><div class="shot"><img src="assets/no-screen-recording.png" data-zh="assets/zh-TW/no-screen-recording.png" alt="" loading="lazy" width="2000" height="292"></div></div>
+  <table>
+    <thead><tr><th data-i18n="perm_h_name">Permission</th><th data-i18n="perm_h_why">What it's for</th><th data-i18n="perm_h_skip">If you skip it</th></tr></thead>
+    <tbody>
+      <tr><td><span data-i18n="perm_ax">Accessibility</span><br><span class="req" data-i18n="perm_required">Required</span></td><td data-i18n="perm_ax_why">Know which Dock icon you're hovering; switch and close windows</td><td data-i18n="perm_ax_skip">DockLens can't work</td></tr>
+      <tr><td><span data-i18n="perm_sr">Screen Recording</span><br><span data-i18n="perm_optional">Optional</span></td><td data-i18n="perm_sr_why">Live thumbnails, processed on your Mac only</td><td data-i18n="perm_sr_skip">Windows listed by icon and title</td></tr>
+      <tr><td><span data-i18n="perm_auto">Automation (Spotify / Music)</span><br><span data-i18n="perm_optional">Optional</span></td><td data-i18n="perm_auto_why">Playback bar; asked only when you first press play</td><td data-i18n="perm_auto_skip">No playback bar</td></tr>
+      <tr><td><span data-i18n="perm_cal">Calendars</span><br><span data-i18n="perm_optional">Optional</span></td><td data-i18n="perm_cal_why">Read-only agenda on the Calendar icon</td><td data-i18n="perm_cal_skip">No agenda</td></tr>
+    </tbody>
+  </table>
+  <p class="fine" data-i18n="privacy_note">DockLens makes no network connections unless you ask it to check for updates. Thumbnails never leave your Mac, and every line of code is open for you to read.</p>
+</div></section>
+<section class="alt"><div class="wrap"><div class="stats">
+  <div class="stat"><b>0%</b><span data-i18n="perf_cpu">CPU when idle</span></div>
+  <div class="stat"><b>0</b><span data-i18n="perf_wakeups">Wakeups when idle</span></div>
+  <div class="stat"><b>20–30 MB</b><span data-i18n="perf_mem">Memory</span></div>
+  <div class="stat"><b>34</b><span data-i18n="perf_langs">Languages</span></div>
+</div><p class="fine" data-i18n="perf_note">Event-driven, with no polling while idle. Measured on Apple silicon with a Release build.</p></div></section>
+<section id="install"><div class="wrap">
+  <h2 data-i18n="install_title">Install in a minute</h2>
+  <ol>
+    <li data-i18n="step1">Download DockLens.zip and unzip it.</li><li data-i18n="step2">Move DockLens.app to your Applications folder.</li><li data-i18n="step3">Open it. If macOS blocks it, go to System Settings → Privacy & Security and click Open Anyway. You do this once per version.</li><li data-i18n="step4">Allow Accessibility when asked. The other permissions are optional.</li>
+  </ol>
+  <p class="or" data-i18n="install_or">Or with Homebrew:</p>
+  <div style="text-align:center"><code class="brew">brew install --cask firstfu/tap/docklens</code></div>
+  <p class="fine" data-i18n="install_note">Requires macOS 26 or later; runs on Apple silicon and Intel. Builds are not notarized by Apple yet. Updates keep your permissions.</p>
+</div></section>
+<section class="alt"><div class="wrap">
+  <h2 data-i18n="lang_title">Speaks your language</h2>
+  <p class="langs"><span data-i18n="lang_text">34 interface languages, following your macOS language setting. Translations are AI-assisted and not all checked by native speakers yet.</span> <a href="https://github.com/firstfu/DockLens-app/issues/6" data-i18n="lang_help">Help check yours →</a></p>
+  <div class="shot" style="max-width:960px;margin:0 auto"><img src="assets/languages.png" alt="" loading="lazy" width="2200" height="771"></div>
+</div></section>
+<section><div class="wrap">
+  <h2 data-i18n="more_title">Need something else?</h2>
+  <p class="langs" data-i18n="more_text">DockLens is small and focused on the Dock. If you need an Alt+Tab switcher, gestures or support for older macOS versions, DockDoor and AltTab are established, open-source tools worth a look.</p>
+</div></section>
+<section class="alt final"><div class="wrap"><div class="cta"><a class="btn primary" href="https://github.com/firstfu/DockLens-app/releases/latest" data-i18n="cta_final">Get DockLens</a><a class="btn ghost" href="https://github.com/firstfu/DockLens-app/issues/new/choose" data-i18n="cta_feedback">Report a bug or idea</a></div></div></section>
+</main>
+<footer><div class="wrap">
+  <p data-i18n="footer_text">Free and open source under GPLv3. Made by one person — issues and pull requests are welcome.</p>
+  <p><span data-i18n="footer_also">Also by the same author:</span> <a href="https://firstfu.github.io/Liftoff/">Liftoff</a></p>
+</div></footer>
+<script>
+// 語言切換：?lang= 參數 > 上次選擇 > 瀏覽器偏好語言 > 英文。繁中另外換成繁中版截圖（data-zh）。
+(function(){
+  var LANGS=[["en","English"],["zh-Hant","繁體中文"],["zh-Hans","简体中文"],["ja","日本語"],["ko","한국어"],["de","Deutsch"],["fr","Français"],["es","Español"],["pt-BR","Português"],["it","Italiano"],["ru","Русский"],["tr","Türkçe"],["nl","Nederlands"]];
+  var sel=document.getElementById("lang");
+  LANGS.forEach(function(l){var o=document.createElement("option");o.value=l[0];o.textContent=l[1];sel.appendChild(o);});
+  function known(c){return LANGS.some(function(l){return l[0]===c});}
+  function detect(){
+    var q=new URLSearchParams(location.search).get("lang"); if(q&&known(q))return q;
+    try{var s=localStorage.getItem("lang"); if(s&&known(s))return s;}catch(e){}
+    var prefs=navigator.languages||[navigator.language||"en"];
+    for(var i=0;i<prefs.length;i++){
+      var p=prefs[i].toLowerCase();
+      if(p==="zh-tw"||p==="zh-hk"||p==="zh-mo"||p.indexOf("zh-hant")===0)return "zh-Hant";
+      if(p==="zh"||p==="zh-cn"||p==="zh-sg"||p.indexOf("zh-hans")===0)return "zh-Hans";
+      if(p.indexOf("pt")===0)return "pt-BR";
+      var base=p.split("-")[0]; var hit=LANGS.filter(function(l){return l[0].toLowerCase()===base})[0]; if(hit)return hit[0];
+    }
+    return "en";
+  }
+  function apply(t,code){
+    document.documentElement.lang=code;
+    document.querySelectorAll("[data-i18n]").forEach(function(el){var k=el.getAttribute("data-i18n"); if(t[k]!==undefined)el.textContent=t[k];});
+    document.querySelectorAll("[data-i18n-attr]").forEach(function(el){var p=el.getAttribute("data-i18n-attr").split(":"); if(t[p[1]]!==undefined)el.setAttribute(p[0],t[p[1]]);});
+    document.querySelectorAll("img[data-zh]").forEach(function(el){
+      if(!el.dataset.en)el.dataset.en=el.getAttribute("src");
+      el.setAttribute("src",code==="zh-Hant"?el.dataset.zh:el.dataset.en);
+    });
+    if(t.meta_title)document.title=t.meta_title;
+  }
+  function load(code){
+    sel.value=code;
+    if(code==="en"){apply(window.__en,"en");return;}
+    fetch("i18n/"+code+".json").then(function(r){return r.json()}).then(function(t){apply(t,code)}).catch(function(){});
+  }
+  // 切回英文時用頁面原文還原
+  window.__en={}; document.querySelectorAll("[data-i18n]").forEach(function(el){window.__en[el.getAttribute("data-i18n")]=el.textContent;});
+  document.querySelectorAll("[data-i18n-attr]").forEach(function(el){var p=el.getAttribute("data-i18n-attr").split(":"); window.__en[p[1]]=el.getAttribute(p[0]);});
+  window.__en.meta_title=document.title;
+  sel.addEventListener("change",function(){try{localStorage.setItem("lang",sel.value)}catch(e){} load(sel.value);});
+  var first=detect(); if(first!=="en")load(first); else sel.value="en";
+})();
+</script>
+</body>
+</html>
