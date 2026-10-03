@@ -55,7 +55,7 @@
         "fi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ saatavilla"
+            "value": "Versio %@ saatavilla"
           }
         },
         "fr": {
@@ -73,7 +73,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ उपलब्ध है"
+            "value": "संस्करण %@ उपलब्ध है"
           }
         },
         "hr": {
@@ -85,13 +85,13 @@
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ letölthető"
+            "value": "%@ verzió letölthető"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ tersedia"
+            "value": "Versi %@ tersedia"
           }
         },
         "it": {
@@ -115,7 +115,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ tersedia"
+            "value": "Versi %@ tersedia"
           }
         },
         "nb": {
@@ -151,7 +151,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ disponibilă"
+            "value": "Versiunea %@ disponibilă"
           }
         },
         "ru": {
@@ -193,13 +193,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đã có %@"
+            "value": "Có phiên bản %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ 可供下载"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 可下載"
           }
         }
       }
@@ -258,7 +264,7 @@
         "fi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alkuun %@"
+            "value": "Alkaa %@ kuluttua"
           }
         },
         "fr": {
@@ -403,6 +409,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@后开始"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@後開始"
           }
         }
       }
@@ -606,6 +618,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@（%2$@）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@（%@）"
           }
         }
       }
@@ -813,6 +831,12 @@
             "state": "translated",
             "value": "%lld 毫秒"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ms"
+          }
         }
       }
     },
@@ -1016,6 +1040,12 @@
             "state": "translated",
             "value": "%lld pt"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld pt"
+          }
         }
       }
     },
@@ -1031,7 +1061,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mostrar la previsualització encara que l’app no tingui finestres"
+            "value": "Mostra la previsualització encara que l’app no tingui finestres"
           }
         },
         "cs": {
@@ -1043,7 +1073,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vis eksempel, selv når en app ikke har vinduer"
+            "value": "Vis forhåndsvisning, selv når en app ikke har vinduer"
           }
         },
         "de": {
@@ -1067,7 +1097,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mostrar la previsualización aunque la app no tenga ventanas"
+            "value": "Mostrar la vista previa aunque la app no tenga ventanas"
           }
         },
         "fi": {
@@ -1127,7 +1157,7 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "앱에 윈도우가 없어도 미리보기 보기"
+            "value": "앱에 윈도우가 없어도 미리보기 표시"
           }
         },
         "ms": {
@@ -1181,7 +1211,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zobraziť náhľad, aj keď apka nemá žiadne okná"
+            "value": "Zobraziť náhľad, aj keď aplikácia nemá žiadne okná"
           }
         },
         "sv": {
@@ -1219,6 +1249,12 @@
             "state": "translated",
             "value": "App 没有窗口时仍显示预览"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 沒有視窗時仍顯示面板"
+          }
         }
       }
     },
@@ -1228,7 +1264,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "W يغلق النافذة، M يصغّرها أو يستعيدها، H يخفي التطبيق، Q ينهي التطبيق"
+            "value": "‏W يغلق النافذة، M يصغّرها أو يستعيدها، H يخفي التطبيق، Q ينهي التطبيق"
           }
         },
         "ca": {
@@ -1246,7 +1282,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "W lukker vinduet, M minimerer eller gendanner det, H skjuler appen, Q slutter appen"
+            "value": "W lukker vinduet, M minimerer eller gendanner det, H skjuler appen, Q afslutter appen"
           }
         },
         "de": {
@@ -1288,7 +1324,7 @@
         "he": {
           "stringUnit": {
             "state": "translated",
-            "value": "W סוגר את החלון, M ממזער או משחזר אותו, H מסתיר את היישום, Q יוצא מהיישום"
+            "value": "‏W סוגר את החלון, M ממזער או משחזר אותו, H מסתיר את היישום, Q יוצא מהיישום"
           }
         },
         "hi": {
@@ -1318,7 +1354,7 @@
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "W chiude la finestra, M la contrae o la ripristina, H nasconde l’app, Q esce dall’app"
+            "value": "W chiude la finestra, M la riduce a icona o la ripristina, H nasconde l’app, Q esce dall’app"
           }
         },
         "ja": {
@@ -1384,7 +1420,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "W zatvorí okno, M ho minimalizuje alebo obnoví, H skryje apku, Q ukončí apku"
+            "value": "W zatvorí okno, M ho minimalizuje alebo obnoví, H skryje aplikáciu, Q ukončí aplikáciu"
           }
         },
         "sv": {
@@ -1408,7 +1444,7 @@
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "W — закрити вікно, M — згорнути або відновити, H — сховати програму, Q — закрити програму"
+            "value": "W — закрити вікно, M — згорнути або відновити, H — сховати програму, Q — вийти з програми"
           }
         },
         "vi": {
@@ -1421,6 +1457,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "W 关闭窗口、M 最小化或还原、H 隐藏 App、Q 退出 App"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "W 關閉視窗、M 縮小或還原、H 隱藏 App、Q 結束 App"
           }
         }
       }
@@ -1625,6 +1667,12 @@
             "state": "translated",
             "value": "通用"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一般"
+          }
         }
       }
     },
@@ -1730,7 +1778,7 @@
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "前のトラック"
+            "value": "前の曲"
           }
         },
         "ko": {
@@ -1824,6 +1872,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上一首"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "上一首"
@@ -1933,7 +1987,7 @@
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "次のトラック"
+            "value": "次の曲"
           }
         },
         "ko": {
@@ -2031,6 +2085,12 @@
             "state": "translated",
             "value": "下一首"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一首"
+          }
         }
       }
     },
@@ -2046,7 +2106,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Descarregar"
+            "value": "Descarrega"
           }
         },
         "cs": {
@@ -2202,7 +2262,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hämta"
+            "value": "Ladda ned"
           }
         },
         "th": {
@@ -2234,6 +2294,12 @@
             "state": "translated",
             "value": "下载"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下載"
+          }
         }
       }
     },
@@ -2249,7 +2315,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Descarregar la versió %@…"
+            "value": "Descarrega la versió %@…"
           }
         },
         "cs": {
@@ -2405,7 +2471,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hämta version %@…"
+            "value": "Ladda ned version %@…"
           }
         },
         "th": {
@@ -2436,6 +2502,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "下载新版本 %@…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下載新版本 %@…"
           }
         }
       }
@@ -2636,6 +2708,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "今天"
@@ -2843,6 +2921,12 @@
             "state": "translated",
             "value": "今天和明天都没有日程"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天和明天都沒有行程"
+          }
         }
       }
     },
@@ -3046,6 +3130,12 @@
             "state": "translated",
             "value": "今天已没有日程"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天已沒有行程"
+          }
         }
       }
     },
@@ -3115,7 +3205,7 @@
         "he": {
           "stringUnit": {
             "state": "translated",
-            "value": "כדי לזהות על איזו צלמית ב־Dock אתה מצביע, וכדי לעבור בין חלונות ולסגור אותם"
+            "value": "כדי לזהות על איזו צלמית ב־Dock הסמן מצביע, וכדי לעבור בין חלונות ולסגור אותם"
           }
         },
         "hi": {
@@ -3249,6 +3339,12 @@
             "state": "translated",
             "value": "用于检测指针停在哪个程序坞图标上，以及切换和关闭窗口"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "偵測游標停在哪個 Dock 圖示、切換與關閉視窗"
+          }
         }
       }
     },
@@ -3264,7 +3360,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Permetre"
+            "value": "Permet"
           }
         },
         "cs": {
@@ -3288,7 +3384,7 @@
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Αποδοχή"
+            "value": "Επιτρέπω"
           }
         },
         "en": {
@@ -3451,6 +3547,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "允许"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允許"
           }
         }
       }
@@ -3655,6 +3757,12 @@
             "state": "translated",
             "value": "允许访问日历，即可在此查看今天的日程"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允許讀取行事曆，即可在這裡看到今天的行程"
+          }
         }
       }
     },
@@ -3670,7 +3778,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Continuar sense miniatures"
+            "value": "Continua sense miniatures"
           }
         },
         "cs": {
@@ -3858,6 +3966,12 @@
             "state": "translated",
             "value": "暂不使用缩略图，直接开始"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "先不要縮圖，直接使用"
+          }
         }
       }
     },
@@ -3885,13 +3999,13 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heldags"
+            "value": "Heldag"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ganztags"
+            "value": "Ganztägig"
           }
         },
         "el": {
@@ -3951,7 +4065,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sehari"
+            "value": "Seharian"
           }
         },
         "it": {
@@ -3975,13 +4089,13 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sehari"
+            "value": "Seharian"
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heldags"
+            "value": "Heldag"
           }
         },
         "nl": {
@@ -4061,6 +4175,12 @@
             "state": "translated",
             "value": "全天"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全天"
+          }
         }
       }
     },
@@ -4136,7 +4256,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "पूर्ण स्क्रीन"
+            "value": "फ़ुल स्क्रीन"
           }
         },
         "hr": {
@@ -4264,6 +4384,12 @@
             "state": "translated",
             "value": "全屏幕"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全螢幕"
+          }
         }
       }
     },
@@ -4303,7 +4429,7 @@
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Άλλο γραφείο"
+            "value": "Άλλο γραφείο εργασίας"
           }
         },
         "en": {
@@ -4423,7 +4549,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Другой стол"
+            "value": "Другой раб. стол"
           }
         },
         "sk": {
@@ -4453,7 +4579,7 @@
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Інший стіл"
+            "value": "Інший роб. стіл"
           }
         },
         "vi": {
@@ -4463,6 +4589,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "其他桌面"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "其他桌面"
@@ -4482,7 +4614,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Concedir accés"
+            "value": "Concedeix accés"
           }
         },
         "cs": {
@@ -4548,7 +4680,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dodijeli pristup"
+            "value": "Odobri pristup"
           }
         },
         "hu": {
@@ -4670,6 +4802,12 @@
             "state": "translated",
             "value": "前往授权"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前往授權"
+          }
         }
       }
     },
@@ -4685,7 +4823,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unir-se"
+            "value": "Uneix-te"
           }
         },
         "cs": {
@@ -4709,7 +4847,7 @@
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Σύνδεση"
+            "value": "Συμμετοχή"
           }
         },
         "en": {
@@ -4829,7 +4967,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Войти"
+            "value": "Присоед."
           }
         },
         "sk": {
@@ -4859,7 +4997,7 @@
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Увійти"
+            "value": "Приєдн."
           }
         },
         "vi": {
@@ -4869,6 +5007,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "加入"
@@ -4888,7 +5032,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unir-se a la videotrucada"
+            "value": "Uneix-te a la videotrucada"
           }
         },
         "cs": {
@@ -4912,7 +5056,7 @@
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Σύνδεση στη βιντεοκλήση"
+            "value": "Συμμετοχή στη βιντεοκλήση"
           }
         },
         "en": {
@@ -5076,6 +5220,12 @@
             "state": "translated",
             "value": "加入视频通话"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入視訊會議"
+          }
         }
       }
     },
@@ -5169,7 +5319,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sertakan Jendela di Desktop Lain (Space)"
+            "value": "Sertakan Jendela di Desktop Lain (Ruang)"
           }
         },
         "it": {
@@ -5279,6 +5429,12 @@
             "state": "translated",
             "value": "包括其他桌面（空间）中的窗口"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含其他桌面（Space）的視窗"
+          }
         }
       }
     },
@@ -5294,7 +5450,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens només es connecta a GitHub per consultar el número de l’última versió quan fas clic a «Buscar actualitzacions» o actives la comprovació automàtica. No s’envia cap dada."
+            "value": "DockLens només es connecta a GitHub per consultar el número de l’última versió quan fas clic a «Cerca actualitzacions» o actives la comprovació automàtica. No s’envia cap dada."
           }
         },
         "cs": {
@@ -5384,7 +5540,7 @@
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLensがGitHubに接続して最新のバージョン番号を読み込むのは、“アップデートを確認”をクリックしたときか、自動確認を入にしたときだけです。データは一切送信されません。"
+            "value": "DockLensがGitHubに接続して最新のバージョン番号を読み込むのは、“アップデートを確認”をクリックしたときか、自動確認をオンにしたときだけです。データは一切送信されません。"
           }
         },
         "ko": {
@@ -5396,7 +5552,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens hanya menghubungi GitHub untuk membaca nombor versi terkini apabila anda mengklik “Semak Kemas Kini” atau mengaktifkan semakan automatik. Tiada data dihantar."
+            "value": "DockLens hanya menghubungi GitHub untuk membaca nombor versi terkini apabila anda mengklik “Semak Kemas Kini” atau mendayakan semakan automatik. Tiada data dihantar."
           }
         },
         "nb": {
@@ -5414,7 +5570,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens łączy się z GitHub tylko po to, aby odczytać numer najnowszej wersji — gdy klikniesz „Sprawdź uaktualnienia” lub włączysz automatyczne sprawdzanie. Żadne dane nie są wysyłane."
+            "value": "DockLens łączy się z GitHub tylko po to, aby odczytać numer najnowszej wersji — gdy klikniesz „Sprawdź aktualizacje” lub włączysz automatyczne sprawdzanie. Żadne dane nie są wysyłane."
           }
         },
         "pt-BR": {
@@ -5474,13 +5630,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens chỉ kết nối với GitHub để đọc số phiên bản mới nhất khi bạn bấm “Kiểm tra cập nhật” hoặc bật kiểm tra tự động. Không có dữ liệu nào được gửi đi."
+            "value": "DockLens chỉ kết nối với GitHub để đọc số phiên bản mới nhất khi bạn nhấp “Kiểm tra cập nhật” hoặc bật kiểm tra tự động. Không có dữ liệu nào được gửi đi."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "DockLens 仅在你点按“检查更新”或开启自动检查时连接 GitHub 读取最新版本号，不会发送任何数据。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "只在按「檢查更新」或開啟自動檢查時連到 GitHub 讀取最新版本號，不送出任何資料。"
           }
         }
       }
@@ -5497,7 +5659,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Activar la previsualització de finestres"
+            "value": "Activa la previsualització de finestres"
           }
         },
         "cs": {
@@ -5509,7 +5671,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slå vindueseksempler til"
+            "value": "Slå forhåndsvisning af vinduer til"
           }
         },
         "de": {
@@ -5533,7 +5695,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Activar previsualización de ventanas"
+            "value": "Activar vista previa de ventanas"
           }
         },
         "fi": {
@@ -5685,6 +5847,12 @@
             "state": "translated",
             "value": "启用窗口预览"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "啟用視窗預覽"
+          }
         }
       }
     },
@@ -5700,7 +5868,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Obrir al Calendari"
+            "value": "Obre al Calendari"
           }
         },
         "cs": {
@@ -5887,6 +6055,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "在日历中打开"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在行事曆中打開"
           }
         }
       }
@@ -6091,6 +6265,12 @@
             "state": "translated",
             "value": "外观"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外觀"
+          }
         }
       }
     },
@@ -6294,6 +6474,12 @@
             "state": "translated",
             "value": "已授权"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已授權"
+          }
         }
       }
     },
@@ -6351,7 +6537,7 @@
         "fi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ohjelmisto on ajan tasalla"
+            "value": "DockLens on ajan tasalla"
           }
         },
         "fr": {
@@ -6497,6 +6683,12 @@
             "state": "translated",
             "value": "已是最新版本"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已是最新版本"
+          }
         }
       }
     },
@@ -6584,7 +6776,7 @@
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kis méretben"
+            "value": "Kis méretűre állítva"
           }
         },
         "id": {
@@ -6596,7 +6788,7 @@
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Contratta"
+            "value": "Ridotta a icona"
           }
         },
         "ja": {
@@ -6680,7 +6872,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Küçültüldü"
+            "value": "Simge durumunda"
           }
         },
         "uk": {
@@ -6700,6 +6892,12 @@
             "state": "translated",
             "value": "已最小化"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已縮小"
+          }
         }
       }
     },
@@ -6715,7 +6913,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tancada · Obrir"
+            "value": "Tancada · Obre"
           }
         },
         "cs": {
@@ -6895,13 +7093,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đã đóng · Bấm để mở"
+            "value": "Đã đóng · Nhấp để mở"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "已关闭 · 点按打开"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已關閉・點擊打開"
           }
         }
       }
@@ -7106,6 +7310,12 @@
             "state": "translated",
             "value": "必需"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "必要"
+          }
         }
       }
     },
@@ -7121,7 +7331,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Obrir l’app"
+            "value": "Obre l’app"
           }
         },
         "cs": {
@@ -7271,7 +7481,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Otvoriť apku"
+            "value": "Otvoriť aplikáciu"
           }
         },
         "sv": {
@@ -7309,6 +7519,12 @@
             "state": "translated",
             "value": "打开 App"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打開 App"
+          }
         }
       }
     },
@@ -7324,7 +7540,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Obrir Configuració"
+            "value": "Obre Configuració"
           }
         },
         "cs": {
@@ -7512,6 +7728,12 @@
             "state": "translated",
             "value": "打开设置"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打開設定"
+          }
         }
       }
     },
@@ -7527,7 +7749,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prem Reproduir per permetre el control de %@"
+            "value": "Prem Reprodueix per permetre el control de %@"
           }
         },
         "cs": {
@@ -7715,6 +7937,12 @@
             "state": "translated",
             "value": "点按播放按钮以允许控制%@"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按播放鈕以允許控制%@"
+          }
         }
       }
     },
@@ -7730,7 +7958,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Concedir permisos…"
+            "value": "Concedeix permisos…"
           }
         },
         "cs": {
@@ -7796,7 +8024,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dodijeli dopuštenja…"
+            "value": "Odobri dopuštenja…"
           }
         },
         "hu": {
@@ -7820,7 +8048,7 @@
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "アクセス権を付与…"
+            "value": "アクセスを許可…"
           }
         },
         "ko": {
@@ -7832,7 +8060,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Beri Keizinan…"
+            "value": "Beri Kebenaran…"
           }
         },
         "nb": {
@@ -7898,7 +8126,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "İzinleri Ver…"
+            "value": "İzinleri Ayarla…"
           }
         },
         "uk": {
@@ -7918,6 +8146,12 @@
             "state": "translated",
             "value": "授予权限…"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "授予權限…"
+          }
         }
       }
     },
@@ -7933,7 +8167,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Permetre"
+            "value": "Permet"
           }
         },
         "cs": {
@@ -7957,7 +8191,7 @@
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Αποδοχή"
+            "value": "Να επιτρέπεται"
           }
         },
         "en": {
@@ -8121,6 +8355,12 @@
             "state": "translated",
             "value": "授权"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "授權"
+          }
         }
       }
     },
@@ -8238,7 +8478,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Berkuat kuasa sebaik sahaja anda membenarkannya — tidak perlu mula semula."
+            "value": "Berkuat kuasa sebaik sahaja anda membenarkannya — tidak perlu memulakan semula."
           }
         },
         "nb": {
@@ -8298,7 +8538,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "มีผลทันทีที่คุณอนุญาต ไม่ต้องเปิดแอปใหม่"
+            "value": "มีผลทันทีที่คุณอนุญาต ไม่ต้องเปิด DockLens ใหม่"
           }
         },
         "tr": {
@@ -8324,6 +8564,12 @@
             "state": "translated",
             "value": "授权后立即生效，无需重新启动。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "授權後即自動生效，不需重新啟動。"
+          }
         }
       }
     },
@@ -8339,7 +8585,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Reproduir"
+            "value": "Reprodueix"
           }
         },
         "cs": {
@@ -8523,6 +8769,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "播放"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "播放"
@@ -8730,6 +8982,12 @@
             "state": "translated",
             "value": "新建窗口"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增視窗"
+          }
         }
       }
     },
@@ -8929,6 +9187,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明天"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "明天"
@@ -9136,6 +9400,12 @@
             "state": "translated",
             "value": "暂停"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暫停"
+          }
         }
       }
     },
@@ -9271,7 +9541,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Uaktualnienia"
+            "value": "Aktualizacje"
           }
         },
         "pt-BR": {
@@ -9335,6 +9605,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "更新"
@@ -9542,6 +9818,12 @@
             "state": "translated",
             "value": "最新版本"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最新版本"
+          }
         }
       }
     },
@@ -9744,6 +10026,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "未允许控制%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未允許控制%@"
           }
         }
       }
@@ -9948,6 +10236,12 @@
             "state": "translated",
             "value": "未允许访问日历"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未允許讀取行事曆"
+          }
         }
       }
     },
@@ -10151,6 +10445,12 @@
             "state": "translated",
             "value": "未命名窗口"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未命名視窗"
+          }
         }
       }
     },
@@ -10160,7 +10460,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "لا يوجد تشغيل"
+            "value": "لا شيء قيد التشغيل"
           }
         },
         "ca": {
@@ -10292,7 +10592,7 @@
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nada tocando"
+            "value": "Nada em reprodução"
           }
         },
         "pt-PT": {
@@ -10354,6 +10654,12 @@
             "state": "translated",
             "value": "未在播放"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未在播放"
+          }
         }
       }
     },
@@ -10369,7 +10675,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buscar actualitzacions"
+            "value": "Cerca actualitzacions"
           }
         },
         "cs": {
@@ -10489,7 +10795,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sprawdź uaktualnienia"
+            "value": "Sprawdź aktualizacje"
           }
         },
         "pt-BR": {
@@ -10557,6 +10863,12 @@
             "state": "translated",
             "value": "检查更新"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢查更新"
+          }
         }
       }
     },
@@ -10572,7 +10884,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buscar actualitzacions…"
+            "value": "Cerca actualitzacions…"
           }
         },
         "cs": {
@@ -10692,7 +11004,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sprawdź uaktualnienia…"
+            "value": "Sprawdź aktualizacje…"
           }
         },
         "pt-BR": {
@@ -10759,6 +11071,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "检查更新…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢查更新…"
           }
         }
       }
@@ -10877,7 +11195,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keizinan"
+            "value": "Kebenaran"
           }
         },
         "nb": {
@@ -10962,6 +11280,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "权限"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "權限"
           }
         }
       }
@@ -11166,6 +11490,12 @@
             "state": "translated",
             "value": "欢迎使用 DockLens"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "歡迎使用 DockLens"
+          }
         }
       }
     },
@@ -11181,7 +11511,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buscar actualitzacions cada setmana"
+            "value": "Cerca actualitzacions cada setmana"
           }
         },
         "cs": {
@@ -11301,7 +11631,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sprawdzaj uaktualnienia co tydzień"
+            "value": "Sprawdzaj aktualizacje co tydzień"
           }
         },
         "pt-BR": {
@@ -11369,6 +11699,12 @@
             "state": "translated",
             "value": "每周自动检查更新"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每週自動檢查更新"
+          }
         }
       }
     },
@@ -11390,13 +11726,13 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens funguje i bez nahrávání obrazovky: náhledy zobrazují ikonu aplikace a název okna\na okna můžete dál přepínat, zavírat a minimalizovat. Miniatury můžete zapnout později v nastavení."
+            "value": "DockLens funguje i bez záznamu obrazovky: náhledy zobrazují ikonu aplikace a název okna\na okna můžete dál přepínat, zavírat a minimalizovat. Miniatury můžete zapnout později v nastavení."
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens virker også uden Skærmoptagelse: Eksempler viser hvert vindues appsymbol og titel,\nog du kan stadig skifte, lukke og minimere vinduer. Du kan slå miniaturer til senere i Indstillinger."
+            "value": "DockLens virker også uden optagelse af skærm og systemlyd: Forhåndsvisningerne viser hvert vindues appsymbol og titel,\nog du kan stadig skifte, lukke og minimere vinduer. Du kan slå miniaturer til senere i Indstillinger."
           }
         },
         "de": {
@@ -11420,7 +11756,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens también funciona sin Grabación de pantalla: la previsualización muestra el icono de la app y el título de cada ventana,\ny puedes seguir cambiando, cerrando y minimizando ventanas. Puedes activar las miniaturas más adelante en Ajustes."
+            "value": "DockLens también funciona sin Grabación de pantalla: la vista previa muestra el icono de la app y el título de cada ventana,\ny puedes seguir cambiando, cerrando y minimizando ventanas. Puedes activar las miniaturas más adelante en Ajustes."
           }
         },
         "fi": {
@@ -11462,43 +11798,43 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens juga berfungsi tanpa Perekaman Layar: pratinjau menampilkan ikon app dan judul setiap jendela,\ndan Anda tetap dapat beralih, menutup, dan meminimalkan jendela. Anda dapat menyalakan gambar mini nanti di Pengaturan."
+            "value": "DockLens juga berfungsi tanpa Rekaman Layar: pratinjau menampilkan ikon app dan judul setiap jendela,\ndan Anda tetap dapat beralih, menutup, dan meminimalkan jendela. Anda dapat menyalakan gambar mini nanti di Pengaturan."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens funziona anche senza Registrazione schermo: le anteprime mostrano l’icona dell’app e il titolo di ogni finestra,\ne puoi comunque passare da una finestra all’altra, chiuderle e contrarle. Puoi attivare le miniature in seguito nelle impostazioni."
+            "value": "DockLens funziona anche senza Registrazione schermo: le anteprime mostrano l’icona dell’app e il titolo di ogni finestra,\ne puoi comunque passare da una finestra all’altra, chiuderle e ridurle a icona. Puoi attivare le miniature in seguito nelle impostazioni."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "画面収録なしでも使えます：プレビューには各ウインドウのAppアイコンとタイトルが表示され、\nウインドウの切り替え、閉じる、しまうも可能です。サムネールはあとから設定で入にできます。"
+            "value": "画面収録なしでも使えます：プレビューには各ウインドウのAppアイコンとタイトルが表示され、\nウインドウの切り替え、閉じる、しまうも可能です。サムネールはあとから設定でオンにできます。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "화면 기록 없이도 사용할 수 있습니다. 미리보기에 각 윈도우의 앱 아이콘과 제목이 표시되며,\n윈도우 전환, 닫기, 최소화도 그대로 가능합니다. 썸네일은 나중에 설정에서 켤 수 있습니다."
+            "value": "화면 녹음 없이도 사용할 수 있습니다. 미리보기에 각 윈도우의 앱 아이콘과 제목이 표시되며,\n윈도우 전환, 닫기, 최소화도 그대로 가능합니다. 썸네일은 나중에 설정에서 켤 수 있습니다."
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens juga berfungsi tanpa Rakaman Skrin: pratonton menunjukkan ikon app dan tajuk setiap tetingkap,\ndan anda masih boleh menukar, menutup dan meminimumkan tetingkap. Anda boleh mengaktifkan imej kecil kemudian dalam Seting."
+            "value": "DockLens juga berfungsi tanpa Rakaman Skrin: pratonton menunjukkan ikon app dan tajuk setiap tetingkap,\ndan anda masih boleh menukar, menutup dan meminimumkan tetingkap. Anda boleh mendayakan imej kecil kemudian dalam Seting."
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens fungerer også uten Skjermopptak: Forhåndsvisningene viser appsymbolet og tittelen til hvert vindu,\nog du kan fortsatt bytte, lukke og minimere vinduer. Du kan slå på miniatyrer senere i Innstillinger."
+            "value": "DockLens fungerer også uten skjerm- og systemlydopptak: Forhåndsvisningene viser appsymbolet og tittelen til hvert vindu,\nog du kan fortsatt bytte, lukke og minimere vinduer. Du kan slå på miniatyrer senere i Innstillinger."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens werkt ook zonder Schermopname: voorvertoningen tonen het appsymbool en de titel van elk venster,\nen je kunt nog steeds vensters wisselen, sluiten en minimaliseren. Je kunt miniaturen later inschakelen in Instellingen."
+            "value": "DockLens werkt ook zonder scherm- en systeemaudio-opname: voorvertoningen tonen het appsymbool en de titel van elk venster,\nen je kunt nog steeds vensters wisselen, sluiten en minimaliseren. Je kunt miniaturen later inschakelen in Instellingen."
           }
         },
         "pl": {
@@ -11534,13 +11870,13 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens funguje aj bez nahrávania obrazovky: náhľady zobrazujú ikonu apky a názov okna\na okná môžete ďalej prepínať, zatvárať a minimalizovať. Miniatúry môžete zapnúť neskôr v nastaveniach."
+            "value": "DockLens funguje aj bez záznamu obrazovky: náhľady zobrazujú ikonu aplikácie a názov okna\na okná môžete ďalej prepínať, zatvárať a minimalizovať. Miniatúry môžete zapnúť neskôr v nastaveniach."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens fungerar även utan Skärminspelning: förhandsvisningarna visar varje fönsters appsymbol och titel,\noch du kan fortfarande växla, stänga och minimera fönster. Du kan slå på miniatyrer senare i Inställningar."
+            "value": "DockLens fungerar även utan skärm- och systemljudsinspelning: förhandsvisningarna visar varje fönsters appsymbol och titel,\noch du kan fortfarande växla, stänga och minimera fönster. Du kan slå på miniatyrer senare i Inställningar."
           }
         },
         "th": {
@@ -11564,13 +11900,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens vẫn hoạt động khi không có quyền Ghi màn hình: bản xem trước hiển thị biểu tượng ứng dụng và tiêu đề của từng cửa sổ,\nbạn vẫn có thể chuyển, đóng và thu nhỏ cửa sổ. Bạn có thể bật hình thu nhỏ sau trong Cài đặt."
+            "value": "DockLens vẫn hoạt động khi không có quyền Bản ghi màn hình: bản xem trước hiển thị biểu tượng ứng dụng và tiêu đề của từng cửa sổ,\nbạn vẫn có thể chuyển, đóng và thu nhỏ cửa sổ. Bạn có thể bật hình thu nhỏ sau trong Cài đặt."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "没有屏幕录制也能使用：预览会显示窗口的 App 图标和标题，\n切换、关闭和最小化窗口均不受影响。之后可在设置中开启缩略图。"
+            "value": "没有录屏权限也能使用：预览会显示每个窗口的 App 图标和标题，\n切换、关闭和最小化窗口均不受影响。之后可在设置中开启缩略图。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有螢幕錄音也能用：預覽會以 App 圖示和視窗標題顯示，\n一樣可以切換、關閉、縮小視窗。之後可在設定裡開啟縮圖。"
           }
         }
       }
@@ -11689,7 +12031,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiada tetingkap dibuka"
+            "value": "Tiada tetingkap terbuka"
           }
         },
         "nb": {
@@ -11775,6 +12117,12 @@
             "state": "translated",
             "value": "没有打开的窗口"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有開啟的視窗"
+          }
         }
       }
     },
@@ -11802,7 +12150,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hold markøren over et symbol i Dock for at se eksempler på alle appens vinduer."
+            "value": "Hold markøren over et symbol i Dock for at se forhåndsvisninger af alle appens vinduer."
           }
         },
         "de": {
@@ -11826,7 +12174,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deja el puntero sobre un icono del Dock para previsualizar todas las ventanas de esa app."
+            "value": "Deja el puntero sobre un icono del Dock para ver una vista previa de todas las ventanas de esa app."
           }
         },
         "fi": {
@@ -11940,13 +12288,13 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Podržte ukazovateľ na ikone v Docku a zobrazí sa náhľad všetkých okien danej apky."
+            "value": "Podržte ukazovateľ na ikone v Docku a zobrazí sa náhľad všetkých okien danej aplikácie."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vila pekaren på en symbol i Dock för att förhandsvisa alla appens fönster."
+            "value": "Håll pekaren över en symbol i Dock för att förhandsvisa alla appens fönster."
           }
         },
         "th": {
@@ -11978,6 +12326,12 @@
             "state": "translated",
             "value": "将指针停在程序坞图标上，即可预览该 App 的所有窗口。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "游標停在 Dock 圖示上，即可預覽該 App 的所有視窗。"
+          }
         }
       }
     },
@@ -12005,7 +12359,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Genveje med én tast, når markøren er over eksemplet"
+            "value": "Genveje med én tast, når markøren er over forhåndsvisningen"
           }
         },
         "de": {
@@ -12029,7 +12383,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Atajos de una tecla con el puntero sobre la previsualización"
+            "value": "Atajos de una tecla con el puntero sobre la vista previa"
           }
         },
         "fi": {
@@ -12181,6 +12535,12 @@
             "state": "translated",
             "value": "指针位于预览上时的单键快捷键"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "游標在預覽上時的單鍵快捷鍵"
+          }
         }
       }
     },
@@ -12196,7 +12556,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mostrar els esdeveniments d’avui en passar per sobre del Calendari"
+            "value": "Mostra els esdeveniments d’avui en passar per sobre del Calendari"
           }
         },
         "cs": {
@@ -12220,7 +12580,7 @@
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Εμφάνιση σημερινών συμβάντων κατά την κατάδειξη του Ημερολογίου"
+            "value": "Εμφάνιση σημερινών συμβάντων όταν ο δείκτης είναι πάνω στο Ημερολόγιο"
           }
         },
         "en": {
@@ -12292,7 +12652,7 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "‘캘린더’ 위에 포인터를 올리면 오늘의 이벤트 보기"
+            "value": "‘캘린더’ 위에 포인터를 올리면 오늘의 이벤트 표시"
           }
         },
         "ms": {
@@ -12383,6 +12743,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "悬停在“日历”上时显示今天的日程"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "滑過「行事曆」時顯示今天的行程"
           }
         }
       }
@@ -12525,7 +12891,7 @@
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Não é possível ler o estado da reprodução"
+            "value": "Não foi possível ler o status da reprodução"
           }
         },
         "pt-PT": {
@@ -12586,6 +12952,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "无法读取播放状态"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法讀取播放狀態"
           }
         }
       }
@@ -12790,6 +13162,12 @@
             "state": "translated",
             "value": "无法连接到 GitHub"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法連線到 GitHub"
+          }
         }
       }
     },
@@ -12805,7 +13183,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Obrir en iniciar la sessió"
+            "value": "Obre en iniciar la sessió"
           }
         },
         "cs": {
@@ -12993,6 +13371,12 @@
             "state": "translated",
             "value": "登录时打开"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入時自動啟動"
+          }
         }
       }
     },
@@ -13020,7 +13404,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kører uden miniaturer: Eksempler viser hvert vindues appsymbol og titel. Du kan stadig skifte, lukke og minimere."
+            "value": "Kører uden miniaturer: Forhåndsvisningerne viser hvert vindues appsymbol og titel. Du kan stadig skifte, lukke og minimere."
           }
         },
         "de": {
@@ -13044,7 +13428,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Modo sin miniaturas: la previsualización muestra el icono de la app y el título de cada ventana. Puedes seguir cambiando, cerrando y minimizando ventanas."
+            "value": "Modo sin miniaturas: la vista previa muestra el icono de la app y el título de cada ventana. Puedes seguir cambiando, cerrando y minimizando ventanas."
           }
         },
         "fi": {
@@ -13092,7 +13476,7 @@
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Modalità senza miniature: le anteprime mostrano l’icona dell’app e il titolo di ogni finestra. Puoi comunque passare da una finestra all’altra, chiuderle e contrarle."
+            "value": "Modalità senza miniature: le anteprime mostrano l’icona dell’app e il titolo di ogni finestra. Puoi comunque passare da una finestra all’altra, chiuderle e ridurle a icona."
           }
         },
         "ja": {
@@ -13158,7 +13542,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Režim bez miniatúr: náhľady zobrazujú ikonu apky a názov okna. Prepínanie, zatváranie aj minimalizovanie okien fungujú normálne."
+            "value": "Režim bez miniatúr: náhľady zobrazujú ikonu aplikácie a názov okna. Prepínanie, zatváranie aj minimalizovanie okien fungujú normálne."
           }
         },
         "sv": {
@@ -13195,6 +13579,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "当前以无缩略图模式运行：预览显示窗口的 App 图标和标题，切换、关闭和最小化仍可正常使用。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前以無縮圖模式運作：預覽顯示 App 圖示和視窗標題，切換、關閉、縮小照常可用。"
           }
         }
       }
@@ -13399,6 +13789,12 @@
             "state": "translated",
             "value": "当前版本"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前版本"
+          }
         }
       }
     },
@@ -13408,7 +13804,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "إعدادات النظام › الخصوصية والأمن › الأتمتة"
+            "value": "إعدادات النظام › الخصوصية والأمن › التحكم التلقائي"
           }
         },
         "ca": {
@@ -13492,7 +13888,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pengaturan Sistem › Privasi & Keamanan › Otomatisasi"
+            "value": "Pengaturan Sistem › Privasi & Keamanan › Automasi"
           }
         },
         "it": {
@@ -13552,7 +13948,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Configurări sistem › Confidențialitate și securitate › Automatizare"
+            "value": "Configurări sistem › Intimitate și securitate › Automatizare"
           }
         },
         "ru": {
@@ -13602,6 +13998,12 @@
             "state": "translated",
             "value": "系统设置 › 隐私与安全性 › 自动化"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系統設定 › 隱私權與安全性 › 自動化"
+          }
         }
       }
     },
@@ -13617,7 +14019,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sortir de l’app"
+            "value": "Surt de l’app"
           }
         },
         "cs": {
@@ -13629,7 +14031,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slut app"
+            "value": "Afslut app"
           }
         },
         "de": {
@@ -13641,7 +14043,7 @@
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Έξοδος από εφαρμογή"
+            "value": "Έξοδος από την εφαρμογή"
           }
         },
         "en": {
@@ -13767,7 +14169,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ukončiť apku"
+            "value": "Ukončiť aplikáciu"
           }
         },
         "sv": {
@@ -13791,7 +14193,7 @@
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Закрити програму"
+            "value": "Вийти з програми"
           }
         },
         "vi": {
@@ -13804,6 +14206,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "退出 App"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "結束 App"
           }
         }
       }
@@ -13820,7 +14228,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sortir de DockLens"
+            "value": "Surt de DockLens"
           }
         },
         "cs": {
@@ -13832,7 +14240,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slut DockLens"
+            "value": "Afslut DockLens"
           }
         },
         "de": {
@@ -13844,7 +14252,7 @@
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Έξοδος από DockLens"
+            "value": "Έξοδος από το DockLens"
           }
         },
         "en": {
@@ -13994,7 +14402,7 @@
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Закрити DockLens"
+            "value": "Вийти з DockLens"
           }
         },
         "vi": {
@@ -14007,6 +14415,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "退出 DockLens"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "結束 DockLens"
           }
         }
       }
@@ -14023,7 +14437,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Minimitzar"
+            "value": "Minimitza"
           }
         },
         "cs": {
@@ -14107,7 +14521,7 @@
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Contrai"
+            "value": "Riduci a icona"
           }
         },
         "ja": {
@@ -14143,7 +14557,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Minimalizuj"
+            "value": "Zminimalizuj"
           }
         },
         "pt-BR": {
@@ -14210,6 +14624,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "最小化"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "縮到 Dock"
           }
         }
       }
@@ -14414,6 +14834,12 @@
             "state": "translated",
             "value": "缩略图高度"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "縮圖高度"
+          }
         }
       }
     },
@@ -14423,7 +14849,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "تسجيل الشاشة"
+            "value": "تسجيل الشاشة وصوت النظام"
           }
         },
         "ca": {
@@ -14435,13 +14861,13 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nahrávání obrazovky"
+            "value": "Záznam obrazovky"
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Skærmoptagelse"
+            "value": "Optagelse af skærm og systemlyd"
           }
         },
         "de": {
@@ -14483,7 +14909,7 @@
         "he": {
           "stringUnit": {
             "state": "translated",
-            "value": "הקלטת מסך"
+            "value": "הקלטת מסך ושמע המערכת"
           }
         },
         "hi": {
@@ -14507,7 +14933,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Perekaman Layar"
+            "value": "Rekaman Layar"
           }
         },
         "it": {
@@ -14525,7 +14951,7 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "화면 기록"
+            "value": "화면 녹음"
           }
         },
         "ms": {
@@ -14537,13 +14963,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Skjermopptak"
+            "value": "Skjerm- og systemlydopptak"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schermopname"
+            "value": "Scherm- en systeemaudio-opname"
           }
         },
         "pl": {
@@ -14579,13 +15005,13 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nahrávanie obrazovky"
+            "value": "Záznam obrazovky"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Skärminspelning"
+            "value": "Skärm- och systemljudsinspelning"
           }
         },
         "th": {
@@ -14609,13 +15035,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ghi màn hình"
+            "value": "Bản ghi màn hình"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "屏幕录制"
+            "value": "录屏与系统录音"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "螢幕與系統錄音"
           }
         }
       }
@@ -14638,13 +15070,13 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nahrávání obrazovky (miniatury, volitelné)"
+            "value": "Záznam obrazovky (miniatury, volitelné)"
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Skærmoptagelse (miniaturer, valgfrit)"
+            "value": "Optagelse af skærm og systemlyd (miniaturer, valgfrit)"
           }
         },
         "de": {
@@ -14704,13 +15136,13 @@
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "Képernyőfelvétel (bélyegképek, nem kötelező)"
+            "value": "Képernyőfelvétel (bélyegképek, opcionális)"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Perekaman Layar (gambar mini, opsional)"
+            "value": "Rekaman Layar (gambar mini, opsional)"
           }
         },
         "it": {
@@ -14722,31 +15154,31 @@
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "画面収録（サムネール、オプション）"
+            "value": "画面収録（サムネール、任意）"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "화면 기록(썸네일, 선택 사항)"
+            "value": "화면 및 시스템 오디오 녹음(썸네일, 선택 사항)"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rakaman Skrin (imej kecil, pilihan)"
+            "value": "Rakaman Skrin (imej kecil, tidak wajib)"
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Skjermopptak (miniatyrer, valgfritt)"
+            "value": "Skjerm- og systemlydopptak (miniatyrer, valgfritt)"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schermopname (miniaturen, optioneel)"
+            "value": "Scherm- en systeemaudio-opname (miniaturen, optioneel)"
           }
         },
         "pl": {
@@ -14782,19 +15214,19 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nahrávanie obrazovky (miniatúry, voliteľné)"
+            "value": "Záznam obrazovky (miniatúry, voliteľné)"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Skärminspelning (miniatyrer, valfritt)"
+            "value": "Skärm- och systemljudsinspelning (miniatyrer, valfritt)"
           }
         },
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "การบันทึกหน้าจอ (ภาพย่อ, ไม่บังคับ)"
+            "value": "การบันทึกหน้าจอและเสียงระบบ (ภาพย่อ, ไม่บังคับ)"
           }
         },
         "tr": {
@@ -14812,13 +15244,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ghi màn hình (hình thu nhỏ, tùy chọn)"
+            "value": "Bản ghi màn hình & âm thanh hệ thống (hình thu nhỏ, không bắt buộc)"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "屏幕录制（缩略图，可选）"
+            "value": "录屏与系统录音（缩略图，可选）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "螢幕與系統錄音（縮圖，選用）"
           }
         }
       }
@@ -14937,7 +15375,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kelakuan"
+            "value": "Tingkah Laku"
           }
         },
         "nb": {
@@ -15022,6 +15460,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "行为"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "行為"
           }
         }
       }
@@ -15226,6 +15670,12 @@
             "state": "translated",
             "value": "视频通话"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "視訊會議"
+          }
         }
       }
     },
@@ -15428,6 +15878,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "设置…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定…"
           }
         }
       }
@@ -15632,6 +16088,12 @@
             "state": "translated",
             "value": "正在载入…"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "讀取中…"
+          }
         }
       }
     },
@@ -15785,7 +16247,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cont."
+            "value": "Contin."
           }
         },
         "ru": {
@@ -15831,6 +16293,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跨日"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "跨日"
@@ -16024,7 +16492,7 @@
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Універсальний доступ"
+            "value": "Доступність"
           }
         },
         "vi": {
@@ -16037,6 +16505,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "辅助功能"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輔助使用"
           }
         }
       }
@@ -16101,7 +16575,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "En cours · reste %@"
+            "value": "En cours · encore %@"
           }
         },
         "he": {
@@ -16137,7 +16611,7 @@
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ora · mancano %@"
+            "value": "In corso · mancano %@"
           }
         },
         "ja": {
@@ -16191,7 +16665,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Acum · încă %@"
+            "value": "Acum · mai sunt %@"
           }
         },
         "ru": {
@@ -16240,6 +16714,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "进行中 · 剩余 %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "進行中 · 還剩 %@"
           }
         }
       }
@@ -16346,19 +16826,19 @@
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "オプション"
+            "value": "任意"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "선택"
+            "value": "선택 사항"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pilihan"
+            "value": "Tidak wajib"
           }
         },
         "nb": {
@@ -16436,13 +16916,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tùy chọn"
+            "value": "Không bắt buộc"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "可选"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選用"
           }
         }
       }
@@ -16459,7 +16945,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Restaurar la finestra"
+            "value": "Restaura la finestra"
           }
         },
         "cs": {
@@ -16646,6 +17132,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "还原窗口"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "還原視窗"
           }
         }
       }
@@ -17369,7 +17861,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Activar les miniatures de finestres…"
+            "value": "Activa les miniatures de finestres…"
           }
         },
         "cs": {
@@ -17459,7 +17951,7 @@
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "ウインドウのサムネールを入にする…"
+            "value": "ウインドウのサムネールをオンにする…"
           }
         },
         "ko": {
@@ -17471,7 +17963,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktifkan Imej Kecil Tetingkap…"
+            "value": "Dayakan Imej Kecil Tetingkap…"
           }
         },
         "nb": {
@@ -17537,7 +18029,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pencere Küçük Resimlerini Aç…"
+            "value": "Pencere Küçük Resimlerini Etkinleştir…"
           }
         },
         "uk": {
@@ -17557,6 +18049,12 @@
             "state": "translated",
             "value": "打开窗口缩略图…"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟視窗縮圖…"
+          }
         }
       }
     },
@@ -17572,7 +18070,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tancar la finestra"
+            "value": "Tanca la finestra"
           }
         },
         "cs": {
@@ -17760,6 +18258,12 @@
             "state": "translated",
             "value": "关闭窗口"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "關閉視窗"
+          }
         }
       }
     },
@@ -17775,7 +18279,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Amagar l’app"
+            "value": "Amaga l’app"
           }
         },
         "cs": {
@@ -17925,7 +18429,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Skryť apku"
+            "value": "Skryť aplikáciu"
           }
         },
         "sv": {
@@ -17962,6 +18466,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "隐藏 App"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隱藏 App"
           }
         }
       }
@@ -18166,6 +18676,12 @@
             "state": "translated",
             "value": "音乐"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音樂"
+          }
         }
       }
     },
@@ -18283,7 +18799,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lengahan Tuding"
+            "value": "Kelewatan Tuding"
           }
         },
         "nb": {
@@ -18369,6 +18885,12 @@
             "state": "translated",
             "value": "悬停延迟"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示延遲"
+          }
         }
       }
     },
@@ -18384,7 +18906,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mostrar les finestres tancades amb ✕ (fes clic per tornar-les a obrir)"
+            "value": "Mostra les finestres tancades amb ✕ (fes clic per tornar-les a obrir)"
           }
         },
         "cs": {
@@ -18480,7 +19002,7 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "✕로 닫은 윈도우 보기(클릭하여 다시 열기)"
+            "value": "✕로 닫은 윈도우 표시(클릭하여 다시 열기)"
           }
         },
         "ms": {
@@ -18498,7 +19020,7 @@
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Toon met ✕ gesloten vensters (klik om opnieuw te openen)"
+            "value": "Toon vensters die met ✕ zijn gesloten (klik om opnieuw te openen)"
           }
         },
         "pl": {
@@ -18564,13 +19086,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hiển thị cửa sổ đã đóng bằng ✕ (Bấm để mở lại)"
+            "value": "Hiển thị cửa sổ đã đóng bằng ✕ (Nhấp để mở lại)"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "显示用 ✕ 关闭的窗口（点按以重新打开）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示按 X 關掉的視窗（點擊重新打開）"
           }
         }
       }
@@ -18587,7 +19115,7 @@
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mostrar els títols de les finestres"
+            "value": "Mostra els títols de les finestres"
           }
         },
         "cs": {
@@ -18683,7 +19211,7 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "윈도우 제목 보기"
+            "value": "윈도우 제목 표시"
           }
         },
         "ms": {
@@ -18774,6 +19302,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "显示窗口标题"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示視窗標題"
           }
         }
       }
@@ -18978,6 +19512,12 @@
             "state": "translated",
             "value": "用于显示窗口缩略图（仅在本机处理，不会上传或录制）"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示視窗縮圖（僅在本機處理，不會上傳、不會錄影）"
+          }
         }
       }
     },
@@ -19173,13 +19713,19 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bấm để mở lại"
+            "value": "Nhấp để mở lại"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "点按以重新打开"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點擊重新打開"
           }
         }
       }
@@ -19383,6 +19929,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "（无标题）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "（無標題）"
           }
         }
       }

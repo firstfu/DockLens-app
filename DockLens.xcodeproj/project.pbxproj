@@ -27,6 +27,7 @@
 		8DDBF6CA73AFCEBD7E2EEC26 /* DockLensApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF33E8BBEE2844A72F07E203 /* DockLensApp.swift */; };
 		8FE2A775EE4521B7A46D2B67 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 43FD1E735D8DE682B0AF09FF /* InfoPlist.xcstrings */; };
 		9D55D424371A21C1CE4CBB31 /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74AFE25A6BA5E6DC7E07B5 /* PreviewController.swift */; };
+		A3AB3F1B238F8A38498EB6C5 /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A07C756A41E6BF2909E573 /* LocalizationTests.swift */; };
 		A4FA27D002B99C8CDE06D967 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 65E961A92C9CCBA5E0A8FDAE /* Localizable.xcstrings */; };
 		AB9BA514538FA85CD2CD00DC /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1508172945FB08C997A98D /* AppSettings.swift */; };
 		B1D8FAA7963F5CD24AFFD131 /* UpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49A70AFAE4CFFB8117F953B /* UpdateChecker.swift */; };
@@ -56,6 +57,7 @@
 		09A68D4295E5A03D160C47FE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		0C2BFDB44F0732F6085F881B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		16FBBB447625882EDB65B58F /* CalendarAgenda.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAgenda.swift; sourceTree = "<group>"; };
+		21A07C756A41E6BF2909E573 /* LocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTests.swift; sourceTree = "<group>"; };
 		25FD8B392FB59D0E2A8E1FE7 /* DockLensFixture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DockLensFixture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D7476D81F173D5A8F67B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2C87BFE69E7058EE66749963 /* PreviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPanel.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				00980688C224FD314A3E03B1 /* CalendarAgendaTests.swift */,
+				21A07C756A41E6BF2909E573 /* LocalizationTests.swift */,
 				65EA262D8D8C10C170608755 /* NoScreenRecordingTests.swift */,
 				45FEA6815060D7A96BE7FD4D /* PanelGeometryTests.swift */,
 				B4F6840B52580FE1D91E64DE /* PanelShortcutTests.swift */,
@@ -394,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71D66CF5DAA4933A9F39D201 /* CalendarAgendaTests.swift in Sources */,
+				A3AB3F1B238F8A38498EB6C5 /* LocalizationTests.swift in Sources */,
 				F81B12DD0935151DE363A7B4 /* NoScreenRecordingTests.swift in Sources */,
 				C4BA77A9D0FCC36B7997A12C /* PanelGeometryTests.swift in Sources */,
 				7B6E1C36AE74791CB24690DD /* PanelShortcutTests.swift in Sources */,
