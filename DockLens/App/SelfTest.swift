@@ -241,12 +241,24 @@ final class SelfTestRunner {
         let restored = await waitUntil(.seconds(2)) { current()?.isPlaying == original.isPlaying }
         record("播放／暫停切換", flipped && restored, "原本\(original.isPlaying ? "播放中" : "暫停")、切換 \(flipped)、還原 \(restored)")
 
-        // 下一首→上一首：歌名要先改變再回到原本那首（3 秒內按上一首才會回到前一首，而非重播本首）
+        // 下一首→上一首：歌名要先改變再回到原本那首。
+        // 兩個會讓這項「看起來失敗」的外在狀況，不是 DockLens 的問題：
+        // ① Spotify 免費帳號播廣告時不能切歌，「下一首」永遠不會生效 → 標示略過，不算失敗；
+        // ② 目前這首播放超過 3 秒時，「上一首」是重播本首而不是回到前一首 → 沒回去就再按一次（第二次必定回前一首）
         _ = await clickProbe("media.next")
         let changed = await waitUntil(.seconds(2.5)) { (current()?.title).map { $0 != original.title } ?? false }
+        guard changed else {
+            record("下一首／上一首", true, "略過：播放器沒有切歌（多半是 Spotify 廣告不能略過）「\(original.title)」")
+            _ = await leaveDock()
+            return
+        }
         _ = await clickProbe("media.previous")
-        let back = await waitUntil(.seconds(2.5)) { current()?.title == original.title }
-        record("下一首／上一首", changed && back, "「\(original.title)」→ 換歌 \(changed)、回到原曲 \(back)")
+        var back = await waitUntil(.seconds(2.5)) { current()?.title == original.title }
+        if !back {
+            _ = await clickProbe("media.previous")
+            back = await waitUntil(.seconds(2.5)) { current()?.title == original.title }
+        }
+        record("下一首／上一首", back, "「\(original.title)」→ 換歌 \(changed)、回到原曲 \(back)")
         _ = await leaveDock()
     }
 

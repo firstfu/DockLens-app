@@ -1348,7 +1348,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "W menutup jendela, M meminimalkan atau memulihkannya, H menyembunyikan app, Q keluar dari app"
+            "value": "W menutup jendela, M memperkecil atau memulihkannya, H menyembunyikan app, Q keluar dari app"
           }
         },
         "it": {
@@ -1372,7 +1372,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "W menutup tetingkap, M meminimumkan atau memulihkannya, H menyembunyikan app, Q keluar dari app"
+            "value": "W menutup tetingkap, M mengecilkan atau memulihkannya, H menyembunyikan app, Q keluar dari app"
           }
         },
         "nb": {
@@ -1850,7 +1850,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "แทร็กก่อนหน้า"
+            "value": "เพลงก่อนหน้า"
           }
         },
         "tr": {
@@ -2059,7 +2059,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "แทร็กถัดไป"
+            "value": "เพลงถัดไป"
           }
         },
         "tr": {
@@ -3940,7 +3940,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "ดำเนินการต่อโดยไม่มีภาพย่อ"
+            "value": "ดำเนินการต่อโดยไม่มีรูปย่อ"
           }
         },
         "tr": {
@@ -4800,7 +4800,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "前往授权"
+            "value": "允许访问"
           }
         },
         "zh-Hant": {
@@ -5552,7 +5552,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens hanya menghubungi GitHub untuk membaca nombor versi terkini apabila anda mengklik “Semak Kemas Kini” atau mendayakan semakan automatik. Tiada data dihantar."
+            "value": "DockLens hanya menghubungi GitHub untuk membaca nombor versi terkini apabila anda mengklik “Semak Kemas Kini” atau mengaktifkan semakan automatik. Tiada data dihantar."
           }
         },
         "nb": {
@@ -5737,7 +5737,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktifkan Pratinjau Jendela"
+            "value": "Nyalakan Pratinjau Jendela"
           }
         },
         "it": {
@@ -5761,7 +5761,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dayakan Pratonton Tetingkap"
+            "value": "Aktifkan Pratonton Tetingkap"
           }
         },
         "nb": {
@@ -6472,7 +6472,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "已授权"
+            "value": "已允许"
           }
         },
         "zh-Hant": {
@@ -6782,7 +6782,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Diminimalkan"
+            "value": "Diperkecil"
           }
         },
         "it": {
@@ -6806,7 +6806,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Diminimumkan"
+            "value": "Dikecilkan"
           }
         },
         "nb": {
@@ -8144,7 +8144,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "授予权限…"
+            "value": "允许访问…"
           }
         },
         "zh-Hant": {
@@ -8353,7 +8353,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "授权"
+            "value": "允许"
           }
         },
         "zh-Hant": {
@@ -8562,7 +8562,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "授权后立即生效，无需重新启动。"
+            "value": "允许后立即生效，无需重新启动。"
           }
         },
         "zh-Hant": {
@@ -11798,7 +11798,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens juga berfungsi tanpa Rekaman Layar: pratinjau menampilkan ikon app dan judul setiap jendela,\ndan Anda tetap dapat beralih, menutup, dan meminimalkan jendela. Anda dapat menyalakan gambar mini nanti di Pengaturan."
+            "value": "DockLens juga berfungsi tanpa Rekaman Layar: pratinjau menampilkan ikon app dan judul setiap jendela,\ndan Anda tetap dapat beralih, menutup, dan memperkecil jendela. Anda dapat menyalakan gambar mini nanti di Pengaturan."
           }
         },
         "it": {
@@ -11822,7 +11822,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens juga berfungsi tanpa Rakaman Skrin: pratonton menunjukkan ikon app dan tajuk setiap tetingkap,\ndan anda masih boleh menukar, menutup dan meminimumkan tetingkap. Anda boleh mendayakan imej kecil kemudian dalam Seting."
+            "value": "DockLens juga berfungsi tanpa Rakaman Skrin: pratonton menunjukkan ikon app dan tajuk setiap tetingkap,\ndan anda masih boleh menukar, menutup dan mengecilkan tetingkap. Anda boleh mengaktifkan imej kecil kemudian dalam Seting."
           }
         },
         "nb": {
@@ -11882,7 +11882,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "DockLens ใช้งานได้แม้ไม่มีการบันทึกหน้าจอ: ตัวอย่างจะแสดงไอคอนแอปและชื่อของแต่ละหน้าต่าง\nและคุณยังสลับ ปิด และย่อหน้าต่างได้ คุณสามารถเปิดภาพย่อภายหลังได้ในการตั้งค่า"
+            "value": "DockLens ใช้งานได้แม้ไม่มีการบันทึกหน้าจอ: ตัวอย่างจะแสดงไอคอนแอปและชื่อของแต่ละหน้าต่าง\nและคุณยังสลับ ปิด และย่อหน้าต่างได้ คุณสามารถเปิดรูปย่อภายหลังได้ในการตั้งค่า"
           }
         },
         "tr": {
@@ -13207,7 +13207,7 @@
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Άνοιγμα κατά τη σύνδεση"
+            "value": "Άνοιγμα κατά την είσοδο"
           }
         },
         "en": {
@@ -13243,7 +13243,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "लॉगिन पर खोलें"
+            "value": "लॉगइन पर खोलें"
           }
         },
         "hr": {
@@ -13321,7 +13321,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deschide la autentificare"
+            "value": "Deschide la login"
           }
         },
         "ru": {
@@ -13470,7 +13470,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Berjalan tanpa gambar mini: pratinjau menampilkan ikon app dan judul setiap jendela. Beralih, menutup, dan meminimalkan tetap berfungsi."
+            "value": "Berjalan tanpa gambar mini: pratinjau menampilkan ikon app dan judul setiap jendela. Beralih, menutup, dan memperkecil tetap berfungsi."
           }
         },
         "it": {
@@ -13494,7 +13494,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Berjalan tanpa imej kecil: pratonton menunjukkan ikon app dan tajuk setiap tetingkap. Menukar, menutup dan meminimumkan masih berfungsi."
+            "value": "Berjalan tanpa imej kecil: pratonton menunjukkan ikon app dan tajuk setiap tetingkap. Menukar, menutup dan mengecilkan masih berfungsi."
           }
         },
         "nb": {
@@ -13554,7 +13554,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "กำลังทำงานแบบไม่มีภาพย่อ: ตัวอย่างจะแสดงไอคอนแอปและชื่อของแต่ละหน้าต่าง การสลับ ปิด และย่อยังใช้งานได้ตามปกติ"
+            "value": "กำลังทำงานแบบไม่มีรูปย่อ: ตัวอย่างจะแสดงไอคอนแอปและชื่อของแต่ละหน้าต่าง การสลับ ปิด และย่อยังใช้งานได้ตามปกติ"
           }
         },
         "tr": {
@@ -14282,7 +14282,7 @@
         "he": {
           "stringUnit": {
             "state": "translated",
-            "value": "צא מ־DockLens"
+            "value": "יציאה מ־DockLens"
           }
         },
         "hi": {
@@ -14515,7 +14515,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Minimalkan"
+            "value": "Perkecil"
           }
         },
         "it": {
@@ -14539,7 +14539,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Minimumkan"
+            "value": "Kecilkan"
           }
         },
         "nb": {
@@ -14808,7 +14808,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "ความสูงภาพย่อ"
+            "value": "ความสูงรูปย่อ"
           }
         },
         "tr": {
@@ -15226,7 +15226,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "การบันทึกหน้าจอและเสียงระบบ (ภาพย่อ, ไม่บังคับ)"
+            "value": "การบันทึกหน้าจอและเสียงระบบ (รูปย่อ, ไม่บังคับ)"
           }
         },
         "tr": {
@@ -17963,7 +17963,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dayakan Imej Kecil Tetingkap…"
+            "value": "Aktifkan Imej Kecil Tetingkap…"
           }
         },
         "nb": {
@@ -18023,7 +18023,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "เปิดภาพย่อหน้าต่าง…"
+            "value": "เปิดรูปย่อหน้าต่าง…"
           }
         },
         "tr": {
@@ -19486,7 +19486,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "เพื่อแสดงภาพย่อหน้าต่าง (ประมวลผลบน Mac ของคุณเท่านั้น ไม่มีการอัปโหลดหรือบันทึกใดๆ)"
+            "value": "เพื่อแสดงรูปย่อหน้าต่าง (ประมวลผลบน Mac ของคุณเท่านั้น ไม่มีการอัปโหลดหรือบันทึกใดๆ)"
           }
         },
         "tr": {

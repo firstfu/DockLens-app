@@ -27,8 +27,8 @@ targets:
       path: DockLens/Resources/Info.plist
       properties:
         CFBundleDisplayName: DockLens
-        CFBundleShortVersionString: "1.0.9"
-        CFBundleVersion: "10"
+        CFBundleShortVersionString: "1.0.10"
+        CFBundleVersion: "11"
         LSUIElement: true
         LSApplicationCategoryType: public.app-category.productivity
         LSMinimumSystemVersion: "26.0"

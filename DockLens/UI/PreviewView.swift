@@ -118,7 +118,7 @@ struct PreviewView: View {
 struct MediaBarView: View {
     static let height: CGFloat = 34
     /// App 沒有視窗時面板只剩標頭，給播放列最小寬度，歌名才不會被截得太短
-    static let minWidth: CGFloat = 240
+    static let minWidth: CGFloat = 280
     let media: MediaBarModel
 
     var body: some View {
@@ -145,7 +145,7 @@ struct MediaBarView: View {
                         }
                     }
                     .lineLimit(1)
-                    .minimumScaleFactor(0.85)
+                    .minimumScaleFactor(0.75)
                     .truncationMode(.tail)
                     .help([title, subtitle].compactMap { $0 }.joined(separator: "\n"))
                     .padding(.leading, 4)

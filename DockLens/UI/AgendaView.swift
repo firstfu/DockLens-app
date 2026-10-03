@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct AgendaView: View {
-    static let minWidth: CGFloat = 320
+    static let minWidth: CGFloat = 340
     static let titleHeight: CGFloat = 18
     static let rowHeight: CGFloat = 38
     static let rowSpacing: CGFloat = 2

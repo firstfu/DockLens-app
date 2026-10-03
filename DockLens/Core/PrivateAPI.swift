@@ -49,7 +49,7 @@ nonisolated enum AXRemote {
     ///   - pid: 視窗所屬 App 的 pid
     ///   - windowID: 目標視窗
     ///   - maxElementID: 最多嘗試到的元素編號（實測 Affinity 的主視窗為 49）
-    /// - Returns: 找到的 AX 元素；私有 API 不可用或找不到時為 nil
+    /// - Returns: 找到的視窗 AX 元素（不會是視窗內的子元素）；私有 API 不可用或找不到時為 nil
     static func windowElement(pid: pid_t, windowID: CGWindowID, maxElementID: UInt64 = 1000) -> AXUIElement? {
         guard let createFn else { return nil }
         // token 版面（20 bytes）：pid(4)、0(4)、"coco" 魔術數 0x636f636f(4)、元素編號(8)
@@ -60,9 +60,18 @@ nonisolated enum AXRemote {
             token.replaceSubrange(12..<20, with: withUnsafeBytes(of: elementID) { Data($0) })
             guard let element = createFn(token as CFData)?.takeRetainedValue() else { continue }
             var found: CGWindowID = 0
-            if _AXUIElementGetWindow(element, &found) == .success, found == windowID { return element }
+            guard _AXUIElementGetWindow(element, &found) == .success, found == windowID else { continue }
+            // 視窗裡的按鈕等子元素也回報同一個視窗 ID（編號常比視窗小）：回傳按鈕的話，
+            // 後面對它做 AXRaise 不會有任何效果。要拿到視窗本身；找不到就繼續掃
+            if let window = window(of: element) { return window }
         }
         return nil
+    }
+
+    /// 元素本身是視窗就回傳它，否則回傳它所屬的視窗；兩者都不是（例如 App 元素）時為 nil。
+    private static func window(of element: AXUIElement) -> AXUIElement? {
+        if element.role == kAXWindowRole as String { return element }
+        return element.value(kAXWindowAttribute)
     }
 
     /// 一次掃描找出多個視窗的 AX 標題（含其他 Space 上、以及按 X 後被 App 藏起來的視窗）。
@@ -91,8 +100,7 @@ nonisolated enum AXRemote {
             // 視窗裡的按鈕等子元素也回報同一個視窗 ID，而且編號常比視窗本身小：
             // 不是視窗就改讀它所屬的視窗；讀到標題才算找到，否則繼續掃（後面可能還有視窗元素本身）
             AXUIElementSetMessagingTimeout(element, 0.5)
-            let window: AXUIElement? = element.role == kAXWindowRole as String ? element : element.value(kAXWindowAttribute)
-            if let title = window?.title, !title.isEmpty {
+            if let title = window(of: element)?.title, !title.isEmpty {
                 result[found] = title
                 remaining.remove(found)
             }
