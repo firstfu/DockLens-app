@@ -25,7 +25,6 @@ enum UIRender {
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let pages: [(String, AnyView)] = [
             ("onboarding", AnyView(OnboardingView(permissions: coordinator.permissions, continueWithoutScreenRecording: {}))),
-            ("settings", AnyView(SettingsView(coordinator: coordinator))),
             ("panel-thumbnails", AnyView(PreviewView(model: .sample()))),
             ("panel-side", AnyView(PreviewView(model: .sample(edge: .left)))),
             ("panel-list", AnyView(PreviewView(model: .sample(showsThumbnails: false)))),
@@ -40,7 +39,38 @@ enum UIRender {
         for (name, view) in pages {
             await render(view, to: directory.appending(path: "\(name).png"))
         }
+        for pane in SettingsPane.allCases {
+            await renderSettings(coordinator: coordinator, pane: pane, to: directory.appending(path: "settings-\(pane).png"))
+        }
         NSApp.terminate(nil)
+    }
+
+    /// 設定頁要放進有標題列的一般視窗才畫得準：側邊欄（NavigationSplitView）在無邊框、經 scaleEffect 放大的
+    /// 視窗裡會無視欄寬設定，縮成最窄，看到的截字不代表實際畫面。因此照真正設定視窗的樣式、以原尺寸擷取。
+    /// - Parameters:
+    ///   - coordinator: 設定頁的資料來源
+    ///   - pane: 要畫的分頁
+    ///   - url: PNG 輸出位置
+    private static func renderSettings(coordinator: AppCoordinator, pane: SettingsPane, to url: URL) async {
+        let hosting = NSHostingController(rootView: SettingsView(coordinator: coordinator, initialPane: pane))
+        hosting.sizingOptions = [.preferredContentSize]
+        let window = NSWindow(contentViewController: hosting)
+        window.styleMask = [.titled, .closable, .fullSizeContentView]
+        window.toolbarStyle = .unified
+        window.isReleasedWhenClosed = false
+        window.level = .floating
+        // NSHostingController 不會把 navigationTitle 帶到視窗（實際的 Settings 場景會），這裡手動補上
+        window.title = String(localized: pane.title)
+        window.center()
+        window.orderFrontRegardless()
+        try? await Task.sleep(for: .milliseconds(800))
+        let id = CGWindowID(window.windowNumber)
+        let image = ScreenCaptureKitFallback().capture(id, maxPixelWidth: 8000) ?? SkyLight.captureWindow(id)
+        if let image {
+            let rep = NSBitmapImageRep(cgImage: image)
+            try? rep.representation(using: .png, properties: [:])?.write(to: url)
+        }
+        window.orderOut(nil)
     }
 
     /// 放進實體視窗（Liquid Glass 要經 WindowServer 合成才畫得出來），等一下再擷取。
